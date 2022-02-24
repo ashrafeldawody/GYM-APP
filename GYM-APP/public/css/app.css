@@ -53011,6 +53011,10 @@ a.text-muted:hover {
   border-color: #4b545c !important;
 }
 /*# sourceMappingURL=adminlte.css.map */
+.dropdown-menu{
+    width: 20rem;
+}
+
 @charset "UTF-8";
 /*!
  * Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com
