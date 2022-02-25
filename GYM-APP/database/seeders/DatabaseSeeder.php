@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             ClientSeeder::class,
             CitySeeder::class,
             GymSeeder::class,
+            CoachSeeder::class,
             TrainingPackageSeeder::class,
             TrainingSessionSeeder::class,
             PurchaseSeeder::class,
