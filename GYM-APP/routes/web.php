@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,14 +13,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function () {
+    return redirect()->route('admin.home');
+});
+
+Route::prefix('dashboard')->middleware('auth')->name('admin.')->group(function () {
+    Route::get('/', function () {
+        return view('home');
+    })->name('home');
+});
 
 Auth::routes();
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/', function () {
-        return view('home');
-    });
-
-    Route::get('/user/profile', []);
-});
 
