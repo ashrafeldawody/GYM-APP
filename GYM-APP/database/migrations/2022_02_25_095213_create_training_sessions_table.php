@@ -20,8 +20,9 @@ class CreateTrainingSessionsTable extends Migration
             $table->dateTime('starts_at');
             $table->dateTime('finishes_at');
             $table->foreignIdFor(Gym::class);
-            $table->foreignId('created_by')->references('manager_id')->on('gym_managers')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreignId('created_by')->references('id')->on('users')->onUpdate('cascade');
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
