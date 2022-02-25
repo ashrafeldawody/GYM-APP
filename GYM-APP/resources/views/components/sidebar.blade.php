@@ -33,49 +33,23 @@
                             <i class="nav-icon fas fa-globe-americas"></i>
                             <p>
                                 Cities
-                                <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="pages/charts/chartjs.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Cities</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/charts/chartjs.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Cities Managers</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
-
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-dumbbell"></i>
                             <p>
                                 Gyms
-                                <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="pages/charts/chartjs.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Gyms</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/charts/chartjs.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Gyms Managers</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
-
+                    <li class="nav-item">
+                        <a href="pages/charts/chartjs.html" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Managers</p>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-cubes"></i>
@@ -88,13 +62,13 @@
                             <li class="nav-item">
                                 <a href="pages/charts/chartjs.html" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Gyms</p>
+                                    <p>Packages</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="pages/charts/chartjs.html" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Add for user</p>
+                                    <p>Purchase Package</p>
                                 </a>
                             </li>
                         </ul>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Client;
 use App\Models\Gym;
 use App\Models\TrainingPackage;
 use Illuminate\Database\Migrations\Migration;
@@ -19,7 +20,7 @@ class CreatePurchasesTable extends Migration
             $table->id();
             $table->foreignId('training_packages_id')->references('id')->on('training_packages');
             $table->foreignId('manager_id')->references('id')->on('users')->onUpdate('cascade');
-            $table->foreignId('customer_id')->references('id')->on('users')->onUpdate('cascade');
+            $table->foreignIdFor(Client::class);
             $table->foreignIdFor(Gym::class);
             $table->timestamps();
         });
