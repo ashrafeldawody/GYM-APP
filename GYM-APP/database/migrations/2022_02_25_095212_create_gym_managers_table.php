@@ -15,8 +15,8 @@ class CreateGymManagersTable extends Migration
     public function up()
     {
         Schema::create('gym_managers', function (Blueprint $table) {
-            $table->foreignIdFor(Gym::class);
             $table->foreignId('manager_id')->primary()->references('id')->on('users');
+            $table->foreignIdFor(Gym::class);
             $table->softDeletes();
         });
     }

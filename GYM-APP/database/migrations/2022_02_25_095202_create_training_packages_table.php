@@ -18,6 +18,7 @@ class CreateTrainingPackagesTable extends Migration
             $table->string('name');
             $table->integer('session_count');
             $table->integer('price');
+            $table->foreignId('admin_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
             $table->timestamps();
         });
     }

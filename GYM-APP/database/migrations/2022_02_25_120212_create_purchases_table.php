@@ -1,0 +1,37 @@
+<?php
+
+use App\Models\Gym;
+use App\Models\TrainingPackage;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreatePurchasesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('purchases', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('training_packages_id')->references('id')->on('training_packages');
+            $table->foreignId('manager_id')->references('id')->on('users')->onUpdate('cascade');
+            $table->foreignId('customer_id')->references('id')->on('users')->onUpdate('cascade');
+            $table->foreignIdFor(Gym::class);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('purchases');
+    }
+}

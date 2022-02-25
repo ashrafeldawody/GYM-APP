@@ -16,10 +16,11 @@ class CreateTrainingSessionsTable extends Migration
     {
         Schema::create('training_sessions', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Gym::class);
+            $table->string('name');
             $table->dateTime('starts_at');
             $table->dateTime('finishes_at');
-            $table->foreignId('created_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreignIdFor(Gym::class);
+            $table->foreignId('created_by')->references('manager_id')->on('gym_managers')->onUpdate('cascade')->onDelete('restrict');
             $table->softDeletes();
         });
     }
