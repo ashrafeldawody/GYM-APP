@@ -20,8 +20,6 @@ Route::middleware(['auth'])->group(function () {
         return view('home');
     });
 
-    Route::get('/user/profile', function () {
-        // Uses first & second middleware...
-    });
+    Route::get('/user/profile', []);
 });
 
