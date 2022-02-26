@@ -18,10 +18,10 @@ class CreatePurchasesTable extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(TrainingPackage::class);
+            $table->foreignId('training_package_id')->constrained();
             $table->foreignId('manager_id')->references('id')->on('users')->onUpdate('cascade');
-            $table->foreignIdFor(Client::class);
-            $table->foreignIdFor(Gym::class);
+            $table->foreignId('client_id')->constrained();
+            $table->foreignId('gym_id')->constrained();
             $table->timestamps();
         });
     }

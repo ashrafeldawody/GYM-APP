@@ -13,4 +13,10 @@ class Gym extends Model
     public function manager(){
         return $this->hasOne(User::class, 'id', 'manager_id');
     }
+    public function city(){
+        return $this->hasOne(City::class);
+    }
+    public function trainingSessions(){
+        return $this->hasMany(TrainingSession::class);
+    }
 }

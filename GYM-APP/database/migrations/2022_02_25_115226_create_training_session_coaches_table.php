@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTrainingSessionsCoachesTable extends Migration
+class CreateTrainingSessionCoachesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,9 +15,9 @@ class CreateTrainingSessionsCoachesTable extends Migration
      */
     public function up()
     {
-        Schema::create('training_sessions_coaches', function (Blueprint $table) {
-            $table->foreignIdFor(TrainingSession::class);
-            $table->foreignIdFor(Coach::class);
+        Schema::create('training_session_coaches', function (Blueprint $table) {
+            $table->foreignId('training_session_id')->constrained();
+            $table->foreignId('coach_id')->constrained();
             $table->primary(['training_session_id', 'coach_id']);
             $table->timestamps();
         });

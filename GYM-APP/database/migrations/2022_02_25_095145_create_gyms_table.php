@@ -18,7 +18,7 @@ class CreateGymsTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('cover_image')->nullable();
-            $table->foreignIdFor(City::class);
+            $table->foreignId('city_id')->constrained();
             $table->foreignId('manager_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
         });
     }

@@ -16,7 +16,7 @@ class CreateAttendanceTable extends Migration
     {
         Schema::create('attendance', function (Blueprint $table) {
             $table->foreignId('training_session_id')->references('id')->on('training_sessions')->onUpdate('cascade');
-            $table->foreignIdFor(Client::class);
+            $table->foreignId('client_id')->constrained();
             $table->time('attendance_time');
             $table->date('attendance_date');
             $table->primary(['training_session_id', 'client_id']);
