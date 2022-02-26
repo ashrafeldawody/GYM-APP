@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PurchaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,13 @@ Route::prefix('dashboard')->middleware('auth')->name('admin.')->group(function (
     Route::get('/', function () {
         return view('home');
     })->name('home');
+});
+
+
+Route::prefix('purchases')->middleware('auth')->name('purchases.')->group(function() {
+   Route::get('/', [PurchaseController::class, 'index'])->name('index');
+   Route::get('/create', [PurchaseController::class, 'create'])->name('create');
+   Route::post('/', [PurchaseController::class, 'store'])->name('store');
 });
 
 Auth::routes();
