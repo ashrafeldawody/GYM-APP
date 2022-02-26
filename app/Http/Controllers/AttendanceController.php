@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Purchase;
-use App\Http\Requests\StorePurchaseRequest;
-use App\Http\Requests\UpdatePurchaseRequest;
+use App\Models\Attendance;
+use App\Http\Requests\StoreAttendanceRequest;
+use App\Http\Requests\UpdateAttendanceRequest;
 
-class PurchaseController extends Controller
+class AttendanceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class PurchaseController extends Controller
     public function index()
     {
         // This method has to return a datatables view that has these columns'
-        // user_name | user_email | package_name \ amount_user_paid | gym | city
+        // user_name | user_email | training_session_name | attendance_time | attendance_date | gym | city
         // gym will be shown in case of city manager only
         // city will be shown in case  of admin only
     }
@@ -28,27 +28,27 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        // This  will show the view of  buy_package_for_user form
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorePurchaseRequest  $request
+     * @param  \App\Http\Requests\StoreAttendanceRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePurchaseRequest $request)
+    public function store(StoreAttendanceRequest $request)
     {
-        // This method will store a new package record in the database
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Purchase  $purchase
+     * @param  \App\Models\Attendance  $attendance
      * @return \Illuminate\Http\Response
      */
-    public function show(Purchase $purchase)
+    public function show(Attendance $attendance)
     {
         //
     }
@@ -56,10 +56,10 @@ class PurchaseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Purchase  $purchase
+     * @param  \App\Models\Attendance  $attendance
      * @return \Illuminate\Http\Response
      */
-    public function edit(Purchase $purchase)
+    public function edit(Attendance $attendance)
     {
         //
     }
@@ -67,11 +67,11 @@ class PurchaseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatePurchaseRequest  $request
-     * @param  \App\Models\Purchase  $purchase
+     * @param  \App\Http\Requests\UpdateAttendanceRequest  $request
+     * @param  \App\Models\Attendance  $attendance
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePurchaseRequest $request, Purchase $purchase)
+    public function update(UpdateAttendanceRequest $request, Attendance $attendance)
     {
         //
     }
@@ -79,10 +79,10 @@ class PurchaseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Purchase  $purchase
+     * @param  \App\Models\Attendance  $attendance
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Purchase $purchase)
+    public function destroy(Attendance $attendance)
     {
         //
     }
