@@ -18,8 +18,8 @@ class User extends Authenticatable
     public function gyms(){
         return $this->hasMany(Gym::class,'manager_id');
     }
-    public function cities(){
-        return $this->hasOne(City::class);
+    public function city(){
+        return $this->hasOne(City::class,'manager_id');
 
     }
 }

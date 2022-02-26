@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAttendanceTable extends Migration
+class CreateAttendancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,10 @@ class CreateAttendanceTable extends Migration
      */
     public function up()
     {
-        Schema::create('attendance', function (Blueprint $table) {
+        Schema::create('attendances', function (Blueprint $table) {
             $table->foreignId('training_session_id')->references('id')->on('training_sessions')->onUpdate('cascade');
             $table->foreignId('client_id')->constrained();
-            $table->time('attendance_time');
-            $table->date('attendance_date');
+            $table->dateTime('datetime');
             $table->primary(['training_session_id', 'client_id']);
             $table->timestamps();
         });
