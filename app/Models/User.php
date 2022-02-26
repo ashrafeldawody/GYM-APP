@@ -19,6 +19,7 @@ class User extends Authenticatable
         return $this->hasMany(Gym::class,'manager_id');
     }
     public function cities(){
-        return $this->hasMany(City::class,'manager_id');
+        return $this->hasOne(City::class);
+
     }
 }
