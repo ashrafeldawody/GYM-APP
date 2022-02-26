@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\TrainingPackageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PurchaseController;
@@ -32,8 +33,18 @@ Route::prefix('purchases')->middleware('auth')->name('purchases.')->group(functi
    Route::post('/', [PurchaseController::class, 'store'])->name('store');
 });
 
-Route::prefix('attendance')->middleware('auth')->name('purchases.')->group(function() {
-    Route::get('/', [AgttendanceController::class, 'index'])->name('index');
+Route::prefix('attendance')->middleware('auth')->name('attendance.')->group(function() {
+    Route::get('/', [AttendanceController::class, 'index'])->name('index');
+});
+
+Route::prefix('training_packages')->middleware('auth')->name('training_packages.')->group(function() {
+    Route::get('/', [TrainingPackageController::class, 'index'])->name('index');
+    Route::get('/create', [TrainingPackageController::class, 'create'])->name('create');
+    Route::post('/', [TrainingPackageController::class, 'store'])->name('store');
+    Route::get('/{package}', [TrainingPackageController::class, 'show'])->name('show');
+    Route::get('/{package}/edit', [TrainingPackageController::class, 'edit'])->name('edit');
+    Route::patch('/{package}', [TrainingPackageController::class, 'update'])->name('update');
+    Route::delete('/{package}', [TrainingPackageController::class, 'destroy'])->name('destroy');
 });
 
 Auth::routes();
