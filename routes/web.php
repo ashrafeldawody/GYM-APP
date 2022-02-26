@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PurchaseController;
@@ -29,6 +30,10 @@ Route::prefix('purchases')->middleware('auth')->name('purchases.')->group(functi
    Route::get('/', [PurchaseController::class, 'index'])->name('index');
    Route::get('/create', [PurchaseController::class, 'create'])->name('create');
    Route::post('/', [PurchaseController::class, 'store'])->name('store');
+});
+
+Route::prefix('attendance')->middleware('auth')->name('purchases.')->group(function() {
+    Route::get('/', [AgttendanceController::class, 'index'])->name('index');
 });
 
 Auth::routes();
