@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Client;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -16,7 +18,7 @@ class CityFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->name(),
-            'manager_id' => 1,
+            'manager_id' => User::factory(),
         ];
     }
 }

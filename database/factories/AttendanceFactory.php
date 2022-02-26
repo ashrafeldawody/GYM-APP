@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Client;
+use App\Models\TrainingSession;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AttendanceFactory extends Factory
@@ -14,11 +16,9 @@ class AttendanceFactory extends Factory
     public function definition()
     {
         return [
-            'training_session_id' => 1,
-            'client_id' => 1,
-            'attendance_time' => time(),
-            'attendance_date' => date(),
-
+            'training_session_id' => TrainingSession::factory(),
+            'client_id' => Client::factory(),
+            'datetime' => now(),
         ];
     }
 }

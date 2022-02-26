@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Gym;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CoachFactory extends Factory
@@ -15,7 +16,7 @@ class CoachFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'gym_id' => 1,
+            'gym_id' => Gym::factory(),
         ];
     }
 }

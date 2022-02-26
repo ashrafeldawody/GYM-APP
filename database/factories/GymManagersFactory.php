@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Gym;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class GymManagersFactory extends Factory
@@ -14,8 +16,8 @@ class GymManagersFactory extends Factory
     public function definition()
     {
         return [
-            'gym_id' => 1,
-            'manager_id' => 1
+            'gym_id' => Gym::factory(),
+            'manager_id' => User::factory(),
         ];
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\City;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class GymFactory extends Factory
@@ -15,8 +17,8 @@ class GymFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->name(),
-            'city_id' => 1,
-            'manager_id' => 1,
+            'city_id' => City::factory(),
+            'manager_id' => User::factory(),
         ];
     }
 }

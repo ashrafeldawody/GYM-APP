@@ -20,6 +20,5 @@ class User extends Authenticatable
     }
     public function city(){
         return $this->hasOne(City::class,'manager_id');
-
     }
 }
