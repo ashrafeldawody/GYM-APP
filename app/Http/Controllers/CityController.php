@@ -18,21 +18,23 @@ class CityController extends Controller
      */
     public function index(CitiesDataTable $dataTable)
     {
+        //dd(City::with('manager')->get());
         if (request()->ajax()) {
+            //$data = City::with('manager')->get();
             $data = City::all();
             return  Datatables::of($data)
                 ->addIndexColumn()
-                // ->addColumn('action', function($row){
-                //     $actions =
-                //     '<a href="#" class="btn btn-sm btn-primary">Edit</a>
-                //     <a href="#" class="btn btn-sm btn-danger">Delete</a>';
-                //     return $actions;
-                // })
-                // ->rawColumns(['action'])
+                ->addColumn('action', function ($row) {
+                    $actions =
+                        '<a href="#" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="#" class="btn btn-sm btn-danger">Delete</a>';
+                    return $actions;
+                })
+                ->rawColumns(['action'])
                 ->make(true);
         }
 
-        return $dataTable->render('test');
+        return $dataTable->render('dashboard.cities');
     }
 
     /**

@@ -71,7 +71,7 @@ class CitiesDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(60)
+                ->width(180)
                 ->addClass('text-center'),
         ];
     }
