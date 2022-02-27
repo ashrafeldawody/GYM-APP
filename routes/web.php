@@ -4,6 +4,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\TrainingPackageController;
 use App\Http\Controllers\TrainingSessionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PurchaseController;
@@ -38,6 +39,8 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
     Route::resource('packages', TrainingPackageController::class);
 
     Route::resource('sessions', TrainingSessionController::class);
+
+    Route::resource('users', UserController::class);
 });
 
 
