@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\CitiesDataTable;
 use App\Models\City;
 use App\Http\Requests\StoreCityRequest;
 use App\Http\Requests\UpdateCityRequest;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class CityController extends Controller
 {
@@ -13,9 +16,23 @@ class CityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(CitiesDataTable $dataTable)
     {
-        //
+        if (request()->ajax()) {
+            $data = City::all();
+            return  Datatables::of($data)
+                ->addIndexColumn()
+                // ->addColumn('action', function($row){
+                //     $actions =
+                //     '<a href="#" class="btn btn-sm btn-primary">Edit</a>
+                //     <a href="#" class="btn btn-sm btn-danger">Delete</a>';
+                //     return $actions;
+                // })
+                // ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return $dataTable->render('test');
     }
 
     /**
