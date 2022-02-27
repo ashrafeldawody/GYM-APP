@@ -18,6 +18,7 @@ use App\Http\Controllers\PurchaseController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', function () {
     return redirect()->route('admin.home');
 });
@@ -31,17 +32,12 @@ Route::prefix('dashboard')->middleware('auth')->name('admin.')->group(function (
     Route::resource('cities', CityController::class);
 });
 
-    Route::resource('purchases', PurchaseController::class)->only(['index', 'create', 'store']);
+Route::resource('purchases', PurchaseController::class)->only(['index', 'create', 'store']);
 
-    Route::resource('attendance', AttendanceController::class)->only(['index']);
+Route::resource('attendance', AttendanceController::class)->only(['index']);
 
-    Route::resource('packages', TrainingPackageController::class);
+Route::resource('packages', TrainingPackageController::class);
 
-    Route::resource('sessions', TrainingSessionController::class);
-});
-
-
+Route::resource('sessions', TrainingSessionController::class);
 
 Auth::routes();
-
-
