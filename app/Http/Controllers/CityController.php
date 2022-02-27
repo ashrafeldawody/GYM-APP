@@ -6,7 +6,7 @@ use App\Models\City;
 use App\Http\Requests\StoreCityRequest;
 use App\Http\Requests\UpdateCityRequest;
 
-class CitiesController extends Controller
+class CityController extends Controller
 {
     /**
      * Display a listing of the resource.

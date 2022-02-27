@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\CitiesController;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\TrainingPackageController;
 use App\Http\Controllers\TrainingSessionController;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +27,7 @@ Route::prefix('dashboard')->middleware('auth')->name('admin.')->group(function (
         return view('home');
     })->name('home');
 
-    Route::resource('cities', CitiesController::class);
+    Route::resource('cities', CityController::class);
 });
 
 
