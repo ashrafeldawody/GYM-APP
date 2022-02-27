@@ -10,11 +10,12 @@ class City extends Model
     use HasFactory;
     public $timestamps = false;
     protected $guarded = [];
-    public function manager(){
+    public function manager()
+    {
         return $this->hasOne(User::class, 'id', 'manager_id');
     }
-    public function gyms(){
+    public function gyms()
+    {
         return $this->hasMany(Gym::class);
     }
-
 }
