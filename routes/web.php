@@ -23,7 +23,7 @@ Route::get('/', function () {
     return redirect()->route('admin.home');
 });
 
-Route::prefix('dashboard')->middleware('auth')->name('admin.')->group(function () {
+Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(function () {
 
     Route::get('/', function () {
         return view('home');

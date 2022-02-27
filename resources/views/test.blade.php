@@ -12,7 +12,7 @@
     var table = $('#cities-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('admin.cities.index') }}",
+        ajax: "{{ route('dashboard.cities.index') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             //{data: 'id', name: 'id'},
