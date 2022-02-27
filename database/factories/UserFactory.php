@@ -16,7 +16,8 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'nationalId' => $this->faker->unique()->randomNumber(14,14),
+            'nationalId' => $this->faker->unique()->numerify('##############'),
+            'avatar' => $this->faker->imageUrl(),
             'email' => $this->faker->unique()->safeEmail(),
             'gender' => $this->faker->randomElement(['male','female']),
             'isBanned' => $this->faker->randomElement([true,false]),

@@ -1,11 +1,10 @@
 <?php
 
-use App\Models\City;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGymsTable extends Migration
+class AddGymIdToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +13,8 @@ class CreateGymsTable extends Migration
      */
     public function up()
     {
-        Schema::create('gyms', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->unique();
-            $table->string('cover_image')->nullable();
-            $table->foreignId('city_id')->constrained();
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreignId('gym_id')->nullable()->constrained();
         });
     }
 
@@ -29,6 +25,8 @@ class CreateGymsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gyms');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 }

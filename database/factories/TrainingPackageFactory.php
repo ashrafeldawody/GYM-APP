@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TrainingPackageFactory extends Factory
@@ -16,9 +17,7 @@ class TrainingPackageFactory extends Factory
         return [
             'name' => $this->faker->unique()->name(),
             'session_count' => $this->faker->numberBetween(5,100),
-            'price' => $this->faker->numberBetween(200000,1000000),
-            'created_by' => 1
-
+            'price' => $this->faker->numberBetween(100,500)*100,
         ];
     }
 }

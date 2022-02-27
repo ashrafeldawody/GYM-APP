@@ -15,10 +15,14 @@ class User extends Authenticatable
 
     protected $guarded = [];
 
-    public function gyms(){
-        return $this->hasMany(Gym::class,'manager_id');
+
+    public function gym(){
+        return $this->belongsTo(Gym::class);
     }
     public function city(){
         return $this->hasOne(City::class,'manager_id');
+    }
+    public function trainingPackages(){
+        return $this->hasMany(TrainingPackage::class);
     }
 }

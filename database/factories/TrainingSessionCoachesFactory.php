@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Coach;
+use App\Models\TrainingSession;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TrainingSessionCoachesFactory extends Factory
@@ -14,8 +16,8 @@ class TrainingSessionCoachesFactory extends Factory
     public function definition()
     {
         return [
-            'training_session_id' => 1,
-            'coach_id' => 1
+            'training_session_id' => TrainingSession::all()->random()->id,
+            'coach_id' => Coach::all()->random()->id
         ];
     }
 }

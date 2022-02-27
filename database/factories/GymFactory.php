@@ -16,9 +16,9 @@ class GymFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->name(),
-            'city_id' => City::factory(),
-            'manager_id' => User::factory(),
+            'name' => $this->faker->unique()->streetName(),
+            'cover_image' => $this->faker->imageUrl(),
+            'city_id' => City::all()->random()->id,
         ];
     }
 }

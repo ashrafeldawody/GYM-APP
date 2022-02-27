@@ -12,6 +12,12 @@ class TrainingSession extends Model
     public function gym(){
         return $this->belongsTo(Gym::class);
     }
+    public function coaches(){
+        return $this->belongsToMany(Coach::class,'training_session_coaches');
+    }
+    public function attendance(){
+        return $this->hasOne(Attendance::class);
+    }
     public function created_by(){
         return $this->belongsTo(User::class,'created_by');
     }

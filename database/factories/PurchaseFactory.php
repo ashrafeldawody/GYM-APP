@@ -2,6 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Client;
+use App\Models\Gym;
+use App\Models\TrainingPackage;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PurchaseFactory extends Factory
@@ -14,10 +18,8 @@ class PurchaseFactory extends Factory
     public function definition()
     {
         return [
-            'training_package_id' => 1,
-            'manager_id' => 1,
-            'client_id' => 1,
-            'gym_id'=>1
+            'training_package_id' => TrainingPackage::all()->random()->id,
+            'client_id' => Client::all()->random()->id,
         ];
     }
 }

@@ -16,8 +16,8 @@ class AttendanceFactory extends Factory
     public function definition()
     {
         return [
-            'training_session_id' => TrainingSession::factory(),
-            'client_id' => Client::factory(),
+            'training_session_id' => TrainingSession::all()->random()->id,
+            'client_id' => Client::all()->random()->id,
             'datetime' => now(),
         ];
     }

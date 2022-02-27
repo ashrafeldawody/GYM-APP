@@ -30,14 +30,16 @@ Route::prefix('dashboard')->middleware('auth')->name('admin.')->group(function (
     })->name('home');
 
     Route::resource('cities', CityController::class);
+
+    Route::resource('purchases', PurchaseController::class)->only(['index', 'create', 'store']);
+
+    Route::resource('attendance', AttendanceController::class)->only(['index']);
+
+    Route::resource('packages', TrainingPackageController::class);
+
+    Route::resource('sessions', TrainingSessionController::class);
 });
 
-Route::resource('purchases', PurchaseController::class)->only(['index', 'create', 'store']);
 
-Route::resource('attendance', AttendanceController::class)->only(['index']);
-
-Route::resource('packages', TrainingPackageController::class);
-
-Route::resource('sessions', TrainingSessionController::class);
 
 Auth::routes();

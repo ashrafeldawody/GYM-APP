@@ -10,8 +10,8 @@ class Gym extends Model
     use HasFactory;
     public $timestamps = false;
     protected $guarded = [];
-    public function manager(){
-        return $this->hasOne(User::class, 'id', 'manager_id');
+    public function managers(){
+        return $this->hasMany(User::class);
     }
     public function city(){
         return $this->hasOne(City::class);

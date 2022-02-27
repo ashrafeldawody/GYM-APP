@@ -17,7 +17,7 @@ class CityFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->name(),
+            'name' => $this->faker->unique()->city(),
             'manager_id' => User::factory(),
         ];
     }

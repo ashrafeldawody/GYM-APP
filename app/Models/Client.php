@@ -10,7 +10,11 @@ class Client extends Model
     use HasFactory;
     public $timestamps = false;
     protected $guarded = [];
-    public function purchases(){
-        return $this->hasMany(Purchase::class,'client_id');
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class, 'client_id');
+    }
+    public function trainingSession(){
+        return $this->hasMany(TrainingSession::class);
     }
 }

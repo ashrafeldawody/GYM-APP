@@ -19,9 +19,7 @@ class CreatePurchasesTable extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->foreignId('training_package_id')->constrained();
-            $table->foreignId('manager_id')->references('id')->on('users')->onUpdate('cascade');
             $table->foreignId('client_id')->constrained();
-            $table->foreignId('gym_id')->constrained();
             $table->timestamps();
         });
     }
