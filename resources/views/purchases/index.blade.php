@@ -1,53 +1,23 @@
-@extends('layouts.dashboard')
+@extends('layouts.datatables')
 
-@section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">{{ __('purchases Table') }}</div>
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-                        <div class="">
-                            {{$dataTable->table()}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+@section('table_header')
+    {{ __('purchases Table') }}
 @endsection
 
+@section('table_id')
+    '#purchases-table'
+@endsection
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+@section('table_route')
+    "{{ route('dashboard.purchases.index') }}"
+@endsection
 
-<script type="text/javascript">
-    $(function () {
-        var table = $('#purchases-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('dashboard.purchases.index') }}",
-            columns: [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'user_name', name: 'user_name'},
-                {data: 'user_email', name: 'user_email'},
-                {data: 'package_name', name: 'package_name'},
-                {data: 'amount_paid', name: 'amount_paid'},
-                {data: 'gym', name: 'gym'},
-                {data: 'city', name: 'city'},
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: true,
-                    searchable: true
-                },
-            ]
-        });
-    });
-</script>
+@section('table_columns')
+    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+    {data: 'user_name', name: 'user_name'},
+    {data: 'user_email', name: 'user_email'},
+    {data: 'package_name', name: 'package_name'},
+    {data: 'amount_paid', name: 'amount_paid'},
+    {data: 'gym', name: 'gym'},
+    {data: 'city', name: 'city'},
+@endsection
