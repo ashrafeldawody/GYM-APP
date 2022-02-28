@@ -38,7 +38,7 @@ class PurchaseController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return $dataTable->render('purchases.index');
+        return $dataTable->render('dashboard.purchases.index');
     }
 
     /**

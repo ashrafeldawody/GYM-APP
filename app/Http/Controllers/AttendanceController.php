@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\AttendanceDataTable;
+use App\Http\Resources\AttendanceResource;
 use App\Models\Attendance;
 use App\Http\Requests\StoreAttendanceRequest;
 use App\Http\Requests\UpdateAttendanceRequest;
+use Yajra\DataTables\Facades\DataTables;
 
 class AttendanceController extends Controller
 {
@@ -13,12 +16,29 @@ class AttendanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(AttendanceDataTable $dataTable)
     {
         // This method has to return a datatables view that has these columns'
         // user_name | user_email | training_session_name | attendance_time | attendance_date | gym | city
         // gym will be shown in case of city manager only
         // city will be shown in case  of admin only
+        if (request()->ajax()) {
+            $data = AttendanceResource::collection(Attendance::with('trainingSession', 'client')->get());
+            return  Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $actions =
+                    '
+                        <a href="#" class="btn btn-sm btn-primary">Edit</a>
+
+                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                    ';
+                    return $actions;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return $dataTable->render('dashboard.attendance.index');
     }
 
     /**
