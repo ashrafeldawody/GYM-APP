@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\PurchasesDataTable;
 use App\Models\Purchase;
 use App\Http\Requests\StorePurchaseRequest;
 use App\Http\Requests\UpdatePurchaseRequest;
@@ -13,12 +14,26 @@ class PurchaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PurchasesDataTable $dataTable)
     {
         // This method has to return a datatables view that has these columns'
         // user_name | user_email | package_name \ amount_user_paid | gym | city
         // gym will be shown in case of city manager only
         // city will be shown in case  of admin only
+        if (request()->ajax()) {
+            $data = CityResource::collection(City::with('manager')->get());
+            return  Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $actions =
+                        '<a href="#" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="#" class="btn btn-sm btn-danger">Delete</a>';
+                    return $actions;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return $dataTable->render('purchases.index');
     }
 
     /**
