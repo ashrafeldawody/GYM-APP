@@ -29,14 +29,18 @@
 
 <script type="text/javascript">
     $(function () {
-        var table = $('#cities-table').DataTable({
+        var table = $('#purchases-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('dashboard.cities.index') }}",
+            ajax: "{{ route('dashboard.purchases.index') }}",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'name', name: 'name'},
-                {data: 'manager_name', name: 'manager_name'},
+                {data: 'user_name', name: 'user_name'},
+                {data: 'user_email', name: 'user_email'},
+                {data: 'package_name', name: 'package_name'},
+                {data: 'amount_paid', name: 'amount_paid'},
+                {data: 'gym', name: 'gym'},
+                {data: 'city', name: 'city'},
                 {
                     data: 'action',
                     name: 'action',

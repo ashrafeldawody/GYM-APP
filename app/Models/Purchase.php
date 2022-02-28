@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Purchase extends Model
 {
     use HasFactory;
+
     public function trainingPackage(){
         return $this->belongsTo(TrainingPackage::class);
     }
 
-    public function client(){
+    public function client()
+    {
         return $this->belongsTo(Client::class);
     }
-
-
 }

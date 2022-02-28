@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\PurchasesDataTable;
+use App\Http\Resources\PurchaseResource;
 use App\Models\Purchase;
 use App\Http\Requests\StorePurchaseRequest;
 use App\Http\Requests\UpdatePurchaseRequest;
+use Yajra\DataTables\Facades\DataTables;
 
 class PurchaseController extends Controller
 {
@@ -21,13 +23,16 @@ class PurchaseController extends Controller
         // gym will be shown in case of city manager only
         // city will be shown in case  of admin only
         if (request()->ajax()) {
-            $data = CityResource::collection(City::with('manager')->get());
+            $data = PurchaseResource::collection(Purchase::with('trainingPackage', 'client')->get());
             return  Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $actions =
-                        '<a href="#" class="btn btn-sm btn-primary">Edit</a>
-                    <a href="#" class="btn btn-sm btn-danger">Delete</a>';
+                    '
+                        <a href="#" class="btn btn-sm btn-primary">Edit</a>
+
+                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                    ';
                     return $actions;
                 })
                 ->rawColumns(['action'])

@@ -65,7 +65,7 @@ class PurchasesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            //user_name | user_email | package_name \ amount_user_paid | gym | city
+            Column::make('#'),
             Column::make('user_name'),
             Column::make('user_email'),
             Column::make('package_name'),
