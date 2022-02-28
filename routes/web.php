@@ -21,7 +21,7 @@ use App\Http\Controllers\PurchaseController;
 */
 
 Route::get('/', function () {
-    return redirect()->route('admin.home');
+    return redirect()->route('dashboard.home');
 });
 
 Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(function () {
