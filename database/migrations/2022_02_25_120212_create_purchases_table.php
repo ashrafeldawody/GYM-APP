@@ -20,6 +20,8 @@ class CreatePurchasesTable extends Migration
             $table->id();
             $table->foreignId('training_package_id')->constrained();
             $table->foreignId('client_id')->constrained();
+            $table->foreignId('manager_id')->references('id')->on('users')->onUpdate('cascade');
+
             $table->timestamps();
         });
     }

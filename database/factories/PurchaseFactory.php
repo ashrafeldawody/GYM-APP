@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Client;
-use App\Models\Gym;
 use App\Models\TrainingPackage;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -20,6 +19,7 @@ class PurchaseFactory extends Factory
         return [
             'training_package_id' => TrainingPackage::all()->random()->id,
             'client_id' => Client::all()->random()->id,
+            'manager_id' => User::all()->random()->id,
         ];
     }
 }
