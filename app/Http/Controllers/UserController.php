@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Http\Resources\UserResource;
+use Yajra\DataTables\Facades\DataTables;
+use App\DataTables\UsersDataTable;
 
 class UserController extends Controller
 {
@@ -11,9 +16,26 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(UsersDataTable $dataTable)
     {
-        return view('dashboard.users');
+        // dd(UserResource::collection(User::with('gym')->get()));
+        // dd(UserResource::collection(User::with('gym')->get()));
+
+        if (request()->ajax()) {
+            $data = UserResource::collection(User::with('gym')->get());
+            return  Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $actions =
+                        '<a href="#" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="#" class="btn btn-sm btn-danger">Delete</a>';
+                    return $actions;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return $dataTable->render('dashboard.users');
     }
 
     /**
