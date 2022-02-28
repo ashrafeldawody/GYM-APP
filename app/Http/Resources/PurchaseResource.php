@@ -18,9 +18,9 @@ class PurchaseResource extends JsonResource
             'user_name' => $this->client->name,
             'user_email' => $this->client->email,
             'package_name' => $this->trainingPackage->name ?? '',
-            'amount_paid' => $this->trainingPackage->price ?? '',
-            'gym' => $this->gym_manager->gym->name ?? '',
-            'city' => $this->gym_manager->gym->city->name ?? '',
+            'amount_paid' => $this->trainingPackage->price / 100 ?? '',
+            'gym' => $this->manager->gym->name ?? '',
+            'city' => $this->manager->gym->city->name ?? '',
         ];
     }
 }

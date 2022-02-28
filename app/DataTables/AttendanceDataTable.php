@@ -72,11 +72,11 @@ class AttendanceDataTable extends DataTable
             Column::make('attendance_time'),
             Column::make('attendance_date'),
             Column::make('gym'),
-            Column::make('user_email'),
+            Column::make('city'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(100)
                   ->addClass('text-center'),
         ];
     }

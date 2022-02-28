@@ -2,21 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\SessionsDataTable;
+use App\Http\Resources\CityResource;
+use App\Http\Resources\SessionResource;
+use App\Models\City;
+use App\Models\TrainingPackage;
 use App\Models\TrainingSession;
 use App\Http\Requests\StoreTrainingSessionRequest;
 use App\Http\Requests\UpdateTrainingSessionRequest;
+use Yajra\DataTables\Facades\DataTables;
 
-class TrainingSessionController extends Controller
+class SessionsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(SessionsDataTable $dataTable)
     {
         // This method has to return a datatables view that has these columns'
         // name | starts_at | finishes_at
+
+        if (request()->ajax()) {
+            $data = SessionResource::collection(TrainingSession::all());
+            return  Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $actions =
+                        '
+                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                        ';
+                    return $actions;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return $dataTable->render('dashboard.sessions.index');
+
     }
 
     /**

@@ -9,7 +9,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class TrainingPackagesDataTable extends DataTable
+class PackagesDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -21,7 +21,7 @@ class TrainingPackagesDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'trainingpackages.action');
+            ->addColumn('action', 'packages.action');
     }
 
     /**
@@ -43,7 +43,7 @@ class TrainingPackagesDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('trainingpackages-table')
+                    ->setTableId('packages-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
@@ -65,15 +65,15 @@ class TrainingPackagesDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('#'),
+            Column::make('name'),
+            Column::make('price'),
+            Column::make('sessions_number'),
             Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+                ->exportable(false)
+                ->printable(false)
+                ->width(100)
+                ->addClass('text-center'),
         ];
     }
 
@@ -84,6 +84,6 @@ class TrainingPackagesDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'TrainingPackages_' . date('YmdHis');
+        return 'Packages_' . date('YmdHis');
     }
 }

@@ -51,9 +51,9 @@ class PurchasesDataTable extends DataTable
                     ->buttons(
                         Button::make('create'),
                         Button::make('export'),
-//                        Button::make('print'),
-//                        Button::make('reset'),
-//                        Button::make('reload')
+                        Button::make('print'),
+                        Button::make('reset'),
+                        Button::make('reload')
                     );
     }
 
@@ -75,7 +75,7 @@ class PurchasesDataTable extends DataTable
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(100)
                   ->addClass('text-center'),
         ];
     }
