@@ -1,19 +1,20 @@
 @extends('layouts.datatables')
 
 @section('table_header')
-    {{ __('Cities Table') }}
+    {{ __('Sessions Table') }}
 @endsection
 
 @section('table_id')
-    '#cities-table'
+    '#sessions-table'
 @endsection
 
 @section('table_route')
-    "{{ route('dashboard.cities.index') }}"
+    "{{ route('dashboard.sessions.index') }}"
 @endsection
 
 @section('table_columns')
     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
     {data: 'name', name: 'name'},
-    {data: 'manager_name', name: 'manager_name'},
+    {data: 'starts_at', name: 'starts_at'},
+    {data: 'finishes_at', name: 'finishes_at'},
 @endsection

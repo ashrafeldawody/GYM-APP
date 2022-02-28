@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CityController;
-use App\Http\Controllers\TrainingPackageController;
-use App\Http\Controllers\TrainingSessionController;
+use App\Http\Controllers\PackagesController;
+use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -36,9 +36,9 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
 
     Route::resource('attendance', AttendanceController::class)->only(['index']);
 
-    Route::resource('packages', TrainingPackageController::class);
+    Route::resource('packages', PackagesController::class);
 
-    Route::resource('sessions', TrainingSessionController::class);
+    Route::resource('sessions', SessionsController::class);
 
     Route::resource('users', UserController::class);
 });

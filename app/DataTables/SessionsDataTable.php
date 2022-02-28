@@ -9,7 +9,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class TrainingSessionsDataTable extends DataTable
+class SessionsDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -21,7 +21,7 @@ class TrainingSessionsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'trainingsessions.action');
+            ->addColumn('action', 'sessions.action');
     }
 
     /**
@@ -43,7 +43,7 @@ class TrainingSessionsDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('trainingsessions-table')
+                    ->setTableId('sessions-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
@@ -65,15 +65,15 @@ class TrainingSessionsDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('#'),
+            Column::make('name'),
+            Column::make('starts_at'),
+            Column::make('finishes_at'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(100)
                   ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
         ];
     }
 
@@ -84,6 +84,6 @@ class TrainingSessionsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'TrainingSessions_' . date('YmdHis');
+        return 'Sessions_' . date('YmdHis');
     }
 }
