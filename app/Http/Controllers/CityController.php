@@ -33,7 +33,7 @@ class CityController extends Controller
                 ->make(true);
         }
 
-        return $dataTable->render('dashboard.cities');
+        return $dataTable->render('dashboard.cities.index');
     }
 
     /**

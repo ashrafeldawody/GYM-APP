@@ -35,7 +35,7 @@ class UserController extends Controller
                 ->make(true);
         }
 
-        return $dataTable->render('dashboard.users');
+        return $dataTable->render('dashboard.users.index');
     }
 
     /**
