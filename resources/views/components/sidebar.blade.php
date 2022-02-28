@@ -29,7 +29,7 @@
 
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item">
-                        <a href="{{route('dashboard.cities.index')}}" class="nav-link">
+                        <a href="{{route('dashboard.cities.index')}}" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.cities.index') ? 'active':''}}">
                             <i class="nav-icon fas fa-globe-americas"></i>
                             <p>
                                 Cities
@@ -60,13 +60,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{route('dashboard.packages.index')}}" class="nav-link">
+                                <a href="{{route('dashboard.packages.index')}}" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.packages.index') ? 'active':''}}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Packages</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('dashboard.purchases.index')}}" class="nav-link">
+                                <a href="{{route('dashboard.purchases.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.purchases.index') ? 'active':''}}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Purchase Package</p>
                                 </a>
@@ -75,7 +75,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{route('dashboard.sessions.index')}}" class="nav-link">
+                        <a href="{{route('dashboard.sessions.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.sessions.index') ? 'active':''}}">
                             <i class="nav-icon fas fa-calendar-check"></i>
                             <p>Training Sessions</p>
                         </a>
@@ -87,13 +87,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('dashboard.users.index')}}" class="nav-link">
+                        <a href="{{route('dashboard.users.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.users.index') ? 'active':''}}">
                             <i class="nav-icon fas fa-users"></i>
                             <p>Users</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('dashboard.attendance.index')}}" class="nav-link">
+                        <a href="{{route('dashboard.attendance.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.attendance.index') ? 'active':''}}">
                             <i class="nav-icon fas fa-user-clock"></i>
                             <p>Attendance</p>
                         </a>
@@ -111,7 +111,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+
+                        <a href="#" onclick="$('#logout-form').submit();"  class="nav-link">
                             <i class="nav-icon fas fa-sign-out-alt"></i>
                             <p>Logout</p>
                         </a>
