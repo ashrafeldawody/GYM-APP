@@ -67,7 +67,7 @@ class CitiesDataTable extends DataTable
             //Column::make('id'),
             Column::make('#'),
             Column::make('name'),
-            Column::make('manager_id'),
+            Column::make('manager_name'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

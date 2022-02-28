@@ -6,6 +6,7 @@ use App\DataTables\CitiesDataTable;
 use App\Models\City;
 use App\Http\Requests\StoreCityRequest;
 use App\Http\Requests\UpdateCityRequest;
+use App\Http\Resources\CityResource;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -18,10 +19,8 @@ class CityController extends Controller
      */
     public function index(CitiesDataTable $dataTable)
     {
-        //dd(City::with('manager')->get());
         if (request()->ajax()) {
-            //$data = City::with('manager')->get();
-            $data = City::all();
+            $data = CityResource::collection(City::with('manager')->get());
             return  Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {

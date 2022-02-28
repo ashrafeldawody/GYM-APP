@@ -39,7 +39,7 @@
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'name', name: 'name'},
-            {data: 'manager_id', name: 'manager_id'},
+            {data: 'manager_name', name: 'manager_name'},
             {
                 data: 'action',
                 name: 'action',
