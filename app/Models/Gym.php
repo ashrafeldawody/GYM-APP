@@ -14,7 +14,7 @@ class Gym extends Model
         return $this->hasMany(User::class);
     }
     public function city(){
-        return $this->hasOne(City::class);
+        return $this->belongsTo(City::class);
     }
     public function trainingSessions(){
         return $this->hasMany(TrainingSession::class);
