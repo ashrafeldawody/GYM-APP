@@ -2,21 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\PackagesDataTable;
+use App\Http\Resources\CityResource;
+use App\Http\Resources\PackageResource;
+use App\Models\City;
 use App\Models\TrainingPackage;
 use App\Http\Requests\StoreTrainingPackageRequest;
 use App\Http\Requests\UpdateTrainingPackageRequest;
+use Yajra\DataTables\Facades\DataTables;
 
-class TrainingPackageController extends Controller
+class PackagesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PackagesDataTable $dataTable)
     {
         // This method has to return a datatables view that has these columns'
         // package_name | price in dollars | sessions_number
+
+        if (request()->ajax()) {
+            $data = PackageResource::collection(TrainingPackage::all());
+            return  Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $actions =
+                        '
+                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                        ';
+                    return $actions;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return $dataTable->render('dashboard.packages.index');
+
     }
 
     /**
