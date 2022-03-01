@@ -20,5 +20,7 @@ class Manager extends Authenticatable
         return $this->hasMany(Coach::class);
     }
 
-
+    public function trainingPackages(){
+        return $this->hasMany(TrainingPackage::class);
+    }
 }

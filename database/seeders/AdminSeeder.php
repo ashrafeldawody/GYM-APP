@@ -25,9 +25,6 @@ class AdminSeeder extends Seeder
             'password' => Hash::make('123456'),
             'email' => 'admin@admin.com',
         ]);
-        Admin::create([
-            'manager_id' => $manager->id,
-        ]);
         $manager->assignRole('admin');
         for($i = 0;$i<10;$i++){
             TrainingPackage::factory()->create([
