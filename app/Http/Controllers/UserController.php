@@ -3,26 +3,27 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Client;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Http\Resources\UserResource;
+use App\Models\Manager;
+use App\Http\Resources\ClientResource;
 use Yajra\DataTables\Facades\DataTables;
-use App\DataTables\UsersDataTable;
+use App\DataTables\ClientsDataTable;
 
-class UserController extends Controller
+class ClientController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(UsersDataTable $dataTable)
+    public function index(ClientsDataTable $dataTable)
     {
         // dd(UserResource::collection(User::with('gym')->get()));
         // dd(UserResource::collection(User::with('gym')->get()));
 
         if (request()->ajax()) {
-            $data = UserResource::collection(User::with('gym')->get());
+            $data = ClientResource::collection(Client::all());
             return  Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -35,7 +36,7 @@ class UserController extends Controller
                 ->make(true);
         }
 
-        return $dataTable->render('dashboard.users.index');
+        return $dataTable->render('dashboard.clients.index');
     }
 
     /**

@@ -9,13 +9,11 @@
 @endsection
 
 @section('table_route')
-    "{{ route('dashboard.users.index') }}"
+    "{{ route('dashboard.clients.index') }}"
 @endsection
 
 @section('table_columns')
     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
     {data: 'name', name: 'name'},
     {data: 'email', name: 'email'},
-    {data: 'nationalId', name: 'nationalId'},
-    {data: 'gym_name', name: 'gym_name'},
 @endsection
