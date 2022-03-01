@@ -19,9 +19,11 @@ class User extends Authenticatable
     public function gym(){
         return $this->belongsTo(Gym::class);
     }
+
     public function city(){
         return $this->hasOne(City::class,'manager_id');
     }
+
     public function trainingPackages(){
         return $this->hasMany(TrainingPackage::class);
     }
