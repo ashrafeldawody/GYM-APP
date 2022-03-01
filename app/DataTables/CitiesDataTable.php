@@ -3,7 +3,6 @@
 namespace App\DataTables;
 
 use App\Models\City;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
@@ -41,19 +40,12 @@ class CitiesDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-            ->setTableId('cities-table')
+            ->setTableId('datatable')
             ->selectAddClassName("table")
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->dom('Bfrtip')
-            ->orderBy(1)
-            ->buttons(
-                Button::make('create'),
-                Button::make('export'),
-                //Button::make('print'),
-                //Button::make('reset'),
-                //Button::make('reload')
-            );
+            ->orderBy(1);
     }
 
     /**
@@ -64,15 +56,9 @@ class CitiesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            //Column::make('id'),
             Column::make('#'),
             Column::make('name'),
             Column::make('manager_name'),
-            Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(180)
-                ->addClass('text-center'),
         ];
     }
 
