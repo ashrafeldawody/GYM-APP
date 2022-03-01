@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Client;
+use App\Models\User;
 use App\Models\Gym;
 use App\Models\TrainingPackage;
 use Illuminate\Database\Migrations\Migration;
@@ -18,10 +18,10 @@ class CreatePurchasesTable extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
             $table->foreignId('training_package_id')->constrained();
-            $table->foreignId('client_id')->constrained();
-            $table->foreignId('manager_id')->references('id')->on('users')->onUpdate('cascade');
-
+            $table->foreignId('manager_id')->constrained();
+            $table->foreignId('gym_id')->constrained();
             $table->timestamps();
         });
     }

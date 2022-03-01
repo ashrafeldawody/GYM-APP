@@ -18,8 +18,8 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'nationalId' => $this->nationalId,
-            'gym_name' => $this ->gym->name ?? "",
+            'gender' => $this->gender,
+            'birth_date' => $this->birth_date,
         ];
     }
 }

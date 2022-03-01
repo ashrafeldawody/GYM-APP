@@ -23,7 +23,7 @@ class AttendanceController extends Controller
         // gym will be shown in case of city manager only
         // city will be shown in case  of admin only
         if (request()->ajax()) {
-            $data = AttendanceResource::collection(Attendance::with('trainingSession', 'client')->get());
+            $data = AttendanceResource::collection(Attendance::with('trainingSession', 'user')->get());
             return  Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {

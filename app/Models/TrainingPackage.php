@@ -11,8 +11,8 @@ class TrainingPackage extends Model
     public $timestamps = false;
     protected $guarded = [];
 
-    public function createdBy(){
-        return $this->belongsTo(User::class,'created_by');
+    public function admin(){
+        return $this->belongsTo(Manager::class,'admin_id');
     }
 
 }

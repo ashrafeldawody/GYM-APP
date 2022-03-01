@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
+use App\Models\Manager;
 use App\Http\Resources\UserResource;
 use Yajra\DataTables\Facades\DataTables;
 use App\DataTables\UsersDataTable;
@@ -22,7 +23,7 @@ class UserController extends Controller
         // dd(UserResource::collection(User::with('gym')->get()));
 
         if (request()->ajax()) {
-            $data = UserResource::collection(User::with('gym')->get());
+            $data = UserResource::collection(User::all());
             return  Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {

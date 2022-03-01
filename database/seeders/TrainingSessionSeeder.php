@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\TrainingSession;
-use Database\Factories\TrainingSessionCoachesFactory;
+use Database\Factories\TrainingSessionCoachFactory;
 use Illuminate\Database\Seeder;
 
 class TrainingSessionSeeder extends Seeder
@@ -15,6 +15,6 @@ class TrainingSessionSeeder extends Seeder
      */
     public function run()
     {
-        TrainingSession::factory(10)->hasCoaches(5)->hasAttendance(1)->create();
+        TrainingSession::factory(20)->create();
     }
 }

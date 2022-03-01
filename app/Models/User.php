@@ -2,29 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles;
-
+    use HasFactory;
+    public $timestamps = false;
     protected $guarded = [];
 
-
-    public function gym(){
-        return $this->belongsTo(Gym::class);
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class, 'user_id');
     }
 
-    public function city(){
-        return $this->hasOne(City::class,'manager_id');
-    }
-
-    public function trainingPackages(){
-        return $this->hasMany(TrainingPackage::class);
+    public function trainingSession(){
+        return $this->hasMany(TrainingSession::class);
     }
 }

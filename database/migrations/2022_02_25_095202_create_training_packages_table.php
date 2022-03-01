@@ -16,9 +16,9 @@ class CreateTrainingPackagesTable extends Migration
         Schema::create('training_packages', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('session_count');
+            $table->integer('sessions_number');
             $table->integer('price');
-            $table->foreignId('created_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreignId('admin_id')->references('id')->on('managers')->onUpdate('cascade');
             $table->timestamps();
         });
     }

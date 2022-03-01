@@ -63,6 +63,7 @@
     </div>
 </div>
 
+@yield('table_script')
 <script type="text/javascript">
     const controlsPanel = $('#controlsPanel');
     const editButton = $('#editButton');

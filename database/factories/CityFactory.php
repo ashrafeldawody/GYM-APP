@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Client;
+use App\Models\City;
 use App\Models\User;
+use App\Models\Manager;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -16,9 +17,11 @@ class CityFactory extends Factory
      */
     public function definition()
     {
+        $user = Manager::all()->random();
+        $user->assignRole('city_manager');
         return [
             'name' => $this->faker->unique()->city(),
-            'manager_id' => User::factory(),
+            'manager_id' => $user->id,
         ];
     }
 }

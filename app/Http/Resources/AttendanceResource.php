@@ -15,11 +15,11 @@ class AttendanceResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'user_name' => $this->client->name,
-            'user_email' => $this->client->email,
+            'user_name' => $this->user->name,
+            'user_email' => $this->user->email,
             'session_name' => $this->trainingSession->name,
-            'attendance_time'=> date('H:i:s', strtotime($this->datetime)),
-            'attendance_date'=> date('d/M/Y', strtotime($this->datetime)),
+            'attendance_time'=> date('H:i:s', strtotime($this->attendance_datetime)),
+            'attendance_date'=> date('d/M/Y', strtotime($this->attendance_datetime)),
             'gym' => $this->trainingSession->gym->name,
             'city' => $this->trainingSession->gym->city->name,
         ];

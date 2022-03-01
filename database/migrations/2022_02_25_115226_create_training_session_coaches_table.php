@@ -16,10 +16,10 @@ class CreateTrainingSessionCoachesTable extends Migration
     public function up()
     {
         Schema::create('training_session_coaches', function (Blueprint $table) {
-            $table->foreignId('training_session_id')->constrained();
             $table->foreignId('coach_id')->constrained();
+            $table->foreignId('training_session_id')->constrained();
+            $table->foreignId('manager_id')->constrained();
             $table->primary(['training_session_id', 'coach_id']);
-            $table->timestamps();
         });
     }
 

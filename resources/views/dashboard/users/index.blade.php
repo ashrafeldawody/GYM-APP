@@ -16,6 +16,6 @@
     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
     {data: 'name', name: 'name'},
     {data: 'email', name: 'email'},
-    {data: 'nationalId', name: 'nationalId'},
-    {data: 'gym_name', name: 'gym_name'},
+    {data: 'gender', name: 'gender'},
+    {data: 'birth_date', name: 'birth_date'},
 @endsection

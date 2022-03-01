@@ -17,7 +17,7 @@ class PackageResource extends JsonResource
         return [
             'name' => $this->name,
             'price' => $this->price / 100,
-            'sessions_number' => $this->session_count,
+            'sessions_number' => $this->sessions_number,
         ];
     }
 }

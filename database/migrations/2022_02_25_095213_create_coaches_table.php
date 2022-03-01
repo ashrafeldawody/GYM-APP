@@ -17,9 +17,6 @@ class CreateCoachesTable extends Migration
         Schema::create('coaches', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('gym_id')->constrained();
-            $table->unique(['name','gym_id']);
-            $table->timestamps();
         });
     }
 

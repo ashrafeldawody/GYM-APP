@@ -2,8 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
+use App\Models\Gym;
+use App\Models\GymManager;
 use App\Models\TrainingPackage;
-use App\Models\User;
+use App\Models\Manager;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -17,16 +20,16 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::create([
+        $manager = Manager::factory()->create([
             'name' => 'System Administrator',
             'password' => Hash::make('123456'),
             'email' => 'admin@admin.com',
         ]);
+        $manager->assignRole('admin');
         for($i = 0;$i<10;$i++){
             TrainingPackage::factory()->create([
-                'created_by' => $user->id
+                'admin_id' => $manager->id
             ]);
         }
-        $user->assignRole('admin');
     }
 }

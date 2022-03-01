@@ -23,7 +23,7 @@ class PurchaseController extends Controller
         // gym will be shown in case of city manager only
         // city will be shown in case  of admin only
         if (request()->ajax()) {
-            $data = PurchaseResource::collection(Purchase::with('trainingPackage', 'client')->get());
+            $data = PurchaseResource::collection(Purchase::with('trainingPackage', 'user')->get());
             return  Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
