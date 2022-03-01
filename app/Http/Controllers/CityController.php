@@ -23,12 +23,6 @@ class CityController extends Controller
             $data = CityResource::collection(City::with('manager')->get());
             return  Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $actions =
-                        '<a href="#" class="btn btn-sm btn-primary">Edit</a>
-                    <a href="#" class="btn btn-sm btn-danger">Delete</a>';
-                    return $actions;
-                })
                 ->rawColumns(['action'])
                 ->make(true);
         }
@@ -99,6 +93,24 @@ class CityController extends Controller
      */
     public function destroy(City $city)
     {
-        //
+        if ($city != null) {
+            $cityName = $city->name;
+            if (count($city->gyms)) {
+                return [
+                    'result' => false,
+                    'userMessage' => "Can't delete <b>$cityName</b>, the city has gyms"
+                ];
+            } else {
+                $city->delete();
+                return [
+                    'result' => true,
+                    'userMessage' => "<b>$cityName</b> has been successfully deleted"
+                ];
+            }
+        }
+        return [
+            'result' => false,
+            'userMessage' => 'Unknown error'
+        ];
     }
 }
