@@ -4,9 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-
-
-class CreateGymManagersTable extends Migration
+class CreateAdminsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,9 +13,8 @@ class CreateGymManagersTable extends Migration
      */
     public function up()
     {
-        Schema::create('gym_managers', function (Blueprint $table) {
+        Schema::create('admins', function (Blueprint $table) {
             $table->foreignId('manager_id')->constrained();
-            $table->foreignId('gym_id')->constrained();
             $table->primary('manager_id');
         });
     }
@@ -29,6 +26,6 @@ class CreateGymManagersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gym_managers');
+        Schema::dropIfExists('admins');
     }
 }

@@ -9,7 +9,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ClientsDataTable extends DataTable
+class UsersDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -68,7 +68,8 @@ class ClientsDataTable extends DataTable
             Column::make('#'),
             Column::make('name'),
             Column::make('email'),
-            Column::make('national_ID'),
+            Column::make('gender'),
+            Column::make('birth_date'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)

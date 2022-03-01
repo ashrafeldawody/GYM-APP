@@ -21,6 +21,7 @@
         </div>
     </div>
 @endsection
+
 @yield('table_script')
 
 <script type="text/javascript">

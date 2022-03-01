@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Gym;
-use App\Models\User;
+use App\Models\Manager;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

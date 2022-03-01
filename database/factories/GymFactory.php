@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\City;
-use App\Models\User;
+use App\Models\Manager;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class GymFactory extends Factory

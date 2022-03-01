@@ -19,17 +19,14 @@ class DatabaseSeeder extends Seeder
             RolesSeeder::class,
             AdminSeeder::class,
             CitySeeder::class,
-            GymSeeder::class,
-            CityManagerSeeder::class,
-            GymManagerSeeder::class,
-            ClientSeeder::class,
             CoachSeeder::class,
+            GymSeeder::class,
+            GymManagerSeeder::class,
+            UserSeeder::class,
             TrainingSessionSeeder::class,
             PurchaseSeeder::class,
-            UserSeeder::class,
-            AttendanceSeeder::class,
-            TrainingPackagesSeeder::class,
             TrainingSessionCoachesSeeder::class,
+            AttendanceSeeder::class,
         ]);
 
     }

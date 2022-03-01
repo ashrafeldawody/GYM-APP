@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class User extends Model
 {
     use HasFactory;
     public $timestamps = false;
@@ -13,7 +13,7 @@ class Client extends Model
 
     public function purchases()
     {
-        return $this->hasMany(Purchase::class, 'client_id');
+        return $this->hasMany(Purchase::class, 'user_id');
     }
 
     public function trainingSession(){

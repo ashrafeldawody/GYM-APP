@@ -11,4 +11,18 @@ use Spatie\Permission\Traits\HasRoles;
 class GymManager extends Model
 {
     use HasApiTokens, HasFactory, Notifiable , HasRoles;
+
+    public $timestamps = false;
+
+    public function manager() {
+        return $this->belongsTo(Manager::class, 'id');
+    }
+
+    public function gym() {
+        return $this->belongsTo(Gym::class);
+    }
+
+
+
+
 }

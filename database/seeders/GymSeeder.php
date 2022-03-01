@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\City;
 use App\Models\Gym;
-use App\Models\User;
+use App\Models\Manager;
 use Illuminate\Database\Seeder;
 
 class GymSeeder extends Seeder

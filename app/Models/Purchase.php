@@ -9,16 +9,21 @@ class Purchase extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function trainingPackage(){
         return $this->belongsTo(TrainingPackage::class);
     }
 
-    public function client()
+    public function user()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(User::class);
     }
     public function manager()
     {
-        return $this->belongsTo(User::class,'manager_id');
+        return $this->belongsTo(Manager::class);
+    }
+    public function gym() {
+        return $this->belongsTo(Gym::class);
     }
 }

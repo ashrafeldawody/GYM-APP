@@ -15,12 +15,12 @@ class PurchaseResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'user_name' => $this->client->name,
-            'user_email' => $this->client->email,
-            'package_name' => $this->trainingPackage->name ?? '',
-            'amount_paid' => $this->trainingPackage->price / 100 ?? '',
-            'gym' => $this->manager->gym->name ?? '',
-            'city' => $this->manager->gym->city->name ?? '',
+            'user_name' => $this->user->name,
+            'user_email' => $this->user->email,
+            'package_name' => $this->trainingPackage->name,
+            'amount_paid' => $this->trainingPackage->price / 100,
+            'gym' => $this->gym->name,
+            'city' => $this->gym->city->name,
         ];
     }
 }

@@ -9,20 +9,16 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class Manager extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable , HasRoles;
 
     protected $guarded = [];
 
-//    public function city(){
-//        return $this->hasOne(City::class,'manager_id');
-//    }
 
-
-
-
-    public function trainingPackages(){
-        return $this->hasMany(TrainingPackage::class);
+    public function coaches() {
+        return $this->hasMany(Coach::class);
     }
+
+
 }

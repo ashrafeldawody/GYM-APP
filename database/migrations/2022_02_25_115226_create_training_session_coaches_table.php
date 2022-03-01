@@ -18,7 +18,7 @@ class CreateTrainingSessionCoachesTable extends Migration
         Schema::create('training_session_coaches', function (Blueprint $table) {
             $table->foreignId('coach_id')->constrained();
             $table->foreignId('training_session_id')->constrained();
-            $table->foreignId('gym_manager_id')->references('id')->on('gym_managers');
+            $table->foreignId('manager_id')->constrained();
             $table->primary(['training_session_id', 'coach_id']);
         });
     }

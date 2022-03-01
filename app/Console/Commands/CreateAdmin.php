@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\TrainingPackage;
-use App\Models\User;
+use App\Models\Manager;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 
@@ -42,12 +42,12 @@ class CreateAdmin extends Command
     {
         $this->info('Creating Admin Account...');
 
-        if(User::where('email',$this->argument('email'))->exists()){
+        if(Manager::where('email',$this->argument('email'))->exists()){
             $this->error('Email already exists...');
             return 0;
         }
 
-        $user = User::create([
+        $user = Manager::create([
             'name' => 'System Administrator',
             'password' => Hash::make($this->argument('password')),
             'email' => $this->argument('email'),
