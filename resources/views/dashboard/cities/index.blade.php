@@ -4,8 +4,8 @@
     {{ __('Cities Table') }}
 @endsection
 
-@section('table_id')
-    '#cities-table'
+@section('destroy_endpoint')
+    "{{ route('dashboard.cities.destroy', '') }}"
 @endsection
 
 @section('table_route')
