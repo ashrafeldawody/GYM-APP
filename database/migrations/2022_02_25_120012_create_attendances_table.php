@@ -15,9 +15,9 @@ class CreateAttendancesTable extends Migration
     public function up()
     {
         Schema::create('attendances', function (Blueprint $table) {
-            $table->foreignId('training_session_id')->references('id')->on('training_sessions')->onUpdate('cascade');
             $table->foreignId('client_id')->constrained();
-            $table->dateTime('datetime');
+            $table->foreignId('training_session_id')->references('id')->on('training_sessions')->onUpdate('cascade');
+            $table->dateTime('attendance_datetime');
             $table->primary(['training_session_id', 'client_id']);
             $table->timestamps();
         });

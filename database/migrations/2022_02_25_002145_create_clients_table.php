@@ -16,10 +16,10 @@ class CreateClientsTable extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('password')->nullable();
             $table->string('email')->unique();
-            $table->date('birth_date')->nullable();;
             $table->enum('gender', ['male', 'female'])->default('male');
+            $table->date('birth_date')->nullable();;
+            $table->string('password')->nullable();
             $table->string('avatar')->nullable();;
             $table->timestamp('email_verified_at')->nullable();
             $table->softDeletes();

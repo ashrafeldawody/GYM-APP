@@ -1,11 +1,10 @@
 <?php
 
-use App\Models\Gym;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCoachesTable extends Migration
+class CreateGymManagersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +13,10 @@ class CreateCoachesTable extends Migration
      */
     public function up()
     {
-        Schema::create('coaches', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+        Schema::create('gym_managers', function (Blueprint $table) {
+            $table->foreignId('id')->references('id')->on('users')->onUpdate('cascade');
+            $table->foreignId('gym_id')->constrained();
+            $table->primary('id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateCoachesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('coaches');
+        Schema::dropIfExists('gym_managers');
     }
 }

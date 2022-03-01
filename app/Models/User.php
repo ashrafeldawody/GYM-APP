@@ -16,9 +16,9 @@ class User extends Authenticatable
     protected $guarded = [];
 
 
-    public function gym(){
-        return $this->belongsTo(Gym::class);
-    }
+//    public function gym(){
+//        return $this->belongsTo(Gym::class);
+//    }
 
     public function city(){
         return $this->hasOne(City::class,'manager_id');

@@ -17,13 +17,13 @@ class UserFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'nationalId' => $this->faker->unique()->numerify('##############'),
-            'avatar' => $this->faker->imageUrl(),
             'email' => $this->faker->unique()->safeEmail(),
             'gender' => $this->faker->randomElement(['male','female']),
-            'isBanned' => $this->faker->randomElement([true,false]),
             'birth_date' => $this->faker->date(),
-            'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'avatar' => $this->faker->imageUrl(),
+            'email_verified_at' => now(),
+            'is_banned' => $this->faker->randomElement([true,false]),
             'remember_token' => Str::random(10),
         ];
     }
