@@ -17,7 +17,6 @@ class CreateGymManagersTable extends Migration
             $table->foreignId('id')->references('id')->on('users')->onUpdate('cascade');
             $table->foreignId('gym_id')->constrained();
             $table->primary('id');
-            $table->timestamps();
         });
     }
 

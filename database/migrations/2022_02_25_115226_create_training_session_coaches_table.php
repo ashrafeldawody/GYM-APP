@@ -20,7 +20,6 @@ class CreateTrainingSessionCoachesTable extends Migration
             $table->foreignId('training_session_id')->constrained();
             $table->foreignId('gym_manager_id')->references('id')->on('gym_managers');
             $table->primary(['training_session_id', 'coach_id']);
-            $table->timestamps();
         });
     }
 

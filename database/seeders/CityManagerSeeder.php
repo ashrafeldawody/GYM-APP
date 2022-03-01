@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\City;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -15,7 +16,8 @@ class CityManagerSeeder extends Seeder
     public function run()
     {
         for ($i = 0;$i < 10;$i++) {
-            $user = User::factory()->hasCity(1)->create();
+            $cityId = City::all()->random()->id;
+            $user = User::factory()->hasCity($cityId)->create();
             $user->assignRole('city_manager');
         }
     }

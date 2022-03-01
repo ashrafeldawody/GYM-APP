@@ -23,7 +23,6 @@ class TrainingSessionFactory extends Factory
             'starts_at' => $startDate->toDateTimeString(),
             'finishes_at' => $startDate->addHours( $this->faker->numberBetween( 1, 4 ) ),
             'gym_id' => Gym::all()->random()->id,
-            'created_by' => User::all()->random()->id
         ];
     }
 }

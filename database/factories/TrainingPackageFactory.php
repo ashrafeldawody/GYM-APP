@@ -16,8 +16,9 @@ class TrainingPackageFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->name(),
-            'session_count' => $this->faker->numberBetween(5,100),
+            'sessions_number' => $this->faker->numberBetween(5,100),
             'price' => $this->faker->numberBetween(100,500)*100,
+            'admin_id' => User::all()->random()->id,
         ];
     }
 }

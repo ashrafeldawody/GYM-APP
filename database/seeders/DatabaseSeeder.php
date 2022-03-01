@@ -18,12 +18,18 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesSeeder::class,
             AdminSeeder::class,
+            CitySeeder::class,
+            GymSeeder::class,
             CityManagerSeeder::class,
             GymManagerSeeder::class,
             ClientSeeder::class,
             CoachSeeder::class,
             TrainingSessionSeeder::class,
             PurchaseSeeder::class,
+            UserSeeder::class,
+            AttendanceSeeder::class,
+            TrainingPackagesSeeder::class,
+            TrainingSessionCoachesSeeder::class,
         ]);
 
     }
