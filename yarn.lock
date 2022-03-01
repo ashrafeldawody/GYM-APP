@@ -4575,6 +4575,11 @@
   "resolved" "https://registry.npmjs.org/flat/-/flat-5.0.2.tgz"
   "version" "5.0.2"
 
+"flatpickr@^4.6.9":
+  "integrity" "sha512-F0azNNi8foVWKSF+8X+ZJzz8r9sE1G4hl06RyceIaLvyltKvDl6vqk9Lm/6AUUCi5HWaIjiUbk7UpeE/fOXOpw=="
+  "resolved" "https://registry.npmjs.org/flatpickr/-/flatpickr-4.6.9.tgz"
+  "version" "4.6.9"
+
 "flot@^4.2.2":
   "integrity" "sha512-Strct/A27o0TA25X7Z0pxKhwK4djiP1Kjeqj0tkiqrkRu1qYPqfbp5BYuxEL8CWDNtj85Uc0PnG2E2plo1+VMg=="
   "resolved" "https://registry.npmjs.org/flot/-/flot-4.2.2.tgz"

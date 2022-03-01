@@ -20,12 +20,9 @@
             </div>
         </div>
     </div>
-@endsection
 
 @yield('table_script')
-
 <script type="text/javascript">
-    window.addEventListener('DOMContentLoaded', (event) => {
     $(function () {
         let table = $(@yield('table_id')).DataTable({
             processing: true,
@@ -41,7 +38,7 @@
                 },
             ]
         });
-    });
 });
 </script>
 
+@endsection

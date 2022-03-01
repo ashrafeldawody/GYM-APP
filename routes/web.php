@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\UserController;
@@ -41,6 +42,8 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
     Route::resource('sessions', SessionsController::class);
 
     Route::resource('users', UserController::class);
+
+    Route::resource('manager', ManagerController::class)->only(['index']);
 });
 
 

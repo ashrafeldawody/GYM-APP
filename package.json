@@ -26,6 +26,7 @@
         "datatables.net": "^1.10.21",
         "datatables.net-bs4": "^1.11.4",
         "datatables.net-buttons-bs4": "^2.2.2",
+        "flatpickr": "^4.6.9",
         "jquery": "^1.9.1",
         "jquery-validation": "^1.19.3",
         "popper": "^1.0.1"
