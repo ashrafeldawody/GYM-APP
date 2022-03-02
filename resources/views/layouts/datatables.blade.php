@@ -3,12 +3,20 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <div class="col-md-12 mb-5">
             <div class="card">
                 <div class="card-header">@yield('table_header')</div>
                 <div class="card-body">
-                    <div class="mb-3 p-3 border-bottom rounded bg-white sticky-top">
-                        <div class="d-flex">
+                    @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                    @endif
+                    <div class="w-100">
+                        {{$dataTable->table()}}
+                    </div>
+                    <div class="rounded fixed-bottom">
+                        <div class="d-flex px-3 py-2" style="background-color: #1f1f1fd1">
                             <p class="m-auto"><span id="userMessage"></span></p>
                             <div id="controlsPanel" style="display: none;">
                                 <button id="editButton" class="btn btn-primary mr-2"><i
@@ -19,14 +27,6 @@
                             <button id="deleteButton" class="btn btn-success"><i
                                     class="fa fa-plus mr-2"></i>Add</button>
                         </div>
-                    </div>
-                    @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                    @endif
-                    <div class="w-100">
-                        {{$dataTable->table()}}
                     </div>
                 </div>
             </div>
@@ -118,8 +118,8 @@
         });
 
         editButton.click(function () {
-            console.log(datatable.rows('.selected').data());
-            console.log(datatable.rows('.selected').data()[0]);
+            //console.log(datatable.rows('.selected').data());
+            //console.log(datatable.rows('.selected').data()[0]);
         });
 
         deleteButton.click(function () {
@@ -131,7 +131,6 @@
                     method: 'DELETE'
                 })
                 .done(function(response) {
-                    console.log(response);
                     if (response.result == true) {
                         datatable.row('.selected').remove().draw(true);
                         showSuccessMessage(response.userMessage);
