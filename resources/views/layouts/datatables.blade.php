@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">@yield('table_header')</div>
                 <div class="card-body">
-                    <div class="mb-3 p-3 border rounded bg-white sticky-top shadow">
+                    <div class="mb-3 p-3 border-bottom rounded bg-white sticky-top">
                         <div class="d-flex">
                             <p class="m-auto"><span id="userMessage"></span></p>
                             <div id="controlsPanel" style="display: none;">
@@ -63,7 +63,12 @@
     </div>
 </div>
 
-@yield('table_script')
+{{-- @yield('table_script') --}}
+
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.3.4/js/dataTables.select.min.js"></script>
+
 <script type="text/javascript">
     const controlsPanel = $('#controlsPanel');
     const editButton = $('#editButton');
