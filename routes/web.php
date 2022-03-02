@@ -43,7 +43,13 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
 
     Route::resource('users', UserController::class);
 
-    Route::resource('manager', ManagerController::class)->only(['index']);
+    Route::prefix('account')->name('account.')->group(function () {
+        Route::get('/', [ManagerController::class,'index'])->name('index');
+        Route::put('/update-basic', [ManagerController::class,'updateBasicInformation'])->name('update-basic');
+        Route::put('/update-password', [ManagerController::class,'updatePassword'])->name('update-password');
+
+    });
+
 });
 
 

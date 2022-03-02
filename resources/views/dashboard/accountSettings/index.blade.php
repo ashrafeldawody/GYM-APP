@@ -1,14 +1,24 @@
 @extends('layouts.dashboard')
 
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="row">
         <div class="col-6">
             <div class="card card-primary">
                 <div class="card-header">
                     <h3 class="card-title">Basic Information</h3>
                 </div>
-                <form method="post" action="">
+                <form method="post" action="{{ route('dashboard.account.update-basic') }}" enctype="multipart/form-data">
                     @csrf
+                    @method('put')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="national_id">National ID</label>
@@ -59,8 +69,9 @@
                 <div class="card-header">
                     <h3 class="card-title">Update Password</h3>
                 </div>
-                <form method="post" action="">
+                <form method="post" action="{{ route('dashboard.account.update-password') }}">
                     @csrf
+                    @method('put')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="password">Password</label>
@@ -68,7 +79,7 @@
                         </div>
                         <div class="form-group">
                             <label for="password-confirm">Password Confirmation</label>
-                            <input type="password" class="form-control" id="password-confirm" name="password-confirm" placeholder="Password Confirmation">
+                            <input type="password" class="form-control" id="password-confirm" name="password_confirmation" placeholder="Password Confirmation">
                         </div>
                     </div>
 

@@ -12,7 +12,7 @@ use Spatie\Permission\Traits\HasRoles;
 class Manager extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable , HasRoles;
-
+    protected $hidden = ['password','email_verified_at','is_banned','remember_token','created_at','updated_at'];
     protected $guarded = [];
 
 

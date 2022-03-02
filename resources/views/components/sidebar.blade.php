@@ -105,7 +105,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('dashboard.manager.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.manager.index') ? 'active':''}}">
+                        <a href="{{route('dashboard.account.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.account.index') ? 'active':''}}">
                             <i class="nav-icon fas fa-user"></i>
                             <p>Account Settings</p>
                         </a>
