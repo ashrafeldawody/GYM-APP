@@ -8,4 +8,3 @@ require('admin-lte');
 const flatpickr = require("flatpickr");
 require('datatables.net');
 require('datatables.net-bs4');
-require('datatables.net-buttons-bs4');

@@ -17,7 +17,6 @@ class CreateCitiesTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->foreignId('manager_id')->constrained();
-            $table->softDeletes();
         });
     }
 

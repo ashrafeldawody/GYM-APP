@@ -1,5 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
     "/dist/img/AdminLTELogo.png": "/dist/img/AdminLTELogo.png",
     "/dist/img/avatar.png": "/dist/img/avatar.png",
     "/dist/img/avatar2.png": "/dist/img/avatar2.png",
@@ -26,6 +27,5 @@
     "/dist/img/user5-128x128.jpg": "/dist/img/user5-128x128.jpg",
     "/dist/img/user6-128x128.jpg": "/dist/img/user6-128x128.jpg",
     "/dist/img/user7-128x128.jpg": "/dist/img/user7-128x128.jpg",
-    "/dist/img/user8-128x128.jpg": "/dist/img/user8-128x128.jpg",
-    "/css/app.css": "/css/app.css"
+    "/dist/img/user8-128x128.jpg": "/dist/img/user8-128x128.jpg"
 }

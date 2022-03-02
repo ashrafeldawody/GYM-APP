@@ -7,8 +7,9 @@
                 <div class="card-header">
                     <h3 class="card-title">Basic Information</h3>
                 </div>
-                <form method="post" action="">
+                <form method="post" action="{{ route('dashboard.account.update-basic') }}">
                     @csrf
+                    @method('put')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="national_id">National ID</label>
@@ -59,8 +60,9 @@
                 <div class="card-header">
                     <h3 class="card-title">Update Password</h3>
                 </div>
-                <form method="post" action="">
+                <form method="post" action="{{ route('dashboard.account.update-password') }}">
                     @csrf
+                    @method('put')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="password">Password</label>
