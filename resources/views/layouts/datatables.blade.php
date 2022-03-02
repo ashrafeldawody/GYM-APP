@@ -25,7 +25,7 @@
                         {{ session('status') }}
                     </div>
                     @endif
-                    <div class="">
+                    <div class="w-100">
                         {{$dataTable->table()}}
                     </div>
                 </div>
@@ -73,17 +73,25 @@
     $(function () {
         let datatable = $('#datatable').DataTable({
             bAutoWidth: false,
+            scrollX: true,
             responsive: true,
             processing: true,
             serverSide: true,
             pageLength: 5,
             ajax: @yield('table_route'),
-            columns: [@yield('table_columns')],
+            columns: [
+                { "data": null, "defaultContent": "" },
+                @yield('table_columns')
+            ],
             columnDefs: [
                 {
                     orderable: false,
                     className: 'select-checkbox',
                     targets: 0
+                },
+                {
+                    orderable: false,
+                    targets: 1
                 }
             ],
             select: {

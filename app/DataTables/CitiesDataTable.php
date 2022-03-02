@@ -56,6 +56,7 @@ class CitiesDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make(''),
             Column::make('#'),
             Column::make('name'),
             Column::make('manager_name'),

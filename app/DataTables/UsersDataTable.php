@@ -43,18 +43,11 @@ class UsersDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('users-table')
+                    ->setTableId('datatable')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+                    ->orderBy(1);
     }
 
     /**
@@ -65,16 +58,12 @@ class UsersDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make(''),
             Column::make('#'),
             Column::make('name'),
             Column::make('email'),
             Column::make('gender'),
             Column::make('birth_date'),
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(100)
-                  ->addClass('text-center'),
         ];
     }
 

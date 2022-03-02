@@ -43,18 +43,11 @@ class SessionsDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('sessions-table')
+                    ->setTableId('datatable')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+                    ->orderBy(1);
     }
 
     /**
@@ -65,15 +58,11 @@ class SessionsDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make(''),
             Column::make('#'),
             Column::make('name'),
             Column::make('starts_at'),
             Column::make('finishes_at'),
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(100)
-                  ->addClass('text-center'),
         ];
     }
 

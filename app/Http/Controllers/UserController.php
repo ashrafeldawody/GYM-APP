@@ -24,15 +24,8 @@ class UserController extends Controller
 
         if (request()->ajax()) {
             $data = UserResource::collection(User::all());
-            return  Datatables::of($data)
+            return Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $actions =
-                        '<a href="#" class="btn btn-sm btn-primary">Edit</a>
-                    <a href="#" class="btn btn-sm btn-danger">Delete</a>';
-                    return $actions;
-                })
-                ->rawColumns(['action'])
                 ->make(true);
         }
 

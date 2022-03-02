@@ -26,17 +26,8 @@ class SessionsController extends Controller
 
         if (request()->ajax()) {
             $data = SessionResource::collection(TrainingSession::all());
-            return  Datatables::of($data)
+            return Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $actions =
-                        '
-                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                        ';
-                    return $actions;
-                })
-                ->rawColumns(['action'])
                 ->make(true);
         }
 

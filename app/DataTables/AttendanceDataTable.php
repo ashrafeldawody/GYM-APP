@@ -43,18 +43,11 @@ class AttendanceDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('attendance-table')
+                    ->setTableId('datatable')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+                    ->orderBy(1);
     }
 
     /**
@@ -65,6 +58,7 @@ class AttendanceDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make(''),
             Column::make('#'),
             Column::make('user_name'),
             Column::make('user_email'),
@@ -72,12 +66,7 @@ class AttendanceDataTable extends DataTable
             Column::make('attendance_time'),
             Column::make('attendance_date'),
             Column::make('gym'),
-            Column::make('city'),
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(100)
-                  ->addClass('text-center'),
+            Column::make('city')
         ];
     }
 

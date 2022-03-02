@@ -43,18 +43,11 @@ class PurchasesDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('purchases-table')
+                    ->setTableId('datatable')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+                    ->orderBy(1);
     }
 
     /**
@@ -65,6 +58,7 @@ class PurchasesDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make(''),
             Column::make('#'),
             Column::make('user_name'),
             Column::make('user_email'),
@@ -72,11 +66,6 @@ class PurchasesDataTable extends DataTable
             Column::make('amount_paid'),
             Column::make('gym'),
             Column::make('city'),
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(100)
-                  ->addClass('text-center'),
         ];
     }
 

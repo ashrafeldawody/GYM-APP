@@ -43,18 +43,11 @@ class PackagesDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('packages-table')
+                    ->setTableId('datatable')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    );
+                    ->orderBy(1);
     }
 
     /**
@@ -65,15 +58,11 @@ class PackagesDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make(''),
             Column::make('#'),
             Column::make('name'),
             Column::make('price'),
-            Column::make('sessions_number'),
-            Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(100)
-                ->addClass('text-center'),
+            Column::make('sessions_number')
         ];
     }
 

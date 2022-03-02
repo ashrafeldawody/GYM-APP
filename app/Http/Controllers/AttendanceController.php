@@ -24,18 +24,8 @@ class AttendanceController extends Controller
         // city will be shown in case  of admin only
         if (request()->ajax()) {
             $data = AttendanceResource::collection(Attendance::with('trainingSession', 'user')->get());
-            return  Datatables::of($data)
+            return Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $actions =
-                    '
-                        <a href="#" class="btn btn-sm btn-primary">Edit</a>
-
-                        <a href="#" class="btn btn-sm btn-danger">Delete</a>
-                    ';
-                    return $actions;
-                })
-                ->rawColumns(['action'])
                 ->make(true);
         }
         return $dataTable->render('dashboard.attendance.index');
