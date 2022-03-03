@@ -21,7 +21,7 @@ class UserResource extends JsonResource
             'gender' => $this->gender,
             'birth_date' => $this->birth_date,
             //to be added
-            //'profile_img' => $this->profile_img,
+            'profile_img' => $this->profile_img,
         ];
     }
 }

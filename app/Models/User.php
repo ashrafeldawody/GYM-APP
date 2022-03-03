@@ -19,7 +19,7 @@ class User extends Model
         'password',
         'birth_date',
         //to be added
-        //'profile_img',
+        'profile_img',
     ];   
 
     public function purchases()
