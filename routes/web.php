@@ -29,17 +29,17 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
 
     Route::get('/', function () {return view('home');})->name('home');
 
-    Route::resource('cities', CityController::class);
+    Route::resource('cities', CityController::class)->middleware('permission:cities');
 
-    Route::resource('purchases', PurchaseController::class)->only(['index', 'create', 'store']);
+    Route::resource('purchases', PurchaseController::class)->only(['index', 'create', 'store'])->middleware('permission:purchases');
 
-    Route::resource('attendance', AttendanceController::class)->only(['index']);
+    Route::resource('attendance', AttendanceController::class)->only(['index'])->middleware('permission:attendance');
 
-    Route::resource('packages', PackagesController::class);
+    Route::resource('packages', PackagesController::class)->middleware('permission:packages');
 
-    Route::resource('sessions', SessionsController::class);
+    Route::resource('sessions', SessionsController::class)->middleware('permission:sessions');
 
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class)->middleware('permission:users');
 
     Route::prefix('account')->name('account.')->group(function () {
         Route::get('/', [ManagerController::class,'index'])->name('index');
