@@ -12,6 +12,10 @@
     "{{ route('dashboard.cities.index') }}"
 @endsection
 
+@section('form_data_endpoint')
+    "{{ route('dashboard.cities.formData') }}"
+@endsection
+
 @section('table_columns')
     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
     {data: 'name', name: 'name'},

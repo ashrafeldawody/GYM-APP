@@ -34,26 +34,17 @@
     </div>
 </div>
 
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">New message</h5>
+                <h5 class="modal-title" id="formModalLabel"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Recipient:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="col-form-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
-                    </div>
-                </form>
+                <form id="addEditForm"></form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -70,12 +61,19 @@
 <script src="https://cdn.datatables.net/select/1.3.4/js/dataTables.select.min.js"></script>
 
 <script type="text/javascript">
-    const controlsPanel = $('#controlsPanel');
-    const editButton = $('#editButton');
-    const deleteButton = $('#deleteButton');
-    const userMessage = $('#userMessage');
-
     $(function () {
+        const ajaxUrl = @yield('table_route', 'null');
+        const formDataEndpoint = @yield('form_data_endpoint', 'null');
+
+        if (!ajaxUrl) return;
+
+        const controlsPanel = $('#controlsPanel');
+        const editButton = $('#editButton');
+        const deleteButton = $('#deleteButton');
+        const userMessage = $('#userMessage');
+        const formElem = $('#addEditForm');
+        const formLable = $('#formModalLabel');
+
         let datatable = $('#datatable').DataTable({
             bAutoWidth: false,
             scrollX: true,
@@ -83,7 +81,7 @@
             processing: true,
             serverSide: true,
             pageLength: 5,
-            ajax: @yield('table_route'),
+            ajax: ajaxUrl,
             columns: [
                 { "data": null, "defaultContent": "" },
                 @yield('table_columns')
@@ -111,6 +109,8 @@
             toggleControlPanel(selectedCount > 0);
         });
 
+        // ----- * ----- * ----- * -----
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
@@ -118,8 +118,43 @@
         });
 
         editButton.click(function () {
-            //console.log(datatable.rows('.selected').data());
-            //console.log(datatable.rows('.selected').data()[0]);
+            $.ajax({
+                url: formDataEndpoint,
+                method: 'GET'
+            })
+            .done(function(formData) {
+                // Set the form label
+                formLable.html('Edit ' + formData.formLable);
+
+                // Create the html form fields
+                let formFields = '';
+                formData.fields.forEach(field => {
+                    if (field.type == 'text') {
+                        formFields +=
+                            `<div class="form-group">
+                                <label for="${field.name}Input" class="col-form-label">${field.label}</label>
+                                <input type="text" name="${field.name}" class="form-control" id="${field.name}Input">
+                            </div>`;
+                    } else if (field.type == 'select') {
+                        formFields +=
+                            `<div class="form-group">
+                                <label for="${field.name}Input" class="col-form-label">${field.label}</label>
+                                <select name="${field.name}" class="form-control">
+                                    <option disabled>Select ${field.label}</option>
+                                    ${
+                                        field.options.map(option =>
+                                            `<option value="${option.value}">${option.text}</option>`
+                                        ).join("")
+                                    }
+                                </select>
+                            </div>`;
+                    }
+                });
+                formElem.html(formFields);
+
+                // Show the modal
+                $('#formModal').modal().show();
+            });
         });
 
         deleteButton.click(function () {
@@ -151,7 +186,7 @@
         function showControlPanel() {
             controlsPanel.show();
             const selectedCount = datatable.rows('.selected').data().length;
-            selectedCount > 1 ? editButton.hide() : editButton.show();
+            formDataEndpoint ? editButton.show() : editButton.hide();
             showInfoMessage(`${selectedCount} items has been selected`);
         }
 
