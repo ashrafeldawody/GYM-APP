@@ -12,6 +12,16 @@ class User extends Model
     public $timestamps = false;
     protected $guarded = [];
 
+    protected $fillable = [
+        'name', 
+        'email', 
+        'gender', 
+        'password',
+        'birth_date',
+        //to be added
+        //'profile_img',
+    ];   
+
     public function purchases()
     {
         return $this->hasMany(Purchase::class, 'user_id');

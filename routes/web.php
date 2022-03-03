@@ -27,9 +27,7 @@ Route::get('/', function () {
 
 Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(function () {
 
-    Route::get('/', function () {
-        return view('home');
-    })->name('home');
+    Route::get('/', function () {return view('home');})->name('home');
 
     Route::resource('cities', CityController::class);
 
