@@ -26,8 +26,8 @@ class AttendanceController extends Controller
         // gym will be shown in case of city manager only
         // city will be shown in case  of admin only
         if (request()->ajax()) {
-            $data = AttendanceResource::collection(Attendance::with('trainingSession', 'user')->get());
-            return Datatables::of($data)
+
+            return Datatables::of(AttendanceController::getData())
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -107,16 +107,31 @@ class AttendanceController extends Controller
      */
     private static function getData()
     {
-        $data = AttendanceResource::collection(Attendance::with('trainingSession', 'user')->get());
         $authUser = Auth::user();
+        //Gym::All()[8]->trainingSessions[0]->attendancies;
+       // TrainingSession::All()->first()->attendancies;
         if ($authUser->cannot('show_gym_data')) {
 
+           return AttendanceResource::collection(Attendance::with('trainingSession', 'user')
+                ->whereIn('training_session_id', $authUser->gymManager->gym->trainingSessions->pluck('id'))
+                ->get());
         } else if ($authUser->cannot('show_city_data')) {
-
+            return null;
         } else {
+            return AttendanceResource::collection(Attendance::with('trainingSession', 'user')->get());
         }
 
     }
+/*
+ *  return PurchaseResource::collection($authUser->gymManager->gym->purchases);
 
+        } else if ($authUser->cannot('show_city_data')) {
+
+            // The Auth User is City Manager, so we have to return the data in his city only
+            return PurchaseResource::collection(Purchase::with('trainingPackage', 'user')
+                ->whereIn('gym_id', $authUser->city->gyms->pluck('id'))
+                ->get());
+ *
+ * */
 
 }

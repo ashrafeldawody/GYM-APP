@@ -28,7 +28,9 @@ class Manager extends Authenticatable
     public function city() {
         return $this->hasOne(City::class);
     }
-
+    public function purchases() {
+        return $this->hasMany(Purchase::class);
+    }
     public function gymManager() {
         return $this->hasOne(GymManager::class);
     }

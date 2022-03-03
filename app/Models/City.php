@@ -20,4 +20,8 @@ class City extends Model
     {
         return $this->hasMany(Gym::class);
     }
+
+    public function purchases() {
+        return $this->hasMany(Purchase::class);
+    }
 }

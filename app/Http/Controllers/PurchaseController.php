@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\DataTables\PurchasesDataTable;
 use App\Http\Resources\PackageResource;
 use App\Http\Resources\PurchaseResource;
+use App\Models\City;
+use App\Models\Manager;
 use App\Models\Purchase;
 use App\Http\Requests\StorePurchaseRequest;
 use App\Http\Requests\UpdatePurchaseRequest;
@@ -21,6 +23,7 @@ class PurchaseController extends Controller
      */
     public function index(PurchasesDataTable $dataTable)
     {
+
         if (request()->ajax()) {
             return Datatables::of(PurchaseController::getData())
                 ->addIndexColumn()
@@ -106,42 +109,24 @@ class PurchaseController extends Controller
         $authUser = Auth::user();
 
         // note we have to use cannot instead of can her because admin can pass from any can or has roles methods
-
+        $manager = Manager::find( Auth::user()->id);
         if ($authUser->cannot('show_gym_data')) {
 
             // The Auth user is gym manager, so we have to return the data in his gym only
-            return PurchaseResource::collection(Purchase::with('trainingPackage', 'user')
-                ->where('gym_id', $authUser->gymManager->gym->id)
-                ->get());
+
+            return PurchaseResource::collection($authUser->gymManager->gym->purchases);
 
         } else if ($authUser->cannot('show_city_data')) {
 
             // The Auth User is City Manager, so we have to return the data in his city only
+//            return PurchaseResource::collection(Purchase::with('trainingPackage', 'user')
+//                ->whereIn('gym_id', $authUser->city->gyms->pluck('id'))
+//                ->get());
 
-            return PurchaseResource::collection(Purchase::with('trainingPackage', 'user')
-                ->whereIn('gym_id', PurchaseController::getCityGymIds($authUser->city))
-                ->get());
-
+            return $authUser->hasOne(City::class)->first()->purchases();
         } else {
-
             // The Auth User is Admin, so reveal the whole data
-
             return PurchaseResource::collection(Purchase::with('trainingPackage', 'user')->get());
         }
-
     }
-
-    /**
-     * A method that takes city and returns an array of gymIds in this city
-     */
-    private static function getCityGymIds($city): array
-    {
-        $cityGyms = $city->gyms;
-        $gymIds = [];
-        foreach ($cityGyms as $gym) {
-            $gymIds[] = $gym->id;
-        }
-        return $gymIds;
-    }
-
 }
