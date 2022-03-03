@@ -30,6 +30,31 @@ class CityController extends Controller
         return $dataTable->render('dashboard.cities.index');
     }
 
+    public function getFormData()
+    {
+        return [
+            'formLable' => 'City',
+            'fields' => [
+                [
+                    'label' => 'City Name',
+                    'name' => 'name',
+                    'type' => 'text'
+                ],
+                [
+                    'label' => 'Manager',
+                    'name' => 'manager_id',
+                    'type' => 'select',
+                    'options' => [
+                        ['value' => '1', 'text' => 'AAA'],
+                        ['value' => '2', 'text' => 'BBB'],
+                        ['value' => '3', 'text' => 'CCC'],
+                        ['value' => '4', 'text' => 'DDD'],
+                    ]
+                ]
+            ]
+        ];
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -32,6 +32,7 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
     })->name('home');
 
     Route::resource('cities', CityController::class);
+    Route::get('/form-data', [CityController::class, 'getFormData'])->name('cities.formData');
 
     Route::resource('purchases', PurchaseController::class)->only(['index', 'create', 'store']);
 
