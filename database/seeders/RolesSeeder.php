@@ -17,8 +17,11 @@ class RolesSeeder extends Seeder
     public function run()
     {
         Role::create(['name' => 'admin']);
-        Role::create(['name' => 'gym_manager']);
-        Role::create(['name' => 'city_manager']);
-        Role::create(['name' => 'coach']);
+
+        $gymManagerRole = Role::create(['name' => 'gym_manager']);
+        $gymManagerRole->givePermissionTo('coaches,sessions,purchases,attendance,users');
+
+        $cityManagerRole = Role::create(['name' => 'city_manager']);
+        $cityManagerRole->givePermissionTo('coaches,sessions,purchases,attendance,users', 'gym_managers,gyms,show_gym_data');
     }
 }
