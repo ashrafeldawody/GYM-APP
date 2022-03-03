@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Attendance;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -57,7 +58,7 @@ class AttendanceDataTable extends DataTable
      */
     protected function getColumns()
     {
-        return [
+        $columnsArray = [
             Column::make(''),
             Column::make('#'),
             Column::make('user_name'),
@@ -65,9 +66,14 @@ class AttendanceDataTable extends DataTable
             Column::make('session_name'),
             Column::make('attendance_time'),
             Column::make('attendance_date'),
-            Column::make('gym'),
-            Column::make('city')
         ];
+        if (Auth::user()->can('show_gym_data')) {
+            $columnsArray[] = Column::make('gym');
+        }
+        if (Auth::user()->can('show_city_data')) {
+            $columnsArray[] = Column::make('city');
+        }
+        return $columnsArray;
     }
 
     /**
