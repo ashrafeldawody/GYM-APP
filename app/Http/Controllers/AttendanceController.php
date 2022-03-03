@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\DataTables\AttendanceDataTable;
 use App\Http\Resources\AttendanceResource;
+use App\Http\Resources\PurchaseResource;
 use App\Models\Attendance;
 use App\Http\Requests\StoreAttendanceRequest;
 use App\Http\Requests\UpdateAttendanceRequest;
+use App\Models\Purchase;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class AttendanceController extends Controller
@@ -96,4 +99,24 @@ class AttendanceController extends Controller
     {
         //
     }
+
+    /**
+     * Remove the specified resource from storage.
+     * a method that return the data object according to the logged-in user
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    private static function getData()
+    {
+        $data = AttendanceResource::collection(Attendance::with('trainingSession', 'user')->get());
+        $authUser = Auth::user();
+        if ($authUser->cannot('show_gym_data')) {
+
+        } else if ($authUser->cannot('show_city_data')) {
+
+        } else {
+        }
+
+    }
+
+
 }

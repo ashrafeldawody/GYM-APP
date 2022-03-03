@@ -100,24 +100,46 @@ class PurchaseController extends Controller
     /**
      * Remove the specified resource from storage.
      * a method that return the data object according to the logged-in user
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    private static function getData()
+    private static function getData(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $authUser = Auth::user();
         if ($authUser->cannot('show_gym_data')) {
-            return PurchaseResource::collection(Purchase::with('trainingPackage', 'user')->where('gym_id', $authUser->gymManager->gym->id)->get());
+
+            // The Auth user is gym manager, so we have to return the data in his gym only
+
+            return PurchaseResource::collection(Purchase::with('trainingPackage', 'user')
+                ->where('gym_id', $authUser->gymManager->gym->id)
+                ->get());
+
         } else if ($authUser->cannot('show_city_data')) {
-            $cityGyms =  $authUser->city->gyms;
-            $gymsIds = [];
-            foreach ($cityGyms as $gym) {
-                $gymsIds[] = $gym->id;
-            }
-            return PurchaseResource::collection(Purchase::with('trainingPackage', 'user')->whereIn('gym_id', $gymsIds)->get());
+
+            // The Auth User is City Manager, so we have to return the data in his city only
+
+            return PurchaseResource::collection(Purchase::with('trainingPackage', 'user')
+                ->whereIn('gym_id', PurchaseController::getCityGymIds($authUser->city))
+                ->get());
+
         } else {
+
+            // The Auth User is Admin, so reveal the whole data
+
             return PurchaseResource::collection(Purchase::with('trainingPackage', 'user')->get());
         }
 
+    }
+
+    /**
+     * A method that takes city and returns an array of gymIds in this city
+     */
+    private static function getCityGymIds($city): array
+    {
+        $cityGyms = $city->gyms;
+        $gymIds = [];
+        foreach ($cityGyms as $gym) {
+            $gymIds[] = $gym->id;
+        }
+        return $gymIds;
     }
 
 }
