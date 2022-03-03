@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\PurchasesDataTable;
+use App\Http\Resources\PackageResource;
 use App\Http\Resources\PurchaseResource;
 use App\Models\Purchase;
 use App\Http\Requests\StorePurchaseRequest;
 use App\Http\Requests\UpdatePurchaseRequest;
+use App\Models\TrainingPackage;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class PurchaseController extends Controller
@@ -18,13 +21,8 @@ class PurchaseController extends Controller
      */
     public function index(PurchasesDataTable $dataTable)
     {
-        // This method has to return a datatables view that has these columns'
-        // user_name | user_email | package_name \ amount_user_paid | gym | city
-        // gym will be shown in case of city manager only
-        // city will be shown in case  of admin only
         if (request()->ajax()) {
-            $data = PurchaseResource::collection(Purchase::with('trainingPackage', 'user')->get());
-            return Datatables::of($data)
+            return Datatables::of(PurchaseController::getData())
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -96,4 +94,30 @@ class PurchaseController extends Controller
     {
         //
     }
+
+
+
+    /**
+     * Remove the specified resource from storage.
+     * a method that return the data object according to the logged-in user
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    private static function getData()
+    {
+        $authUser = Auth::user();
+        if ($authUser->cannot('show_gym_data')) {
+            return PurchaseResource::collection(Purchase::with('trainingPackage', 'user')->where('gym_id', $authUser->gymManager->gym->id)->get());
+        } else if ($authUser->cannot('show_city_data')) {
+            $cityGyms =  $authUser->city->gyms;
+            $gymsIds = [];
+            foreach ($cityGyms as $gym) {
+                $gymsIds[] = $gym->id;
+            }
+            return PurchaseResource::collection(Purchase::with('trainingPackage', 'user')->whereIn('gym_id', $gymsIds)->get());
+        } else {
+            return PurchaseResource::collection(Purchase::with('trainingPackage', 'user')->get());
+        }
+
+    }
+
 }
