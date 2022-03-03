@@ -82,7 +82,7 @@
             responsive: true,
             processing: true,
             serverSide: true,
-            pageLength: 5,
+            pageLength: 10,
             ajax: @yield('table_route'),
             columns: [
                 { "data": null, "defaultContent": "" },
