@@ -1,11 +1,10 @@
 <?php
 
-use App\Models\Gym;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCoachesTable extends Migration
+class AddProfileImgToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +13,8 @@ class CreateCoachesTable extends Migration
      */
     public function up()
     {
-        Schema::create('coaches', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->foreignId('gym_id')->constrained();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('profile_img')->default('default.jpg');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateCoachesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('coaches');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 }
