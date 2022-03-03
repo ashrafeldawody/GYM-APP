@@ -26,8 +26,8 @@ class AttendanceController extends Controller
         // gym will be shown in case of city manager only
         // city will be shown in case  of admin only
         if (request()->ajax()) {
-            $data = AttendanceResource::collection(Attendance::with('trainingSession', 'user')->get());
-            return Datatables::of($data)
+
+            return Datatables::of(AttendanceController::getData())
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -107,13 +107,21 @@ class AttendanceController extends Controller
      */
     private static function getData()
     {
-        $data = AttendanceResource::collection(Attendance::with('trainingSession', 'user')->get());
         $authUser = Auth::user();
-        if ($authUser->cannot('show_gym_data')) {
+        //Gym::All()[8]->trainingSessions[0]->attendancies;
+       // TrainingSession::All()->first()->attendancies;
+        if ($authUser->hasRole('gym_manager')) {
 
-        } else if ($authUser->cannot('show_city_data')) {
+           return AttendanceResource::collection(Attendance::with('trainingSession', 'user')
+                ->whereIn('training_session_id', $authUser->gymManager->gym->trainingSessions->pluck('id'))
+                ->get());
+
+        } else if ($authUser->hasRole('city_manager')) {
+
+            return null;
 
         } else {
+            return AttendanceResource::collection(Attendance::with('trainingSession', 'user')->get());
         }
 
     }

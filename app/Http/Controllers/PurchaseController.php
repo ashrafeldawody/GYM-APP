@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\PurchasesDataTable;
-use App\Http\Resources\PackageResource;
 use App\Http\Resources\PurchaseResource;
-use App\Models\Manager;
+use App\Models\City;
 use App\Models\Purchase;
 use App\Http\Requests\StorePurchaseRequest;
 use App\Http\Requests\UpdatePurchaseRequest;
-use App\Models\TrainingPackage;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -22,6 +20,7 @@ class PurchaseController extends Controller
      */
     public function index(PurchasesDataTable $dataTable)
     {
+
         if (request()->ajax()) {
             return Datatables::of(PurchaseController::getData())
                 ->addIndexColumn()
@@ -103,7 +102,20 @@ class PurchaseController extends Controller
     private static function getData(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $authUser = Auth::user();
-        return PurchaseResource::collection($authUser->purchases());
+
+//        if ($authUser->cannot('show_gym_data')) {
+        if ($authUser->hasRole('gym_manager')) {
+
+            return PurchaseResource::collection($authUser->hasMany(Purchase::class)->with('trainingPackage', 'user')->get());
+
+        } else if ($authUser->hasRole('city_manager')) {
+
+            return PurchaseResource::collection($authUser->hasOne(City::class)->first()->purchases());
+
+        } else {
+            
+            return PurchaseResource::collection(Purchase::with('manager','gym','user','trainingPackage')->get());
+        }
     }
 
 }

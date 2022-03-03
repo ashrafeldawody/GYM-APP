@@ -17,10 +17,15 @@ class Gym extends Model
     public function city(){
         return $this->belongsTo(City::class);
     }
-    public function trainingSessions(){
+
+    public function trainingSessions() {
         return $this->hasMany(TrainingSession::class);
     }
+
     public function traningPackages(){
         return $this->hasMany(TrainingPackage::class);
+    }
+    public function purchases() {
+        return $this->hasMany(Purchase::class);
     }
 }

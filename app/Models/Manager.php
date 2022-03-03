@@ -32,13 +32,8 @@ class Manager extends Authenticatable
     public function gymManager() {
         return $this->hasOne(GymManager::class);
     }
+
     public function purchases(){
-        if ($this->cannot('show_gym_data')) {
-            return $this->hasMany(Purchase::class)->with('trainingPackage', 'user')->get();
-        } else if ($this->cannot('show_city_data')) {
-            return $this->hasOne(City::class)->first()->purchases();
-        } else {
-            return Purchase::with('manager','gym','user','trainingPackage')->get();
-        }
+
     }
 }

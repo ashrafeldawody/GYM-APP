@@ -20,7 +20,10 @@ class City extends Model
     {
         return $this->hasMany(Gym::class);
     }
-    public function purchases(){
+
+
+    public function purchases() {
         return $this->hasManyThrough(Purchase::class,Gym::class)->with('manager','gym','user','trainingPackage')->get();
     }
+
 }
