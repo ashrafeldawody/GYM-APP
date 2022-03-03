@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -23,9 +24,10 @@ class UserController extends Controller
         return $userData;
     }
 
-    public function store(){
+    public function store(StoreUserRequest $request){
+        //caution > [password_confirmation] must be in the request
         $requestData = request()->all();
-        $newuser = User::create($requestData);
-        return $newuser;
+        $newUser = User::create($requestData);
+        return $newUser;
     }
 }
