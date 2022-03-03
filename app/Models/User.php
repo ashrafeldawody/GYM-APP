@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
     public $timestamps = false;
     protected $guarded = [];
@@ -18,9 +22,17 @@ class User extends Model
         'gender', 
         'password',
         'birth_date',
-        //to be added
         'profile_img',
     ];   
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+    
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
     public function purchases()
     {

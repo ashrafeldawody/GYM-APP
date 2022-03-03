@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 
 
 
@@ -26,25 +27,19 @@ class UserController extends Controller
         return $userData;
     }
 
-    public function store(StoreUserRequest $request){
-        //caution > [password_confirmation] must be in the request
+    // public function store(StoreUserRequest $request){
+    //     //caution > [password_confirmation] must be in the request
 
-        request()->merge([
-            'password' => Hash::make(request()->password),
-        ]);
+    //     request()->merge([
+    //         'password' => Hash::make(request()->password),
+    //     ]);
 
-        $requestData = request()->all();
-        $newUser = User::create($requestData);
+    //     $requestData = request()->all();
+    //     $newUser = User::create($requestData);
 
-        // $newUser = User::create([
-        //     'name' => request()->name,
-        //     'gender' => request()->gender,
-        //     'email' => request()->email,
-        //     'password' => Hash::make(request()->password),
-        //     'birth_date' => request()->birth_date,
-        //     'profile_img' => request()->profile_img,
-        // ]);
+    //     event(new Registered($newUser));
 
-        return $newUser;
-    }
+
+    //     return "Email sent!";
+    // }
 }
