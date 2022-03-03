@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\PurchasesDataTable;
-use App\Http\Resources\PackageResource;
 use App\Http\Resources\PurchaseResource;
 use App\Models\City;
-use App\Models\Manager;
 use App\Models\Purchase;
 use App\Http\Requests\StorePurchaseRequest;
 use App\Http\Requests\UpdatePurchaseRequest;
-use App\Models\TrainingPackage;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -98,8 +95,6 @@ class PurchaseController extends Controller
         //
     }
 
-
-
     /**
      * Remove the specified resource from storage.
      * a method that return the data object according to the logged-in user
@@ -108,25 +103,19 @@ class PurchaseController extends Controller
     {
         $authUser = Auth::user();
 
-        // note we have to use cannot instead of can her because admin can pass from any can or has roles methods
-        $manager = Manager::find( Auth::user()->id);
-        if ($authUser->cannot('show_gym_data')) {
+//        if ($authUser->cannot('show_gym_data')) {
+        if ($authUser->hasRole('gym_manager')) {
 
-            // The Auth user is gym manager, so we have to return the data in his gym only
+            return PurchaseResource::collection($authUser->hasMany(Purchase::class)->with('trainingPackage', 'user')->get());
 
-            return PurchaseResource::collection($authUser->gymManager->gym->purchases);
+        } else if ($authUser->hasRole('city_manager')) {
 
-        } else if ($authUser->cannot('show_city_data')) {
+            return PurchaseResource::collection($authUser->hasOne(City::class)->first()->purchases());
 
-            // The Auth User is City Manager, so we have to return the data in his city only
-//            return PurchaseResource::collection(Purchase::with('trainingPackage', 'user')
-//                ->whereIn('gym_id', $authUser->city->gyms->pluck('id'))
-//                ->get());
-
-            return $authUser->hasOne(City::class)->first()->purchases();
         } else {
-            // The Auth User is Admin, so reveal the whole data
-            return PurchaseResource::collection(Purchase::with('trainingPackage', 'user')->get());
+            
+            return PurchaseResource::collection(Purchase::with('manager','gym','user','trainingPackage')->get());
         }
     }
+
 }

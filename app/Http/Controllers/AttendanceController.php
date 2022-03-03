@@ -110,28 +110,21 @@ class AttendanceController extends Controller
         $authUser = Auth::user();
         //Gym::All()[8]->trainingSessions[0]->attendancies;
        // TrainingSession::All()->first()->attendancies;
-        if ($authUser->cannot('show_gym_data')) {
+        if ($authUser->hasRole('gym_manager')) {
 
            return AttendanceResource::collection(Attendance::with('trainingSession', 'user')
                 ->whereIn('training_session_id', $authUser->gymManager->gym->trainingSessions->pluck('id'))
                 ->get());
-        } else if ($authUser->cannot('show_city_data')) {
+
+        } else if ($authUser->hasRole('city_manager')) {
+
             return null;
+
         } else {
             return AttendanceResource::collection(Attendance::with('trainingSession', 'user')->get());
         }
 
     }
-/*
- *  return PurchaseResource::collection($authUser->gymManager->gym->purchases);
 
-        } else if ($authUser->cannot('show_city_data')) {
-
-            // The Auth User is City Manager, so we have to return the data in his city only
-            return PurchaseResource::collection(Purchase::with('trainingPackage', 'user')
-                ->whereIn('gym_id', $authUser->city->gyms->pluck('id'))
-                ->get());
- *
- * */
 
 }

@@ -67,12 +67,15 @@ class AttendanceDataTable extends DataTable
             Column::make('attendance_time'),
             Column::make('attendance_date'),
         ];
+
         if (Auth::user()->can('show_gym_data')) {
             $columnsArray[] = Column::make('gym');
         }
+
         if (Auth::user()->can('show_city_data')) {
             $columnsArray[] = Column::make('city');
         }
+
         return $columnsArray;
     }
 
