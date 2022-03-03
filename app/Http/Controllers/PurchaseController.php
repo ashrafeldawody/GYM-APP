@@ -104,10 +104,12 @@ class PurchaseController extends Controller
     private static function getData(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $authUser = Auth::user();
+
+        // note we have to use cannot instead of can her because admin can pass from any can or has roles methods
+
         if ($authUser->cannot('show_gym_data')) {
 
             // The Auth user is gym manager, so we have to return the data in his gym only
-
             return PurchaseResource::collection(Purchase::with('trainingPackage', 'user')
                 ->where('gym_id', $authUser->gymManager->gym->id)
                 ->get());
