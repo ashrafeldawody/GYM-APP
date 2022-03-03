@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\RegisterationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
@@ -19,8 +20,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('new',[RegisterationController::class, 'registerNewUser']);
 
-// Route::get('/users',[UserController::class,'index']);
-// Route::get('/users/{$user}',[UserController::class,'show']);
+Auth::routes(['verify' => true]);
 
-Route::resource('users', UserController::class);
+Route::middleware('auth','verified')->group(function(){
+    Route::resource('users', UserController::class);
+    
+    });
