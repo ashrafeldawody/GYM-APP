@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Manager;
 use App\Http\Resources\UserResource;
+
 use Yajra\DataTables\Facades\DataTables;
 use App\DataTables\UsersDataTable;
+use App\Models\Manager;
 
 class UserController extends Controller
 {
