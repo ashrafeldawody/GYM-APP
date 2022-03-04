@@ -32,6 +32,7 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
     Route::get('/', function () {return view('home');})->name('home');
 
     Route::resource('city-managers', CityManagerController::class);
+    Route::get('/city-managers-form-data', [CityManagerController::class, 'getFormData'])->name('city-managers.formData');
 
     Route::resource('cities', CityController::class)->middleware('permission:cities');
     Route::get('/cities-form-data', [CityController::class, 'getFormData'])->name('cities.formData');
@@ -58,23 +59,5 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
     });
 
 });
-
-Route::get('storage/{filename}', function ($filename)
-{
-    $path = storage_path('public/' . $filename);
-
-    if (!File::exists($path)) {
-        abort(404);
-    }
-
-    $file = File::get($path);
-    $type = File::mimeType($path);
-
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-
-    return $response;
-});
-
 
 Auth::routes();
