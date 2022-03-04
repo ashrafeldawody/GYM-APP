@@ -102,6 +102,7 @@
         const formDataEndpoint = @yield('form_data_endpoint', 'null');
         const addEndpoint = @yield('add_endpoint', 'null');
         const updateEndpoint = @yield('update_endpoint', 'null');
+        const destroyEndpoint = @yield('destroy_endpoint', 'null');
 
         if (!ajaxUrl) return;
 
@@ -378,7 +379,7 @@
             if (itemId) {
                 toggleControlPanel(false);
                 $.ajax({
-                    url: @yield('destroy_endpoint') + `/${itemId}`,
+                    url: destroyEndpoint + `/${itemId}`,
                     method: 'DELETE'
                 })
                 .done(function(response) {
@@ -406,6 +407,7 @@
         function showControlPanel() {
             controlsPanel.show();
             updateEndpoint ? editButton.show() : editButton.hide();
+            destroyEndpoint ? deleteButton.show() : deleteButton.hide();
         }
 
         function hideControlPanle() {
