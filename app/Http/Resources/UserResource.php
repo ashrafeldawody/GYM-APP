@@ -19,8 +19,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'gender' => $this->gender,
-            'birth_date' => $this->birth_date,
-            //to be added
+            'birth_date' => date('Y-m-d', strtotime($this->birth_date)),
             'profile_img' => $this->profile_img,
         ];
     }

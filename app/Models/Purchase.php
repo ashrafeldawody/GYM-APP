@@ -19,10 +19,12 @@ class Purchase extends Model
     {
         return $this->belongsTo(User::class);
     }
+
     public function manager()
     {
         return $this->belongsTo(Manager::class);
     }
+
     public function gym() {
         return $this->belongsTo(Gym::class);
     }

@@ -18,8 +18,8 @@ class AttendanceResource extends JsonResource
             'user_name' => $this->user->name,
             'user_email' => $this->user->email,
             'session_name' => $this->trainingSession->name,
-            'attendance_time'=> date('H:i:s', strtotime($this->attendance_datetime)),
-            'attendance_date'=> date('d/M/Y', strtotime($this->attendance_datetime)),
+            'attendance_time'=> date('h:i:s a', strtotime($this->attendance_datetime)),
+            'attendance_date'=> date('d/m/Y', strtotime($this->attendance_datetime)),
             'gym' => $this->trainingSession->gym->name,
             'city' => $this->trainingSession->gym->city->name,
         ];

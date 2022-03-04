@@ -26,8 +26,8 @@
                 </div>
             </div>
             <nav class="mt-2">
-
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                @can('show_city_data')
                     <li class="nav-item">
                         <a href="{{route('dashboard.cities.index')}}" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.cities.index') ? 'active':''}}">
                             <i class="nav-icon fas fa-globe-americas"></i>
@@ -36,6 +36,16 @@
                             </p>
                         </a>
                     </li>
+                @endcan
+                @can('manipulate_city_managers')
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-globe-americas"></i>
+                            <p>City Managers</p>
+                        </a>
+                    </li>
+                @endcan
+                @can('show_gym_data')
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-dumbbell"></i>
@@ -44,36 +54,41 @@
                             </p>
                         </a>
                     </li>
+                @endcan
+                @can('gym_managers')
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Managers</p>
+                            <i class="nav-icon fas fa-dumbbell"></i>
+                            <p>Gym Managers</p>
                         </a>
                     </li>
+                @endcan
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-cubes"></i>
-                            <p>
-                                Training Packages
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{route('dashboard.packages.index')}}" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.packages.index') ? 'active':''}}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Packages</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('dashboard.purchases.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.purchases.index') ? 'active':''}}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Purchase Package</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-cubes"></i>
+                        <p>
+                            Training Packages
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                    @can('manipulate_packages')
+                        <li class="nav-item">
+                            <a href="{{route('dashboard.packages.index')}}" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.packages.index') ? 'active':''}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Packages</p>
+                            </a>
+                        </li>
+                    @endcan
+                        <li class="nav-item">
+                            <a href="{{route('dashboard.packages.index')}}" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.packages.index') ? 'active':''}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Buy Package For user</p>
+                            </a>
+                        </li>
+                    </ul>
 
+                    </li>
                     <li class="nav-item">
                         <a href="{{route('dashboard.sessions.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.sessions.index') ? 'active':''}}">
                             <i class="nav-icon fas fa-calendar-check"></i>
@@ -102,6 +117,12 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-money-bill-wave"></i>
                             <p>Revenue</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('dashboard.purchases.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.purchases.index') ? 'active':''}}">
+                            <i class="nav-icon fas fa-cubes"></i>
+                            <p>Purchase History</p>
                         </a>
                     </li>
                     <li class="nav-item">

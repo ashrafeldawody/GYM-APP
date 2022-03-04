@@ -8,6 +8,7 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Support\Facades\Auth;
 
 class PurchasesDataTable extends DataTable
 {
@@ -57,16 +58,22 @@ class PurchasesDataTable extends DataTable
      */
     protected function getColumns()
     {
-        return [
+        $columnsArray = [
             Column::make(''),
             Column::make('#'),
             Column::make('user_name'),
             Column::make('user_email'),
             Column::make('package_name'),
             Column::make('amount_paid'),
-            Column::make('gym'),
-            Column::make('city'),
         ];
+
+        if (Auth::user()->can('show_gym_data')) {
+            $columnsArray[] = Column::make('gym');
+        }
+        if (Auth::user()->can('show_city_data')) {
+            $columnsArray[] = Column::make('city');
+        }
+        return $columnsArray;
     }
 
     /**

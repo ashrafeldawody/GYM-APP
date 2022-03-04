@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\DataTables\AttendanceDataTable;
 use App\Http\Resources\AttendanceResource;
+use App\Http\Resources\PurchaseResource;
 use App\Models\Attendance;
 use App\Http\Requests\StoreAttendanceRequest;
 use App\Http\Requests\UpdateAttendanceRequest;
 use App\Models\TrainingSession;
 use App\Models\User;
+use App\Models\City;
+use App\Models\Purchase;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class AttendanceController extends Controller
@@ -25,8 +29,8 @@ class AttendanceController extends Controller
         // gym will be shown in case of city manager only
         // city will be shown in case  of admin only
         if (request()->ajax()) {
-            $data = AttendanceResource::collection(Attendance::with('trainingSession', 'user')->get());
-            return Datatables::of($data)
+
+            return Datatables::of(AttendanceController::getData())
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -142,4 +146,22 @@ class AttendanceController extends Controller
     {
         //
     }
+
+    /**
+     * Remove the specified resource from storage.
+     * a method that return the data object according to the logged-in user
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    private static function getData()
+    {
+        if (Auth::user()->hasRole('gym_manager')) {
+            return AttendanceResource::collection(Auth::user()->gym()->attendances());
+        } else if (Auth::user()->hasRole('city_manager')) {
+            return AttendanceResource::collection(Auth::user()->city->first()->attendances());
+        } else {
+            return AttendanceResource::collection(Attendance::with('user')->get());
+        }
+    }
+
+
 }

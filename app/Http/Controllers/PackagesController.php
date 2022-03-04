@@ -9,6 +9,7 @@ use App\Models\City;
 use App\Models\TrainingPackage;
 use App\Http\Requests\StoreTrainingPackageRequest;
 use App\Http\Requests\UpdateTrainingPackageRequest;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class PackagesController extends Controller
@@ -24,6 +25,7 @@ class PackagesController extends Controller
         // package_name | price in dollars | sessions_number
 
         if (request()->ajax()) {
+
             $data = PackageResource::collection(TrainingPackage::all());
             return Datatables::of($data)
                 ->addIndexColumn()

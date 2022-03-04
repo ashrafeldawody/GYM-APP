@@ -24,4 +24,16 @@ class Manager extends Authenticatable
     public function trainingPackages(){
         return $this->hasMany(TrainingPackage::class);
     }
+
+    public function city() {
+        return $this->hasOne(City::class);
+    }
+    public function gym() {
+        return $this->belongsToMany(Gym::class,'gym_managers')->first();
+    }
+
+    public function gymManager() {
+        return $this->hasOne(GymManager::class);
+    }
+
 }

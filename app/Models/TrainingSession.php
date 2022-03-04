@@ -22,7 +22,7 @@ class TrainingSession extends Model
         return $this->belongsToMany(Coach::class,'training_session_coaches');
     }
 
-    public function attendancies(){
+    public function attendances(){
         return $this->hasMany(Attendance::class);
     }
 

@@ -17,11 +17,8 @@ class CityFactory extends Factory
      */
     public function definition()
     {
-        $user = Manager::all()->random();
-        $user->assignRole('city_manager');
         return [
             'name' => $this->faker->unique()->city(),
-            'manager_id' => $user->id,
         ];
     }
 }

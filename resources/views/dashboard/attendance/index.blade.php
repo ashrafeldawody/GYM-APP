@@ -31,6 +31,10 @@
     {data: 'session_name', name: 'session_name'},
     {data: 'attendance_time', name: 'attendance_time'},
     {data: 'attendance_date', name: 'attendance_date'},
-    {data: 'gym', name: 'gym'},
-    {data: 'city', name: 'city'},
+    @can('show_gym_data')
+        {data: 'gym', name: 'gym'},
+    @endcan
+    @can('show_city_data')
+        {data: 'city', name: 'city'},
+    @endcan
 @endsection

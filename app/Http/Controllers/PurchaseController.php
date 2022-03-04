@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\DataTables\PurchasesDataTable;
 use App\Http\Resources\PurchaseResource;
+use App\Models\City;
 use App\Models\Purchase;
 use App\Http\Requests\StorePurchaseRequest;
 use App\Http\Requests\UpdatePurchaseRequest;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class PurchaseController extends Controller
@@ -18,13 +20,9 @@ class PurchaseController extends Controller
      */
     public function index(PurchasesDataTable $dataTable)
     {
-        // This method has to return a datatables view that has these columns'
-        // user_name | user_email | package_name \ amount_user_paid | gym | city
-        // gym will be shown in case of city manager only
-        // city will be shown in case  of admin only
+
         if (request()->ajax()) {
-            $data = PurchaseResource::collection(Purchase::with('trainingPackage', 'user')->get());
-            return Datatables::of($data)
+            return Datatables::of(PurchaseController::getData())
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -95,5 +93,20 @@ class PurchaseController extends Controller
     public function destroy(Purchase $purchase)
     {
         //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     * a method that return the data object according to the logged-in user
+     */
+    private static function getData(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        if (Auth::user()->hasRole('gym_manager')) {
+            return PurchaseResource::collection(Auth::user()->hasMany(Purchase::class)->with('trainingPackage', 'user')->get());
+        } else if (Auth::user()->hasRole('city_manager')) {
+            return PurchaseResource::collection(Auth::user()->hasOne(City::class)->first()->purchases());
+        } else {
+            return PurchaseResource::collection(Purchase::with('manager','gym','user','trainingPackage')->get());
+        }
     }
 }
