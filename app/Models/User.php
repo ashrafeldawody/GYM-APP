@@ -17,18 +17,18 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $guarded = [];
 
     protected $fillable = [
-        'name', 
-        'email', 
-        'gender', 
+        'name',
+        'email',
+        'gender',
         'password',
         'birth_date',
         'profile_img',
-    ];   
+    ];
 
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
     protected $hidden = [
         'password',
         'remember_token',
