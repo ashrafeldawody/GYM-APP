@@ -6,6 +6,7 @@ use App\Http\Controllers\CityManagerController;
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\PackagesController;
+use App\Http\Controllers\RevenueController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -24,12 +25,12 @@ use App\Http\Controllers\PurchaseController;
 */
 
 Route::get('/', function () {
-    return redirect()->route('dashboard.home');
+    return redirect()->route('dashboard.permission:purchases');
 });
 
 Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(function () {
 
-    Route::get('/', function () {return view('home');})->name('home');
+    Route::get('/', [PurchaseController::class, 'index'])->name('permission:purchases');
 
     Route::resource('city-managers', CityManagerController::class);
 
@@ -57,23 +58,6 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
 
     });
 
-});
-
-Route::get('storage/{filename}', function ($filename)
-{
-    $path = storage_path('public/' . $filename);
-
-    if (!File::exists($path)) {
-        abort(404);
-    }
-
-    $file = File::get($path);
-    $type = File::mimeType($path);
-
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-
-    return $response;
 });
 
 

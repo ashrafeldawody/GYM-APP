@@ -104,7 +104,7 @@ class CityController extends Controller
      *
      * @param  \App\Http\Requests\UpdateCityRequest  $request
      * @param  \App\Models\City  $city
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function update(UpdateCityRequest $request, City $city)
     {

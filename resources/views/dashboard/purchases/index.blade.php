@@ -1,5 +1,8 @@
 @extends('layouts.datatables')
 
+@section('page-start')
+    @include('dashboard.purchases.revenue')
+@endsection
 @section('table_header')
     {{ __('purchases Table') }}
 @endsection

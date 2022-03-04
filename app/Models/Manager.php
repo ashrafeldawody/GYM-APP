@@ -24,13 +24,10 @@ class Manager extends Authenticatable
     public function trainingPackages(){
         return $this->hasMany(TrainingPackage::class);
     }
-
     public function city() {
         return $this->hasOne(City::class);
     }
-
-    public function gymManager() {
-        return $this->hasOne(GymManager::class);
+    public function gym() {
+        return $this->hasOneThrough(Gym::class,GymManager::class,'manager_id','id','id','gym_id');
     }
-
 }
