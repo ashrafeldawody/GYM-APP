@@ -41,13 +41,13 @@ class CityController extends Controller
                     'label' => 'City Name',
                     'name' => 'name',
                     'type' => 'text',
-                    'value' => 'name'
+                    'valueKey' => 'name'
                 ],
                 [
                     'label' => 'Manager',
                     'name' => 'manager_id',
                     'type' => 'select',
-                    'value' => 'id',
+                    'valueKey' => 'id',
                     'text' => 'name',
                     'compare' => 'manager_name',
                     'options' => $managers
