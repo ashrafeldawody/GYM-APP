@@ -216,9 +216,12 @@
                 } else if (field.type == 'select') {
                     formFields += createSelectField(field, selectedRow);
                 } else if (field.type == 'time') {
-                    formFields += createTimeField(field, selectedRow);
+                    let timeValue = selectedRow ? selectedRow[field.valueKey] : '';
+                    formFields += createDateTimeField(field, selectedRow, timeValue);
                 } else if (field.type == 'date') {
-                    formFields += createDateField(field, selectedRow);
+                    let dateValue = selectedRow ? selectedRow[field.valueKey] : '';
+                    if (dateValue) dateValue = new Date(dateValue).toISOString().split("T")[0];
+                    formFields += createDateTimeField(field, selectedRow, dateValue);
                 }
             });
 
@@ -227,7 +230,7 @@
         }
 
         function createTextField(field, selectedRow) {
-            const textValue = selectedRow ? selectedRow[field.value] : '';
+            let textValue = selectedRow ? selectedRow[field.valueKey] : '';
             return `<div class="form-group">
                     <label for="${field.name}_input" class="col-form-label">${field.label}</label>
                     <input type="${field.type}" name="${field.name}" value="${textValue}" class="form-control" id="${field.name}_input">
@@ -235,14 +238,14 @@
         }
 
         function createSelectField(field, selectedRow) {
-            const selectedOption = selectedRow ? selectedRow[field.compare] : '';
+            let selectedOption = selectedRow ? selectedRow[field.compare] : '';
             return `<div class="form-group">
                     <label class="col-form-label">${field.label}</label>
                     <select name="${field.name}" class="form-control">
                         <option disabled>Select ${field.label}</option>
                         ${
                             field.options.map(option =>
-                                `<option value="${option[field.value]}" ${selectedOption == option[field.text] ? 'selected' : ''}>
+                                `<option value="${option[field.valueKey]}" ${selectedOption == option[field.text] ? 'selected' : ''}>
                                     ${option[field.text]}
                                 </option>`
                             ).join("")
@@ -251,17 +254,11 @@
                 </div>`;
         }
 
-        function createTimeField(field, selectedRow) {
-            const timeValue = selectedRow ? selectedRow[field.value] : '';
-            console.log('timeValue', timeValue);
+        function createDateTimeField(field, selectedRow, value) {
             return `<div class="form-group">
                     <label for="${field.name}_input" class="col-form-label">${field.label}</label>
-                    <input type="time" name="${field.name}" value="${timeValue}" class="form-control" id="${field.name}_input">
+                    <input type="${field.type}" name="${field.name}" value="${value}" class="form-control" id="${field.name}_input">
                 </div>`;
-        }
-
-        function createDateField(field, selectedRow) {
-
         }
 
         // ----- * ----- * ----- * -----
