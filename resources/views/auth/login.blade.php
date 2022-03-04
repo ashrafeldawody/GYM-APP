@@ -75,6 +75,9 @@
                                 </a>
                                 @endif
                             </div>
+                            <div class="col-md-8 m-auto text-center">
+                                <a href="{{ route('register') }}" class="text-center btn btn-link m-auto">Register new account</a>
+                            </div>
                         </div>
                     </form>
                 </div>
