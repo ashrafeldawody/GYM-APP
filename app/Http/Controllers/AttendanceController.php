@@ -108,8 +108,7 @@ class AttendanceController extends Controller
     private static function getData()
     {
         $authUser = Auth::user();
-        //Gym::All()[8]->trainingSessions[0]->attendancies;
-       // TrainingSession::All()->first()->attendancies;
+
         if ($authUser->hasRole('gym_manager')) {
 
            return AttendanceResource::collection(Attendance::with('trainingSession', 'user')
