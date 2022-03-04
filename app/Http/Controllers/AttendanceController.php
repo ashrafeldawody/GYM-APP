@@ -153,7 +153,8 @@ class AttendanceController extends Controller
         if (Auth::user()->hasRole('gym_manager')) {
             return AttendanceResource::collection(Auth::user()->gym()->attendances());
         } else if (Auth::user()->hasRole('city_manager')) {
-            return AttendanceResource::collection(Auth::user()->city->attendances());
+//            return AttendanceResource::collection(Auth::user()->city()->attendances());
+            return AttendanceResource::collection(Auth::user()->city->first()->attendances());
         } else {
             $data = Attendance::all();
             return AttendanceResource::collection($data);
