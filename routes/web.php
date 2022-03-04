@@ -35,6 +35,7 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
     Route::resource('purchases', PurchaseController::class)->only(['index', 'create', 'store']);
 
     Route::resource('attendance', AttendanceController::class)->only(['index']);
+    Route::get('/attendance-form-data', [AttendanceController::class, 'getFormData'])->name('attendance.formData');
 
     Route::resource('packages', PackagesController::class);
 
