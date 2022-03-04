@@ -18,7 +18,7 @@ class Manager extends Authenticatable
 
 
     public function coaches() {
-        return $this->hasMany(Coach::class);
+        return $this->hasManyThrough(Coach::class, TrainingSessionCoach::class);
     }
 
     public function trainingPackages(){
@@ -27,9 +27,6 @@ class Manager extends Authenticatable
 
     public function city() {
         return $this->hasOne(City::class);
-    }
-    public function gym() {
-        return $this->belongsToMany(Gym::class,'gym_managers')->first();
     }
 
     public function gymManager() {

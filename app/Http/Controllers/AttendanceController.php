@@ -147,20 +147,15 @@ class AttendanceController extends Controller
     /**
      * Remove the specified resource from storage.
      * a method that return the data object according to the logged-in user
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    private static function getData()
+    private static function getData(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         if (Auth::user()->hasRole('gym_manager')) {
             return AttendanceResource::collection(Auth::user()->gym()->attendances());
-//            return AttendanceResource::collection(Attendance::with('trainingSession', 'user')
-//                ->whereIn('training_session_id', Auth::user()->gymManager->gym->trainingSessions->pluck('id'))
-//                ->get());
-
         } else if (Auth::user()->hasRole('city_manager')) {
             return AttendanceResource::collection(Auth::user()->city->attendances());
         } else {
-            return AttendanceResource::collection(Attendance::with('user')->get());
+            return AttendanceResource::collection(Attendance::all());
         }
     }
 

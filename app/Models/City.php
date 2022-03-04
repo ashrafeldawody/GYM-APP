@@ -22,9 +22,9 @@ class City extends Model
     }
 
     public function purchases() {
-        return $this->hasManyThrough(Purchase::class,Gym::class)->with('manager','gym','user','trainingPackage')->get();
+        return $this->hasManyThrough(Purchase::class,Gym::class);
     }
     public function attendances(){
-        return $this->hasManyThrough(TrainingSession::class,Gym::class)->with('attendances')->get()->pluck('attendances')->collect()->flatten();
+        return $this->hasManyThrough(TrainingSession::class,Gym::class);
     }
 }

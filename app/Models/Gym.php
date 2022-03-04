@@ -26,9 +26,9 @@ class Gym extends Model
         return $this->hasMany(TrainingPackage::class);
     }
     public function purchases() {
-        return $this->hasMany(Purchase::class);
+        return $this->hasMany(Purchase::class)->get();
     }
     public function attendances() {
-        return $this->hasManyThrough(Attendance::class,TrainingSession::class)->with('user')->get();
+        return $this->hasManyThrough(Attendance::class,TrainingSession::class)->get();
     }
 }
