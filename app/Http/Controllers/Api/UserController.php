@@ -19,15 +19,37 @@ class UserController extends Controller
     //     return $users;
     // }
 
-    public function show($UserId){
-        // $userData = User::find($UserId);
-        //to let the user show his info on the app
-        $userData = UserResource::make(User::find($UserId));
-        return $userData;
+    public function show($userId){
+        $userToken = User::where('id', $userId)->first(['remember_token'])->remember_token;
+        $requestToken = request()->bearerToken();
+
+        if($userToken == $requestToken){ //to make sure every user show and edit his info only
+            $userData = UserResource::make(User::find($userId));
+            return $userData;
+        }else{
+            return "Forbidden access, You are not allowed to show this information";
+        }        
     }
 
-    public function store(StoreUserRequest $request){
 
+    public function update($userId){
 
+        $userToken = User::where('id', $userId)->first(['remember_token'])->remember_token;
+        $requestToken = request()->bearerToken();
+        dd($userToken,$requestToken);
+        if($userToken == $requestToken){
+
+            $userObj = User::find('id',$userId);
+            dd($userObj);
+            //request()->merge(['profile_img' => request('profile_img')->store('uploads','public')]);
+
+            $user = User::where('id', $userId)
+                ->update(['name' => request()->has('name') ? request()->name : $userObj->name,
+            ]);
+
+            return $user;
+        }else{
+            return "Error updating your information";
+        }
     }
 }

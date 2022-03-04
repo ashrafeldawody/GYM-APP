@@ -142,7 +142,7 @@
             ],
             select: {
                 style: 'os'/* 'multi' */,
-                selector: 'td',
+                selector: 'td'
             },
             order: [[ 1, 'asc' ]]
         });

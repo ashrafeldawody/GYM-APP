@@ -7,7 +7,7 @@
         <div class="sidebar">
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="{{Auth::user()->avatar ? Auth::user()->avatar : 'https://ui-avatars.com/api/?name=' . Auth::user()->name}}" class="img-circle elevation-2" alt="User Image">
+                    <img src="{{asset(Auth::user()->avatar ? Auth::user()->avatar : 'https://ui-avatars.com/api/?name=' . Auth::user()->name)}}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -37,7 +37,7 @@
                 @endcan
                 @can('manipulate_city_managers')
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('dashboard.city-managers.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-globe-americas"></i>
                             <p>City Managers</p>
                         </a>
@@ -45,7 +45,7 @@
                 @endcan
                 @can('show_gym_data')
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('dashboard.gyms.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-dumbbell"></i>
                             <p>
                                 Gyms

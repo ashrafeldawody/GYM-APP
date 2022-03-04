@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +36,7 @@ Route::middleware('auth:sanctum','verified')->group(function(){
     });
 
 
-//====================================
+//==============Email verification routes======================
  
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
@@ -50,9 +50,9 @@ Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
  
     return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-//=====================================
+})->middleware(['auth', 'throttle:6,1','auth:sanctum'])->name('verification.send');
 
+//==============Token Generator (Sanctum)======================
 
 Route::post('/token', function (Request $request) { //sanctum token generator
     $request->validate([
@@ -62,6 +62,10 @@ Route::post('/token', function (Request $request) { //sanctum token generator
     ]);
     
     $user = User::where('email', $request->email)->first();
+
+    //to be added with migration
+    // User::where('user_id', $user->id)
+    //             ->update(['last_login' => Carbon::now()]);
     
     if (! $user || ! Hash::check($request->password, $user->password)) {
         throw ValidationException::withMessages([
