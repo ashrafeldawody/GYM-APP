@@ -54,6 +54,16 @@ class CityManagerController extends Controller
                     'valueKey' => 'email'
                 ],
                 [
+                    'type' => 'password',
+                    'label' => 'Password',
+                    'name' => 'password'
+                ],
+                [
+                    'type' => 'password',
+                    'label' => 'Confirm Password',
+                    'name' => 'password_confirmation'
+                ],
+                [
                     'type' => 'text',
                     'label' => 'National Id',
                     'name' => 'national_id',
