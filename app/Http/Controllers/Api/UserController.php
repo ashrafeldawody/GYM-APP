@@ -46,8 +46,10 @@ class UserController extends Controller
             $request->merge(['password' => Hash::make(request()->password)]);
             User::where('id', $userId)->update(request()->all());
 
-            User::where('id', $userId)
-                ->update(['avatar'=> $request->has('avatar')? $request->file('avatar')->store('uploads','public'):""]);
+            if($request->has('avatar')){
+                User::where('id', $userId)
+                    ->update(['avatar'=> $request->file('avatar')->store('uploads','public')]);
+            }
 
 
             return "Information updated successfully";
