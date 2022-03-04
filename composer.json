@@ -8,6 +8,7 @@
         "php": "^7.3|^8.0",
         "ext-zip": "^1.19",
         "almasaeed2010/adminlte": "~3.0",
+        "barryvdh/laravel-debugbar": "^3.6",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "infyomlabs/laravel-ui-adminlte": "^3.2",

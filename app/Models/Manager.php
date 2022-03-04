@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -15,7 +14,6 @@ class Manager extends Authenticatable
 
     protected $hidden = ['password','email_verified_at','is_banned','remember_token','created_at','updated_at'];
     protected $guarded = [];
-
 
     public function coaches() {
         return $this->hasManyThrough(Coach::class, TrainingSessionCoach::class);

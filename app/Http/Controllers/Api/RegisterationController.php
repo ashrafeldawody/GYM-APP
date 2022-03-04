@@ -16,7 +16,7 @@ class RegisterationController extends Controller
         //caution > [password_confirmation] must be in the request
 
         // request()->merge(['password' => Hash::make(request()->password)]);
-        // request()->merge(['profile_img' => request('profile_img')->store('uploads','public')]);
+        // request()->merge(['avatar' => request('avatar')->store('uploads','public')]);
         // dd(request());
 
         // $requestData = request()->all();
@@ -28,7 +28,7 @@ class RegisterationController extends Controller
             'gender'=> request()->gender,
             'birth_date'=> request()->birth_date,
             'password'=> Hash::make(request()->password),
-            'profile_img'=> request('profile_img')->store('uploads','public'),
+            'avatar'=> request('avatar')->store('uploads','public'),
         ]);
 
         if($newUser){

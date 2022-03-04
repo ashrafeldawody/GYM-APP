@@ -22,7 +22,6 @@ class City extends Model
     {
         return $this->hasMany(Gym::class);
     }
-
     public function purchases() {
         return $this->hasManyThrough(Purchase::class,Gym::class)->with('user','trainingPackage','gym','gym.city');
     }

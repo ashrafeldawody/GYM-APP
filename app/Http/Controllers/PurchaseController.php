@@ -102,7 +102,6 @@ class PurchaseController extends Controller
     private static function getData(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         if (Auth::user()->hasRole('gym_manager')) {
-
             return PurchaseResource::collection(Auth::user()->gym->purchases);
         } else if (Auth::user()->hasRole('city_manager')) {
             return PurchaseResource::collection(Auth::user()->city->purchases);

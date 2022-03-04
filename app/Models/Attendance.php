@@ -12,7 +12,6 @@ class Attendance extends Model
     public function user(){
         return $this->belongsTo(User::class)->select('id','name','email');
     }
-
     public function trainingSession(){
         return $this->belongsTo(TrainingSession::class);
     }

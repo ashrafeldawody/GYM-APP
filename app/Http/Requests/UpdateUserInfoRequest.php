@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
-class StoreUserRequest extends FormRequest
+class UpdateUserInfoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,12 +25,12 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','min:3'],
-            'email' => ['required','email'],
-            'gender' =>['required','in:male,female'],
+            'name' => ['min:3'],
+            'email' => ['email'],
+            'gender' =>['in:male,female'],
             'birth_date' =>['nullable','date_format:Y-m-d','before:today','after:1920-01-01'],
             'avatar' =>['nullable','image'],
-            'password' => ['required', 'confirmed',Password::min(8)
+            'password' => ['confirmed',Password::min(8)
                             ->letters()         // Require at least one letter...
                             ->mixedCase()       // Require at least one uppercase and one lowercase letter...
                             ->numbers()         // Require at least one number...
