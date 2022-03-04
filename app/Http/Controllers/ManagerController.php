@@ -25,15 +25,30 @@ class ManagerController extends Controller
         $request->validate([
             'password' => 'required|min:6|confirmed',
         ]);
-        $user = Manager::find(Auth::user()->id);
-        $user->password = Hash::make($request->all()['password']);
-        $user->save();
-        Auth::logout();
-        return redirect()->route('login');
+        Auth::user()->update([
+            'password' => Hash::make($request->all()['password'])
+        ]);
+        return redirect()->route('dashboard.account.index')->with('message', 'Your Password has been updated!');
     }
     public function updateBasicInformation(Request $request)
     {
-        dd($request);
+
+        $request->validate([
+            'name' => 'required|min:3|max:100',
+            'email' => 'required|email:rfc,dns|max:100',
+            'gender' => 'required|in:male,female',
+            'birth_date' => 'date_format:Y-m-d|before:today',
+            'avatar' => 'mimes:jpg,jpeg,bmp,png'
+        ]);
+
+        Auth::user()->update([
+              "name" => $request->name,
+              "email" => $request->email,
+              "birth_date" => $request->birth_date,
+              "gender" => $request->gender,
+              "avatar" => $request->file('avatar')->store('images/avatars','public')
+        ]);
+        return redirect()->route('dashboard.account.index')->with('message', 'Your Information has been updated!');
     }
 
 }

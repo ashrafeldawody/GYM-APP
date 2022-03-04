@@ -10,6 +10,12 @@
             </ul>
         </div>
     @endif
+    @if(session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+    @endif
+
     <div class="row">
         <div class="col-6">
             <div class="card card-primary">
@@ -34,7 +40,7 @@
                         </div>
                         <div class="form-group">
                             <label for="birthdate">Birth Date</label>
-                            <input type="date" class="form-control" id="birthdate" name="birthDate" value="{{ $user->birth_date }}" placeholder="Enter Your Birth Date">
+                            <input type="date" class="form-control" id="birthdate" name="birth_date" value="{{ $user->birth_date }}" placeholder="Enter Your Birth Date">
                         </div>
                         <div class="form-group">
                             <label for="gender">Gender</label>
@@ -44,7 +50,7 @@
                             </select>
                         </div>
                         <div class="form-group text-center">
-                            <img id="imgPreview" class="img-fluid" style="max-height: 15rem" src="{{ $user->avatar }}" alt="">
+                            <img id="imgPreview" class="img-fluid" style="max-height: 15rem" src="{{ asset($user->avatar) }}" alt="">
                         </div>
                         <div class="form-group">
                             <label for="avatar">File input</label>
