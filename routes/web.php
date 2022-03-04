@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\GymController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\SessionsController;
@@ -31,6 +32,8 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
 
     Route::resource('cities', CityController::class)->middleware('permission:cities');
     Route::get('/cities-form-data', [CityController::class, 'getFormData'])->name('cities.formData');
+
+    Route::resource('gyms', GymController::class)->middleware('permission:gyms');
 
     Route::resource('purchases', PurchaseController::class)->only(['index', 'create', 'store'])->middleware('permission:purchases');
 
