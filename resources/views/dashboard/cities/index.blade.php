@@ -12,6 +12,14 @@
     "{{ route('dashboard.cities.index') }}"
 @endsection
 
+@section('add_endpoint')
+    "{{ route('dashboard.cities.create') }}"
+@endsection
+
+@section('update_endpoint')
+    "{{ route('dashboard.cities.update', '') }}"
+@endsection
+
 @section('form_data_endpoint')
     "{{ route('dashboard.cities.formData') }}"
 @endsection
