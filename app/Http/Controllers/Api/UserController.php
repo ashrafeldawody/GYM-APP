@@ -19,7 +19,6 @@ class UserController extends Controller
     //     return $users;
     // }
 
-    
     public function show($UserId){
         // $userData = User::find($UserId);
         //to let the user show his info on the app
@@ -27,19 +26,8 @@ class UserController extends Controller
         return $userData;
     }
 
-    // public function store(StoreUserRequest $request){
-    //     //caution > [password_confirmation] must be in the request
-
-    //     request()->merge([
-    //         'password' => Hash::make(request()->password),
-    //     ]);
-
-    //     $requestData = request()->all();
-    //     $newUser = User::create($requestData);
-
-    //     event(new Registered($newUser));
+    public function store(StoreUserRequest $request){
 
 
-    //     return "Email sent!";
-    // }
+    }
 }
