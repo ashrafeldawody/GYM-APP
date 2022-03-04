@@ -39,7 +39,7 @@
                 @endcan
                 @can('manipulate_city_managers')
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('dashboard.city-managers.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-globe-americas"></i>
                             <p>City Managers</p>
                         </a>
@@ -47,7 +47,7 @@
                 @endcan
                 @can('show_gym_data')
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('dashboard.gyms.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-dumbbell"></i>
                             <p>
                                 Gyms
