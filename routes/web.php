@@ -61,9 +61,4 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
 
     });
 });
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 162c5ddb479bb02ba2cc29de897761f6df67f5f6
 Auth::routes();

@@ -18,7 +18,6 @@ class Manager extends Authenticatable
     public function coaches() {
         return $this->hasManyThrough(Coach::class, TrainingSessionCoach::class);
     }
-
     public function trainingPackages(){
         return $this->hasMany(TrainingPackage::class);
     }
