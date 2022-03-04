@@ -27,4 +27,5 @@ class Manager extends Authenticatable
     public function gym() {
         return $this->hasOneThrough(Gym::class,GymManager::class,'manager_id','id','id','gym_id');
     }
+
 }
