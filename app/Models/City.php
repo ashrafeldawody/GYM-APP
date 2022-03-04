@@ -24,6 +24,6 @@ class City extends Model
         return $this->hasManyThrough(Purchase::class,Gym::class);
     }
     public function attendances(){
-        return $this->hasManyThrough(TrainingSession::class,Gym::class);
+        return $this->hasManyThrough(TrainingSession::class,Gym::class)->with('attendances')->get()->pluck('attendances')->collect()->flatten();
     }
 }
