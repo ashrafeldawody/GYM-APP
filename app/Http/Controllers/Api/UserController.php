@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserInfoRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
-
-
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -32,22 +32,20 @@ class UserController extends Controller
     }
 
 
-    public function update($userId){
+    public function update($userId,Request $request,UpdateUserInfoRequest $validate){
 
         $userToken = User::where('id', $userId)->first(['remember_token'])->remember_token;
         $requestToken = request()->bearerToken();
-        dd($userToken,$requestToken);
+
+        unset($request['_method']);
+        unset($request['password_confirmation']);
+
         if($userToken == $requestToken){
-
-            $userObj = User::find('id',$userId);
-            dd($userObj);
-            //request()->merge(['profile_img' => request('profile_img')->store('uploads','public')]);
-
-            $user = User::where('id', $userId)
-                ->update(['name' => request()->has('name') ? request()->name : $userObj->name,
-            ]);
-
-            return $user;
+            $request->merge(['password' => Hash::make(request()->password)]);
+            $path = request('avatar')->store('uploads','public');
+            $request->merge(['avatar' => $path]);
+            User::where('id', $userId)->update(request()->all());
+            return "Information updated successfully";
         }else{
             return "Error updating your information";
         }

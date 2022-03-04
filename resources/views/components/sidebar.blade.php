@@ -4,7 +4,6 @@
             <img src="{{url('dist/img/AdminLTELogo.png')}}" class="brand-image img-circle elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light">{{ config('app.name', 'Laravel App') }}</span>
         </a>
-
         <div class="sidebar">
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
@@ -14,7 +13,6 @@
                     <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                 </div>
             </div>
-
             <div class="form-inline">
                 <div class="input-group" data-widget="sidebar-search">
                     <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
@@ -81,13 +79,12 @@
                         </li>
                     @endcan
                         <li class="nav-item">
-                            <a href="{{route('dashboard.packages.index')}}" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.packages.index') ? 'active':''}}">
+                            <a href="#" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.packages.index') ? 'active':''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Buy Package For user</p>
                             </a>
                         </li>
                     </ul>
-
                     </li>
                     <li class="nav-item">
                         <a href="{{route('dashboard.sessions.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.sessions.index') ? 'active':''}}">
@@ -135,7 +132,6 @@
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
-
                         <a href="#" onclick="$('#logout-form').submit();"  class="nav-link">
                             <i class="nav-icon fas fa-sign-out-alt"></i>
                             <p>Logout</p>
