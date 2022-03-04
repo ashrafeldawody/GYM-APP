@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    @yield('page-start')
     <div class="row justify-content-center">
         <div class="col-md-12 mb-5">
             <div class="card">

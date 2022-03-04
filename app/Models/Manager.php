@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -16,7 +15,6 @@ class Manager extends Authenticatable
     protected $hidden = ['password','email_verified_at','is_banned','remember_token','created_at','updated_at'];
     protected $guarded = [];
 
-
     public function coaches() {
         return $this->hasManyThrough(Coach::class, TrainingSessionCoach::class);
     }
@@ -24,15 +22,10 @@ class Manager extends Authenticatable
     public function trainingPackages(){
         return $this->hasMany(TrainingPackage::class);
     }
-
     public function city() {
         return $this->hasOne(City::class);
     }
     public function gym() {
-        return $this->belongsToMany(Gym::class,'gym_managers')->first();
+        return $this->hasOneThrough(Gym::class,GymManager::class,'manager_id','id','id','gym_id');
     }
-    public function gymManager() {
-        return $this->hasOne(GymManager::class);
-    }
-
 }
