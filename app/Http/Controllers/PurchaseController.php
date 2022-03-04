@@ -20,13 +20,12 @@ class PurchaseController extends Controller
      */
     public function index(PurchasesDataTable $dataTable)
     {
-
         if (request()->ajax()) {
             return Datatables::of(PurchaseController::getData())
                 ->addIndexColumn()
                 ->make(true);
         }
-        return $dataTable->render('dashboard.purchases.index');
+        return $dataTable->render('dashboard.purchases.index',['revenue'=>Auth::user()->revenue()]);
     }
 
     /**
@@ -106,7 +105,7 @@ class PurchaseController extends Controller
         } else if (Auth::user()->hasRole('city_manager')) {
             return PurchaseResource::collection(Auth::user()->city->purchases);
         } else {
-            return PurchaseResource::collection(Purchase::all());
+            return PurchaseResource::collection(Purchase::with('trainingPackage','user','gym','gym.city')->get());
         }
     }
 }
