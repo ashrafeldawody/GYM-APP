@@ -22,7 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'gender',
         'password',
         'birth_date',
-        'profile_img',
+        'avatar',
     ];
 
     protected $casts = [
