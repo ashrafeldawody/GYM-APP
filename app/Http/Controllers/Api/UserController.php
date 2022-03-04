@@ -11,6 +11,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -39,12 +41,15 @@ class UserController extends Controller
 
         unset($request['_method']);
         unset($request['password_confirmation']);
-
+        
         if($userToken == $requestToken){
             $request->merge(['password' => Hash::make(request()->password)]);
-            $path = request('avatar')->store('uploads','public');
-            $request->merge(['avatar' => $path]);
             User::where('id', $userId)->update(request()->all());
+
+            User::where('id', $userId)
+                ->update(['avatar'=> $request->has('avatar')? $request->file('avatar')->store('uploads','public'):""]);
+
+
             return "Information updated successfully";
         }else{
             return "Error updating your information";
