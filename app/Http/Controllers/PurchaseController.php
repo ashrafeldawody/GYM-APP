@@ -101,21 +101,12 @@ class PurchaseController extends Controller
      */
     private static function getData(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $authUser = Auth::user();
-
-//        if ($authUser->cannot('show_gym_data')) {
-        if ($authUser->hasRole('gym_manager')) {
-
-            return PurchaseResource::collection($authUser->hasMany(Purchase::class)->with('trainingPackage', 'user')->get());
-
-        } else if ($authUser->hasRole('city_manager')) {
-
-            return PurchaseResource::collection($authUser->hasOne(City::class)->first()->purchases());
-
+        if (Auth::user()->hasRole('gym_manager')) {
+            return PurchaseResource::collection(Auth::user()->hasMany(Purchase::class)->with('trainingPackage', 'user')->get());
+        } else if (Auth::user()->hasRole('city_manager')) {
+            return PurchaseResource::collection(Auth::user()->hasOne(City::class)->first()->purchases());
         } else {
-            
             return PurchaseResource::collection(Purchase::with('manager','gym','user','trainingPackage')->get());
         }
     }
-
 }

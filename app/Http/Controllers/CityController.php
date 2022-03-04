@@ -7,7 +7,7 @@ use App\Models\City;
 use App\Http\Requests\StoreCityRequest;
 use App\Http\Requests\UpdateCityRequest;
 use App\Http\Resources\CityResource;
-use Illuminate\Support\Facades\DB;
+use App\Models\Manager;
 use Yajra\DataTables\Facades\DataTables;
 
 class CityController extends Controller
@@ -28,6 +28,32 @@ class CityController extends Controller
         }
 
         return $dataTable->render('dashboard.cities.index');
+    }
+
+    public function getFormData()
+    {
+        $managers = Manager::get(['id', 'name'])->toArray();
+
+        return [
+            'formLable' => 'City',
+            'fields' => [
+                [
+                    'label' => 'City Name',
+                    'name' => 'name',
+                    'type' => 'text',
+                    'valueKey' => 'name'
+                ],
+                [
+                    'label' => 'Manager',
+                    'name' => 'manager_id',
+                    'type' => 'select',
+                    'valueKey' => 'id',
+                    'text' => 'name',
+                    'compare' => 'manager_name',
+                    'options' => $managers
+                ]
+            ]
+        ];
     }
 
     /**
@@ -82,7 +108,13 @@ class CityController extends Controller
      */
     public function update(UpdateCityRequest $request, City $city)
     {
-        //
+        $city->update($request->validated());
+        $newCityData = Datatables::of(CityResource::collection([$city]))->make(true);
+        return [
+            'result' => true,
+            'userMessage' => "<b>{$city->name}</b> has beed successfully updated",
+            'updatedData' => $newCityData
+        ];
     }
 
     /**

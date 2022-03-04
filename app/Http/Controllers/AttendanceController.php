@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\DataTables\AttendanceDataTable;
 use App\Http\Resources\AttendanceResource;
-use App\Http\Resources\PurchaseResource;
 use App\Models\Attendance;
 use App\Http\Requests\StoreAttendanceRequest;
 use App\Http\Requests\UpdateAttendanceRequest;
-use App\Models\Purchase;
+use App\Models\TrainingSession;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -32,6 +32,50 @@ class AttendanceController extends Controller
                 ->make(true);
         }
         return $dataTable->render('dashboard.attendance.index');
+    }
+
+    public function getFormData()
+    {
+        $users = User::get(['id', 'name'])->toArray();
+        $trainingSessions = TrainingSession::get(['id', 'name'])->toArray();
+        return [
+            'formLable' => 'Attendance',
+            'fields' => [
+                [
+                    'type' => 'select',             // input type
+                    'label' => 'Users',             // label above the input
+                    'name' => 'user_id',            // name of the input
+                    // key used to select the current option (row -> datatable row)
+                    //     row(compare) === options[i][text]
+                    // row('user_name') === $users[i]['name']
+                    'compare' => 'user_name',
+                    'options' => $users,            // options list
+                    'text' => 'name',               // key used to get text of options
+                    'valueKey' => 'id',             // key used to get value of options
+                ],
+                [
+                    'type' => 'select',
+                    'label' => 'Session Name',
+                    'name' => 'training_session_id',
+                    'compare' => 'session_name',
+                    'options' => $trainingSessions,
+                    'text' => 'name',
+                    'valueKey' => 'id',
+                ],
+                [
+                    'type' => 'time',
+                    'label' => 'Session Time',
+                    'name' => 'time',
+                    'valueKey' => 'attendance_time'
+                ],
+                [
+                    'type' => 'date',
+                    'label' => 'Session Date',
+                    'name' => 'time',
+                    'valueKey' => 'attendance_date'
+                ],
+            ]
+        ];
     }
 
     /**
@@ -107,22 +151,13 @@ class AttendanceController extends Controller
      */
     private static function getData()
     {
-        $authUser = Auth::user();
-
-        if ($authUser->hasRole('gym_manager')) {
-
-           return AttendanceResource::collection(Attendance::with('trainingSession', 'user')
-                ->whereIn('training_session_id', $authUser->gymManager->gym->trainingSessions->pluck('id'))
-                ->get());
-
-        } else if ($authUser->hasRole('city_manager')) {
-
-            return null;
-
+        if (Auth::user()->hasRole('gym_manager')) {
+            return AttendanceResource::collection(Auth::user()->gym()->attendances());
+        } else if (Auth::user()->hasRole('city_manager')) {
+            return AttendanceResource::collection(Auth::user()->city->first()->attendances());
         } else {
-            return AttendanceResource::collection(Attendance::with('trainingSession', 'user')->get());
+            return AttendanceResource::collection(Attendance::with('user')->get());
         }
-
     }
 
 

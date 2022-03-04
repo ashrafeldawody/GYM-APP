@@ -12,6 +12,18 @@
     "{{ route('dashboard.attendance.index') }}"
 @endsection
 
+@section('add_endpoint')
+    "{{ route('dashboard.attendance.create', '') }}"
+@endsection
+
+@section('update_endpoint')
+    "{{ route('dashboard.attendance.update', '') }}"
+@endsection
+
+@section('form_data_endpoint')
+    "{{ route('dashboard.attendance.formData') }}"
+@endsection
+
 @section('table_columns')
     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
     {data: 'user_name', name: 'user_name'},
