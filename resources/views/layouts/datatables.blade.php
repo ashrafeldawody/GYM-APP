@@ -144,6 +144,9 @@
                 style: 'os'/* 'multi' */,
                 selector: 'td'
             },
+            createdRow: function (row, data, index) {
+                $(row).css('cursor', 'pointer');
+            },
             order: [[ 1, 'asc' ]]
         });
 
@@ -199,6 +202,7 @@
                 createForm(formData, selectedRow, isToEdit);
 
                 // Show the modal
+                alertsDiv.html('');
                 $('#formModal').modal().show();
             });
         }
@@ -215,6 +219,8 @@
                     formFields += createTextField(field, selectedRow);
                 } else if (field.type == 'select') {
                     formFields += createSelectField(field, selectedRow);
+                } else if (field.type == 'radio') {
+                    formFields += createRadioField(field, selectedRow);
                 } else if (field.type == 'time') {
                     let timeValue = selectedRow ? selectedRow[field.valueKey] : '';
                     formFields += createDateTimeField(field, selectedRow, timeValue);
@@ -251,6 +257,22 @@
                             ).join("")
                         }
                     </select>
+                </div>`;
+        }
+
+        function createRadioField(field, selectedRow) {
+            let radioValue = selectedRow ? selectedRow[field.valueKey] : '';
+            return `<div class="form-group">
+                    <label class="col-form-label">${field.label}</label>
+                    ${
+                        field.options.map(option =>
+                            `<div class="form-check">
+                                <input class="form-check-input" type="radio" ${option.value == radioValue ? 'checked' : ''}
+                                    name="${field.name}" id="${option.value}_input" value="${option.value}">
+                                <label class="form-check-label" for="${option.value}_input">${option.text}</label>
+                            </div>`
+                        ).join("")
+                    }
                 </div>`;
         }
 
