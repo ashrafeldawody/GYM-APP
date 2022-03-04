@@ -155,7 +155,8 @@ class AttendanceController extends Controller
         } else if (Auth::user()->hasRole('city_manager')) {
             return AttendanceResource::collection(Auth::user()->city->attendances());
         } else {
-            return AttendanceResource::collection(Attendance::all());
+            $data = Attendance::all();
+            return AttendanceResource::collection($data);
         }
     }
 

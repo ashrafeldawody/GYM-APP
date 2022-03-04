@@ -2,30 +2,34 @@
 
 ## Gym Manager
 
-
 ```php
+
     $resourcesActions = [
     
         /*_____ * _____ Admin only Resources _____ * _____ */
         // we have to restrict deleting the city if it has gyms inside it
         // you can't delete the package if any manager bought it for user just create a new one
-        ],
-        'city_Managers' => [
-            ''
+        'city_Managers' => [ // ahmed hafez
+            'index', // only 
+            'edit', // only his manager information can't edit his city from her
+            'update',
+            'destroy|delete' // restrict if it has related records
         ], 
-        'cities' => [
+        'cities' => [ // ahmed hafez
+            'index',
             'create|add',
             'store',
             'edit',
             'update',
             'destroy|delete',
-        ],
-        'training_packages' => [
+        ],                          
+        'training_packages' => [ 
+            'index',
             'create|add',
             'store',
             'edit', 
             'update', 
-            'destroy|delete', 
+            'destroy|delete',
          /*_____ * _____ City Manager Resources _____ * _____ */
 
         // admin will see the whole gyms and gymManagers and in gyms tab he will see extra column called "city manager name"
@@ -35,16 +39,20 @@
         // if the admin is creating gym he have to specify in which city and with which gymManager it will be created
 
         // if admin show extra "city manager name" column.
-        'gym' => [
+        'gym' => [ // ahmed hafez
+            'index',
             'create|add',
             'store',
-            'edit', 
+            'edit',
+            'show',
             'update',
             'destroy|delete'
         ],
          // when creating a gym manager we will show a drop-down of gyms and choose which gym the gym manager belongs to.
          // city manager can ban and unban gym manager
-        'gym manager' => [
+
+        'gym manager' => [ // ahmed hafez
+            'index',
             'create|add',
             'store',
             'edit',
@@ -63,14 +71,15 @@
         // make sure when you creating a training session as an admin or city manager you have to specify the gym and after specifying the gym you will reveal the coaches related to that gym
 
         // the same thing with training package we have to specify the gym if you are buying it as city manager or admin
-        'training_sessions' => [
+        'training_sessions' => [  // ashraf
             'create|add',
             'store',
             'edit',
+            'show', // show the coashes according to the session
             'update',
             'destroy|delete' 
         ],
-        'coaches' => [
+        'coaches' => [ // ayman
             'create|add',
             'store',
             'edit',
@@ -144,3 +153,20 @@
         Permission::create(['name'=> '*.*']);
 
 ```
+
+```php
+
+
+/*
+    General Rules 
+    // create methods in Manager model to demote and promote
+        1- Managers Tab 
+            1- General Manager
+                1- Cann't be deleted if this manager related to any other records
+            2- City Manager
+                1- inex
+            3- Gym Manager
+
+*/
+
+````
