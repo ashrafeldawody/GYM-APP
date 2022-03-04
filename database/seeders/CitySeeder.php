@@ -16,14 +16,17 @@ class CitySeeder extends Seeder
      */
     public function run()
     {
-
-        for ($i = 0; $i < 20; $i++) {
-            $manager = Manager::factory()->create();
-            $manager->assignRole('city_manager');
-            City::factory()->create([
-                'manager_id' => $manager->id,
+        for ($i = 1; $i < 4; $i++) {
+            $cityManager = Manager::factory()->create([
+                'name' => "City Manager $i",
+                'password' => Hash::make('123456'),
+                'email' => "manager$i@city$i.com",
             ]);
-
+            $cityManager->assignRole('city_manager');
+            City::factory()->create([
+                'name' => "City $i",
+                'manager_id' => $cityManager->id,
+            ]);
         }
     }
 }

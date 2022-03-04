@@ -153,8 +153,12 @@ class AttendanceController extends Controller
     {
         if (Auth::user()->hasRole('gym_manager')) {
             return AttendanceResource::collection(Auth::user()->gym()->attendances());
+//            return AttendanceResource::collection(Attendance::with('trainingSession', 'user')
+//                ->whereIn('training_session_id', Auth::user()->gymManager->gym->trainingSessions->pluck('id'))
+//                ->get());
+
         } else if (Auth::user()->hasRole('city_manager')) {
-            return AttendanceResource::collection(Auth::user()->city->first()->attendances());
+            return AttendanceResource::collection(Auth::user()->city->attendances());
         } else {
             return AttendanceResource::collection(Attendance::with('user')->get());
         }

@@ -10,6 +10,7 @@ use App\Models\Manager;
 use App\Models\TrainingSession;
 use App\Models\TrainingSessionCoach;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class TrainingSessionCoachesSeeder extends Seeder
 {
@@ -20,7 +21,7 @@ class TrainingSessionCoachesSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 0; $i < 50; $i++) {
+        for($i = 0; $i < 144; $i++) {
             $trainingSessionId = TrainingSession::all()->random()->id;
             $coachId = Coach::all()->random()->id;
             $session = TrainingSessionCoach::where('training_session_id', $trainingSessionId)->where('coach_id', $coachId)->get();
@@ -28,7 +29,7 @@ class TrainingSessionCoachesSeeder extends Seeder
                 TrainingSessionCoach::create([
                     'training_session_id' => $trainingSessionId,
                     'coach_id' => $coachId,
-                    'manager_id' => Manager::all()->random()->id,
+                    'manager_id' =>  Manager::role('gym_manager')->get()->random()->id,
                 ]);
             }
         }

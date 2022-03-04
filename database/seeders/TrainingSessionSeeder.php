@@ -15,6 +15,12 @@ class TrainingSessionSeeder extends Seeder
      */
     public function run()
     {
-        TrainingSession::factory(20)->create();
+        for($i = 1; $i <= 12; $i++) {
+            for ($j = 1; $j <= 12; $j++) {
+                TrainingSession::factory()->create([
+                    'gym_id' => $i,
+                ]);
+            }
+        }
     }
 }

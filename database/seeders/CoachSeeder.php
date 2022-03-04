@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Coach;
+use App\Models\TrainingSession;
 use Illuminate\Database\Seeder;
 
 class CoachSeeder extends Seeder
@@ -14,6 +15,12 @@ class CoachSeeder extends Seeder
      */
     public function run()
     {
-        Coach::factory(50)->create();
+        for($i = 1; $i <= 12; $i++) {
+            for ($j = 1; $j <= 12; $j++) {
+                Coach::factory()->create([
+                    'gym_id' => $i,
+                ]);
+            }
+        }
     }
 }

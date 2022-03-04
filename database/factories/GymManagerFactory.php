@@ -17,6 +17,7 @@ class GymManagerFactory extends Factory
      */
     public function definition()
     {
+
         $manager = Manager::factory()->create();
         $manager->assignRole('gym_manager');
         return [
