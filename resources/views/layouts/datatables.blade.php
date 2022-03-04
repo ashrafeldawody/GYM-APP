@@ -217,6 +217,8 @@
             formData.fields.forEach(field => {
                 if (field.type == 'text' || field.type == 'email') {
                     formFields += createTextField(field, selectedRow);
+                } else if (!isToEdit && field.type == 'password') {
+                    formFields += createTextField(field);
                 } else if (field.type == 'select') {
                     formFields += createSelectField(field, selectedRow);
                 } else if (field.type == 'radio') {
@@ -235,7 +237,7 @@
             formElem.html(formFields);
         }
 
-        function createTextField(field, selectedRow) {
+        function createTextField(field, selectedRow = null) {
             let textValue = selectedRow ? selectedRow[field.valueKey] : '';
             return `<div class="form-group">
                     <label for="${field.name}_input" class="col-form-label">${field.label}</label>
