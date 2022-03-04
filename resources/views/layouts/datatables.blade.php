@@ -5,19 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-12 mb-5">
             <div class="card">
-                <div class="card-header bg-light sticky-top">@yield('table_header')</div>
-                <div class="card-body">
-                    @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                    @endif
-                    <div class="w-100">
-                        {{$dataTable->table()}}
-                    </div>
-                    <div class="rounded fixed-bottom">
-                        <div class="d-flex px-3 py-2" style="background-color: #1f1f1fd1">
-                            <p class="m-auto"><span id="userMessage"></span></p>
+                <div class="card-header bg-light sticky-top">
+                    <div class="d-flex justify-content-between">
+                        <div class="h5 align-self-center my-2">@yield('table_header')</div>
+                        <div class="d-flex">
                             <div id="controlsPanel" style="display: none;">
                                 <button id="editButton" class="btn btn-primary mr-2"><i
                                         class="fa fa-pen mr-2"></i>Edit</button>
@@ -26,6 +17,16 @@
                             </div>
                             <button id="addButton" class="btn btn-success"><i class="fa fa-plus mr-2"></i>Add</button>
                         </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                    @endif
+                    <div class="w-100">
+                        {{$dataTable->table()}}
                     </div>
                 </div>
             </div>
@@ -107,7 +108,6 @@
         const addButton = $('#addButton');
         const editButton = $('#editButton');
         const deleteButton = $('#deleteButton');
-        const userMessage = $('#userMessage');
         const formElem = $('#addEditForm');
         const formLable = $('#formModalLabel');
         const formConfirmBtn = $('#formConfirmBtn');
@@ -404,22 +404,14 @@
 
         function showControlPanel() {
             controlsPanel.show();
-            const selectedCount = datatable.rows('.selected').data().length;
             updateEndpoint ? editButton.show() : editButton.hide();
-            showInfoMessage(`${selectedCount} items has been selected`);
         }
 
         function hideControlPanle() {
             controlsPanel.hide();
-            showInfoMessage("");
         }
 
         // ----- * ----- * ----- * -----
-
-        function showInfoMessage(message) {
-            userMessage.attr('class', 'text-info');
-            userMessage.html(message);
-        }
 
         function showSuccessToast(title, message) {
             $('.toast #toastTitle').html(title);
