@@ -8,6 +8,7 @@ use App\Http\Resources\PurchaseResource;
 use App\Models\Attendance;
 use App\Http\Requests\StoreAttendanceRequest;
 use App\Http\Requests\UpdateAttendanceRequest;
+use App\Models\City;
 use App\Models\Purchase;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -107,23 +108,13 @@ class AttendanceController extends Controller
      */
     private static function getData()
     {
-        $authUser = Auth::user();
-        //Gym::All()[8]->trainingSessions[0]->attendancies;
-       // TrainingSession::All()->first()->attendancies;
-        if ($authUser->hasRole('gym_manager')) {
-
-           return AttendanceResource::collection(Attendance::with('trainingSession', 'user')
-                ->whereIn('training_session_id', $authUser->gymManager->gym->trainingSessions->pluck('id'))
-                ->get());
-
-        } else if ($authUser->hasRole('city_manager')) {
-
-            return null;
-
+        if (Auth::user()->hasRole('gym_manager')) {
+            return AttendanceResource::collection(Auth::user()->gym()->attendances());
+        } else if (Auth::user()->hasRole('city_manager')) {
+            return AttendanceResource::collection(Auth::user()->city->first()->attendances());
         } else {
-            return AttendanceResource::collection(Attendance::with('trainingSession', 'user')->get());
+            return AttendanceResource::collection(Attendance::with('user')->get());
         }
-
     }
 
 
