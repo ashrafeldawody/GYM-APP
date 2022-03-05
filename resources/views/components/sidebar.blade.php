@@ -68,13 +68,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{route('dashboard.general_managers.index')}}" class="nav-link">
                                     <i class="nav-icon fas fa-dumbbell"></i>
                                     <p>General Managers</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{route('dashboard.coaches.index')}}" class="nav-link">
                                     <i class="nav-icon fas fa-users"></i>
                                     <p>Couches</p>
                                 </a>
@@ -84,14 +84,14 @@
                 @else
                 @can('gym_managers')
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('dashboard.gym_managers.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-dumbbell"></i>
                             <p>Gym Managers</p>
                         </a>
                     </li>
                 @endcan
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('dashboard.coaches.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-users"></i>
                             <p>Couches</p>
                         </a>
