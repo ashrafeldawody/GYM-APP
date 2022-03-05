@@ -5,23 +5,23 @@
 @endsection
 
 @section('table_route')
-    "{{ route('dashboard.coaches.index') }}"
+    "{{ route('dashboard.gyms.index') }}"
 @endsection
 
 @section('form_data_endpoint')
-    "{{ route('dashboard.coaches.formData') }}"
+    "{{ route('dashboard.gyms.formData') }}"
 @endsection
 
 @section('add_endpoint')
-    "{{ route('dashboard.coaches.create') }}"
+    "{{ route('dashboard.gyms.create') }}"
 @endsection
 
 @section('update_endpoint')
-    "{{ route('dashboard.coaches.update', '') }}"
+    "{{ route('dashboard.gyms.update', '') }}"
 @endsection
 
 @section('destroy_endpoint')
-    "{{ route('dashboard.coaches.destroy', '') }}"
+    "{{ route('dashboard.gyms.destroy', '') }}"
 @endsection
 @section('table_columns')
     {data: 'DT_RowIndex', name: 'DT_RowIndex'},

@@ -8,9 +8,9 @@
     "{{ route('dashboard.gym_managers.index') }}"
 @endsection
 
-{{--@section('form_data_endpoint')--}}
-{{--    "{{ route('dashboard.gym_managers.formData') }}"--}}
-{{--@endsection--}}
+@section('form_data_endpoint')
+    "{{ route('dashboard.gym_managers.formData') }}"
+@endsection
 
 @section('add_endpoint')
     "{{ route('dashboard.gym_managers.create') }}"

@@ -101,4 +101,61 @@ class SessionsController extends Controller
     {
         //
     }
+    /**
+     * Create an array of fields to create a form in the frontend
+     *
+     * @return array with data neened to create frontend form dinamically
+     */
+    public function getFormData()
+    {
+        return [
+            'formLable' => 'City Manager',
+            'fields' => [
+                [
+                    'type' => 'text',
+                    'label' => 'Manager Name',
+                    'name' => 'name',
+                    'valueKey' => 'name'
+                ],
+                [
+                    'type' => 'email',
+                    'label' => 'Email',
+                    'name' => 'email',
+                    'valueKey' => 'email'
+                ],
+                [
+                    'type' => 'password',
+                    'label' => 'Password',
+                    'name' => 'password'
+                ],
+                [
+                    'type' => 'password',
+                    'label' => 'Confirm Password',
+                    'name' => 'password_confirmation'
+                ],
+                [
+                    'type' => 'text',
+                    'label' => 'National Id',
+                    'name' => 'national_id',
+                    'valueKey' => 'national_id'
+                ],
+                [
+                    'type' => 'radio',
+                    'label' => 'Gender',
+                    'name' => 'gender',
+                    'valueKey' => 'gender',
+                    'options' => [
+                        ['value' => 'male', 'text' => 'Male'],
+                        ['value' => 'female', 'text' => 'Female'],
+                    ]
+                ],
+                [
+                    'type' => 'date',
+                    'label' => 'Birth Date',
+                    'name' => 'birth_date',
+                    'valueKey' => 'birth_date'
+                ],
+            ]
+        ];
+    }
 }
