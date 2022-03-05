@@ -5,17 +5,27 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserInfoRequest;
+use App\Http\Resources\AttendanceApiResource;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
+    // public function __construct($userId){
+    //     $userToken = User::where('id', $userId)->first(['remember_token'])->remember_token;
+    //     $requestToken = request()->bearerToken();
+    //     if ($userToken != $requestToken) {
+    //         return response()
+    //         ->json(['message' => 'Forbidden access, You are not allowed to show or edit this information!']);
+    //     }
+    // }
     // public function index(){
     //     $users = UserResource::collection(User::all());
     //     return $users;
@@ -25,13 +35,29 @@ class UserController extends Controller
         $userToken = User::where('id', $userId)->first(['remember_token'])->remember_token;
         $requestToken = request()->bearerToken();
 
-        if($userToken == $requestToken){ //to make sure every user show and edit his info only
+        if ($userToken == $requestToken) {
             $userData = UserResource::make(User::find($userId));
             return $userData;
-        }else{
-            return "Forbidden access, You are not allowed to show this information";
-        }        
+        } else {
+
+        return response()
+                ->json(['message' => 'Forbidden access, You are not allowed to show this information!']);
+        }
     }
+
+    public function getHistory($userId,User $user){
+        $userToken = User::where('id', $userId)->first(['remember_token'])->remember_token;
+        $requestToken = request()->bearerToken();
+
+        if($userToken == $requestToken){
+            return AttendanceApiResource::collection($user->attendances);    
+        }else{
+            return response()
+                ->json(['message' => 'Forbidden access, You are not allowed to show this information!']);
+        }
+        
+    }
+    
 
 
     public function update($userId,Request $request,UpdateUserInfoRequest $validate){
@@ -41,7 +67,7 @@ class UserController extends Controller
 
         unset($request['_method']);
         unset($request['password_confirmation']);
-        
+
         if($userToken == $requestToken){
             $request->merge(['password' => Hash::make(request()->password)]);
             User::where('id', $userId)->update(request()->all());
@@ -51,10 +77,47 @@ class UserController extends Controller
                     ->update(['avatar'=> $request->file('avatar')->store('uploads','public')]);
             }
 
+            return response()
+                ->json(['message' => 'Information updated successfully!']);
 
-            return "Information updated successfully";
         }else{
-            return "Error updating your information";
+            return response()
+                ->json(['message' => 'Error updating your information!']);
+        }
+    }
+
+    public function getRemainingSessions($userId){
+        $userToken = User::where('id', $userId)->first(['remember_token'])->remember_token;
+        $requestToken = request()->bearerToken();
+        if($userToken == $requestToken){   
+
+        $remainingSessionsCount = User::where('id',$userId)->random()->trainingSessions
+          ->where('starts_at', '>',Carbon::now())->count();
+        $total_training_sessions = User::where('id',$userId)->random()->trainingSessions;
+
+        return response()
+        ->json([
+            'total_training_sessions'=> $total_training_sessions,
+            'remaining__training_sessions'=> $remainingSessionsCount,
+            ]);
+        }
+    }
+
+    public function setRemainingSession($userId){
+        $userToken = User::where('id', $userId)->first(['remember_token'])->remember_token;
+        $requestToken = request()->bearerToken();
+        if($userToken == $requestToken){
+
         }
     }
 }
+
+/*
+ * get the remaining packages replace all by
+ * TrainingSession::all()->where('starts_at', '>', Illuminate\Support\Carbon::now())->count();
+ * $this->trainingSessions->count(); // total
+ * $this->trainingSessions->where('starts_at', '>', Illuminate\Support\Carbon::now())->count(); // remaining
+ *
+ * */
+
+

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Gym extends Model
 {
     use HasFactory;
-    public $timestamps = false;
     protected $guarded = [];
 
     public function managers(){

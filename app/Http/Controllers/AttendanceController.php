@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\AttendanceDataTable;
+use App\Http\Resources\AttendanceApiResource;
 use App\Http\Resources\AttendanceResource;
 use App\Models\Attendance;
 use App\Http\Requests\StoreAttendanceRequest;
@@ -21,10 +22,6 @@ class AttendanceController extends Controller
      */
     public function index(AttendanceDataTable $dataTable)
     {
-        // This method has to return a datatables view that has these columns'
-        // user_name | user_email | training_session_name | attendance_time | attendance_date | gym | city
-        // gym will be shown in case of city manager only
-        // city will be shown in case  of admin only
         if (request()->ajax()) {
 
             return Datatables::of(AttendanceController::getData())
@@ -152,6 +149,8 @@ class AttendanceController extends Controller
     {
         if (Auth::user()->hasRole('gym_manager')) {
             return AttendanceResource::collection(Auth::user()->gym->attendances);
+//            return AttendanceApiResource::collection($user->gym->attendances);
+            //
         } else if (Auth::user()->hasRole('city_manager')) {
             return AttendanceResource::collection(Auth::user()->city->attendances);
         } else {
