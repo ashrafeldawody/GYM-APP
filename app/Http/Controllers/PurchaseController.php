@@ -25,7 +25,12 @@ class PurchaseController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        return $dataTable->render('dashboard.purchases.index',['revenue'=>Auth::user()->revenue()]);
+        return $dataTable->render('dashboard.purchases.index',
+            [
+                'weekly_revenue'=>Auth::user()->revenue(7),
+                'monthly_revenue'=>Auth::user()->revenue(30),
+                'yearly_revenue'=>Auth::user()->revenue(365),
+            ]);
     }
 
     /**
