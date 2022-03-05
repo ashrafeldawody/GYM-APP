@@ -106,6 +106,9 @@
 
         if (!ajaxUrl) return;
 
+        let isSelectable = addEndpoint != null || updateEndpoint != null || destroyEndpoint != null;
+        console.log(isSelectable);
+
         const controlsPanel = $('#controlsPanel');
         const addButton = $('#addButton');
         const editButton = $('#editButton');
@@ -142,8 +145,8 @@
                     targets: 1
                 }
             ],
-            select: {
-                style: 'os'/* 'multi' */,
+            select: isSelectable && {
+                style: 'os',
                 selector: 'td'
             },
             createdRow: function (row, data, index) {
