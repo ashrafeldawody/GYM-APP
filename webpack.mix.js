@@ -10,8 +10,10 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
+mix.autoload({
+    jquery: ['$', 'window.jQuery'],
+});
+mix.js('resources/js/main.js', 'public/js')
+    .sass('resources/sass/main.scss', 'public/css')
     .copy('node_modules/admin-lte/dist/img', 'public/dist/img')
-    .sourceMaps();
+    .copy('node_modules/admin-lte/plugins/fontawesome-free/webfonts', 'public/webfonts')

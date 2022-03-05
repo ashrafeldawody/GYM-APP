@@ -1,6 +1,6 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
+    "/js/main.js": "/js/main.js",
+    "/css/main.css": "/css/main.css",
     "/dist/img/AdminLTELogo.png": "/dist/img/AdminLTELogo.png",
     "/dist/img/avatar.png": "/dist/img/avatar.png",
     "/dist/img/avatar2.png": "/dist/img/avatar2.png",
@@ -27,5 +27,20 @@
     "/dist/img/user5-128x128.jpg": "/dist/img/user5-128x128.jpg",
     "/dist/img/user6-128x128.jpg": "/dist/img/user6-128x128.jpg",
     "/dist/img/user7-128x128.jpg": "/dist/img/user7-128x128.jpg",
-    "/dist/img/user8-128x128.jpg": "/dist/img/user8-128x128.jpg"
+    "/dist/img/user8-128x128.jpg": "/dist/img/user8-128x128.jpg",
+    "/webfonts/fa-brands-400.eot": "/webfonts/fa-brands-400.eot",
+    "/webfonts/fa-brands-400.svg": "/webfonts/fa-brands-400.svg",
+    "/webfonts/fa-brands-400.ttf": "/webfonts/fa-brands-400.ttf",
+    "/webfonts/fa-brands-400.woff": "/webfonts/fa-brands-400.woff",
+    "/webfonts/fa-brands-400.woff2": "/webfonts/fa-brands-400.woff2",
+    "/webfonts/fa-regular-400.eot": "/webfonts/fa-regular-400.eot",
+    "/webfonts/fa-regular-400.svg": "/webfonts/fa-regular-400.svg",
+    "/webfonts/fa-regular-400.ttf": "/webfonts/fa-regular-400.ttf",
+    "/webfonts/fa-regular-400.woff": "/webfonts/fa-regular-400.woff",
+    "/webfonts/fa-regular-400.woff2": "/webfonts/fa-regular-400.woff2",
+    "/webfonts/fa-solid-900.eot": "/webfonts/fa-solid-900.eot",
+    "/webfonts/fa-solid-900.svg": "/webfonts/fa-solid-900.svg",
+    "/webfonts/fa-solid-900.ttf": "/webfonts/fa-solid-900.ttf",
+    "/webfonts/fa-solid-900.woff": "/webfonts/fa-solid-900.woff",
+    "/webfonts/fa-solid-900.woff2": "/webfonts/fa-solid-900.woff2"
 }

@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="container">
+    <div class="container">
     @yield('page-start')
     <div class="row justify-content-center">
         <div class="col-md-12 mb-5">
@@ -92,9 +92,6 @@
 
 {{-- @yield('table_script') --}}
 
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdn.datatables.net/select/1.3.4/js/dataTables.select.min.js"></script>
 
 <script type="text/javascript">
     $(function () {

@@ -7,7 +7,8 @@
     @stack('scripts')
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    <script src="{{ mix('js/main.js') }}"></script>
 
 </head>
 <body class="hold-transition sidebar-mini">

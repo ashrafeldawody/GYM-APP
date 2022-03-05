@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\DataTables\PurchasesDataTable;
 use App\Http\Resources\PurchaseResource;
-use App\Models\City;
 use App\Models\Gym;
 use App\Models\Purchase;
 use App\Http\Requests\StorePurchaseRequest;
 use App\Http\Requests\UpdatePurchaseRequest;
 use App\Models\TrainingPackage;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\Facades\DataTables;
+use Stripe;
 
 class PurchaseController extends Controller
 {
@@ -62,8 +64,17 @@ class PurchaseController extends Controller
      * @param  \App\Http\Requests\StorePurchaseRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePurchaseRequest $request)
+    public function store(Request $request)
     {
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $success = Stripe\Charge::create ([
+            "amount" => 100 * 100,
+            "currency" => "usd",
+            "source" => $request->stripeToken,
+            "description" => "Test payment from tutsmake.com."
+        ]);
+        Session::flash('success', 'Payment successful!');
+        return back();
     }
 
     /**

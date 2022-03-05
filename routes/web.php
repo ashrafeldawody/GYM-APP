@@ -10,6 +10,7 @@ use App\Http\Controllers\GymManagerController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -57,7 +58,9 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
     Route::get('/attendance-form-data', [AttendanceController::class, 'getFormData'])->name('attendance.formData')->middleware('permission:attendance');
 
     Route::resource('packages', PackagesController::class)->middleware('permission:packages');
+
     Route::resource('purchases', PurchaseController::class)->only(['index', 'create', 'store'])->middleware('permission:purchases');
+
 
     Route::prefix('account')->name('account.')->group(function () {
         Route::get('/', [ManagerController::class,'index'])->name('index');
@@ -65,6 +68,7 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
         Route::put('/update-password', [ManagerController::class,'updatePassword'])->name('update-password');
 
     });
+
 });
 
 Auth::routes();
