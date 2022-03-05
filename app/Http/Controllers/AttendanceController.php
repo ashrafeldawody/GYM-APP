@@ -158,6 +158,4 @@ class AttendanceController extends Controller
             return AttendanceResource::collection(Attendance::with('user','trainingSession','trainingSession.gym','trainingSession.gym.city')->get());
         }
     }
-
-
 }

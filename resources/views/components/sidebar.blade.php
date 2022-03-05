@@ -35,14 +35,6 @@
                         </a>
                     </li>
                 @endcan
-                @can('manipulate_city_managers')
-                    <li class="nav-item">
-                        <a href="{{route('dashboard.city-managers.index')}}" class="nav-link">
-                            <i class="nav-icon fas fa-globe-americas"></i>
-                            <p>City Managers</p>
-                        </a>
-                    </li>
-                @endcan
                 @can('show_gym_data')
                     <li class="nav-item">
                         <a href="{{route('dashboard.gyms.index')}}" class="nav-link">
@@ -53,6 +45,37 @@
                         </a>
                     </li>
                 @endcan
+                @role('admin')
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-cubes"></i>
+                            <p>
+                                Managers
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('dashboard.city-managers.index')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-globe-americas"></i>
+                                    <p>City Managers</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-dumbbell"></i>
+                                    <p>Gym Managers</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-dumbbell"></i>
+                                    <p>General Managers</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @else
                 @can('gym_managers')
                     <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -61,31 +84,39 @@
                         </a>
                     </li>
                 @endcan
+                @endrole
+                @role('admin')
                     <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-cubes"></i>
-                        <p>
-                            Training Packages
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                    @can('manipulate_packages')
-                        <li class="nav-item">
-                            <a href="{{route('dashboard.packages.index')}}" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.packages.index') ? 'active':''}}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Packages</p>
-                            </a>
-                        </li>
-                    @endcan
-                        <li class="nav-item">
-                            <a href="#" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.packages.index') ? 'active':''}}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Buy Package For user</p>
-                            </a>
-                        </li>
-                    </ul>
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-cubes"></i>
+                            <p>
+                                Training Packages
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('dashboard.packages.index')}}" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.packages.index') ? 'active':''}}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Packages</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.packages.index') ? 'active':''}}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Buy Package For user</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
+                @else
+                    <li class="nav-item">
+                        <a href="#" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.packages.index') ? 'active':''}}">
+                            <i class="nav-icon fas fa-cubes"></i>
+                            <p>Buy Package For user</p>
+                        </a>
+                    </li>
+                @endrole
                     <li class="nav-item">
                         <a href="{{route('dashboard.sessions.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.sessions.index') ? 'active':''}}">
                             <i class="nav-icon fas fa-calendar-check"></i>
