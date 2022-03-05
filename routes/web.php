@@ -3,7 +3,10 @@
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CityManagerController;
+use App\Http\Controllers\CoachController;
+use App\Http\Controllers\GeneralManagerController;
 use App\Http\Controllers\GymController;
+use App\Http\Controllers\GymManagerController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\SessionsController;
