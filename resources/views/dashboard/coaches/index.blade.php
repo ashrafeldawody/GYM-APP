@@ -8,9 +8,9 @@
     "{{ route('dashboard.coaches.index') }}"
 @endsection
 
-@section('form_data_endpoint')
-    "{{ route('dashboard.coaches.formData') }}"
-@endsection
+{{--@section('form_data_endpoint')--}}
+{{--    "{{ route('dashboard.coaches.formData') }}"--}}
+{{--@endsection--}}
 
 @section('add_endpoint')
     "{{ route('dashboard.coaches.create') }}"
