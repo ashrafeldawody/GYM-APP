@@ -1,7 +1,7 @@
 @extends('layouts.datatables')
 
 @section('table_header')
-    {{ __('Coaches Table') }}
+    {{ __('Gyms Table') }}
 @endsection
 
 @section('table_route')
@@ -23,13 +23,13 @@
 @section('destroy_endpoint')
     "{{ route('dashboard.gyms.destroy', '') }}"
 @endsection
+
 @section('table_columns')
     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
     {data: 'name', name: 'name'},
-    @can('show_gym_data')
-        {data: 'gym', name: 'gym'},
-    @endcan
+    {data: 'created_at', name: 'created_at'},
+    {data: 'cover_image', name: 'cover_image'},
     @can('show_city_data')
-        {data: 'city', name: 'city'},
+        {data: 'city_manager_name', name: 'city_manager_name'},
     @endcan
 @endsection

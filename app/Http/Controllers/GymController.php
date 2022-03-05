@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\GymsDataTable;
+use App\Http\Resources\CoachResource;
+use App\Http\Resources\GymResource;
+use App\Models\Coach;
 use App\Models\Gym;
 use App\Http\Requests\StoreGymRequest;
 use App\Http\Requests\UpdateGymRequest;
+use Yajra\DataTables\Facades\DataTables;
 
 class GymController extends Controller
 {
@@ -13,9 +18,16 @@ class GymController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(GymsDataTable $dataTable)
     {
-        //
+        if (request()->ajax()) {
+            $data = GymResource::collection(Gym::with('city','city.manager')->get());
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return $dataTable->render('dashboard.gyms.index');
     }
 
     /**

@@ -20,7 +20,7 @@ class AttendanceResource extends JsonResource
             'user_email' => $this->user->email,
             'session_name' => $this->trainingSession->name,
             'attendance_time'=> date('h:i:s a', strtotime($this->attendance_datetime)),
-            'attendance_date'=> date('d/m/Y', strtotime($this->attendance_datetime)),
+            'attendance_date'=> date('d-m-Y', strtotime($this->attendance_datetime)),
         ];
         if (Auth::user()->can('show_gym_data')) {
             $dataArray['gym'] = $this->trainingSession->gym->name;
