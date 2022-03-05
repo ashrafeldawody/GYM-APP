@@ -45,8 +45,17 @@ class UserController extends Controller
         }
     }
 
-    public function getHistory(User $user){
-        dd($user->attendances,$user);    
+    public function getHistory($userId,User $user){
+        $userToken = User::where('id', $userId)->first(['remember_token'])->remember_token;
+        $requestToken = request()->bearerToken();
+
+        if($userToken == $requestToken){
+            return AttendanceApiResource::collection($user->attendances);    
+        }else{
+            return response()
+                ->json(['message' => 'Forbidden access, You are not allowed to show this information!']);
+        }
+        
     }
     
 
