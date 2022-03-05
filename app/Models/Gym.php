@@ -31,4 +31,7 @@ class Gym extends Model
     public function attendances() {
         return $this->hasManyThrough(Attendance::class,TrainingSession::class)->with('user','trainingSession');
     }
+    public function creator() {
+        return $this->belongsTo(Manager::class, 'creator_id');
+    }
 }

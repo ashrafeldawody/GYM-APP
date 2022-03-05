@@ -19,6 +19,7 @@ class CreateGymsTable extends Migration
             $table->string('name')->unique();
             $table->string('cover_image')->nullable();
             $table->foreignId('city_id')->constrained();
+            $table->foreignId('creator_id')->references('id')->on('managers')->onUpdate('cascade');
             $table->timestamps();
         });
     }
