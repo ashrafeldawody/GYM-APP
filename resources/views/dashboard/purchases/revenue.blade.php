@@ -3,7 +3,7 @@
         <div class="col-lg-4 col-md-6 col-12">
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>150.00<sup style="font-size: 20px">$</sup></h3>
+                    <h3>{{number_format($weekly_revenue / 100, 2, ',', '.')}}<sup style="font-size: 20px">$</sup></h3>
                     <p>Last Week</p>
                 </div>
                 <div class="icon">
@@ -16,7 +16,7 @@
 
             <div class="small-box bg-success">
                 <div class="inner">
-                    <h3>53.00<sup style="font-size: 20px">$</sup></h3>
+                    <h3>{{number_format($monthly_revenue / 100, 2, ',', '.')}}<sup style="font-size: 20px">$</sup></h3>
                     <p>Last Month</p>
                 </div>
                 <div class="icon">
@@ -29,7 +29,7 @@
 
             <div class="small-box bg-red">
                 <div class="inner">
-                    <h3>44.00<sup style="font-size: 20px">$</sup></h3>
+                    <h3>{{number_format($yearly_revenue / 100, 2, ',', '.')}}<sup style="font-size: 20px">$</sup></h3>
                     <p>Last Year</p>
                 </div>
                 <div class="icon">

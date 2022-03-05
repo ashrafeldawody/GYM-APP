@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -27,5 +28,12 @@ class Manager extends Authenticatable
     public function gym() {
         return $this->hasOneThrough(Gym::class,GymManager::class,'manager_id','id','id','gym_id');
     }
-
+    public function revenue($days){
+        if ($this->hasRole('gym_manager'))
+            return $this->gym->purchases->where('created_at', '>', Carbon::now()->subDays($days))->sum('trainingPackage.price');
+        else if ($this->hasRole('city_manager'))
+            return $this->city->purchases->where('created_at', '>', Carbon::now()->subDays($days))->sum('trainingPackage.price');
+        else
+            return Purchase::where('created_at', '>', Carbon::now()->subDays($days))->get()->sum('trainingPackage.price');
+    }
 }
