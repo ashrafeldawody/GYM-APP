@@ -26,15 +26,15 @@ class UserController extends Controller
         $userToken = User::where('id', $userId)->first(['remember_token'])->remember_token;
         $requestToken = request()->bearerToken();
 
-        if($userToken == $requestToken){
+        if ($userToken == $requestToken) {
             $userData = UserResource::make(User::find($userId));
             return $userData;
-        }else{
-            return "Forbidden access, You are not allowed to show this information";
-        }
-            return response()
+        } else {
+
+        return response()
                 ->json(['message' => 'Forbidden access, You are not allowed to show this information!']);
-        }        
+        }
+    }        
     
 
 
@@ -59,8 +59,6 @@ class UserController extends Controller
                 ->json(['message' => 'Information updated successfully!']);
 
         }else{
-
-            return "Error updating your information";
             return response()
                 ->json(['message' => 'Error updating your information!']);
         }
