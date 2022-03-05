@@ -3,11 +3,13 @@
 use App\Http\Controllers\Api\RegisterationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\VerificationController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -36,21 +38,13 @@ Route::middleware('auth:sanctum','verified')->group(function(){
     });
 
 
-//==============Email verification routes======================
+//==============Email Verification Routes======================
  
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
- 
-    return "Verified Successfully";
-})->middleware(['signed','auth:sanctum'])->name('verification.verify');
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify']
+    )->middleware(['signed','auth:sanctum'])->name('verification.verify');
 
-
-Route::post('/email/verification-notification', function (Request $request) { 
-    //resend verification Email route
-    $request->user()->sendEmailVerificationNotification();
- 
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1','auth:sanctum'])->name('verification.send');
+Route::post('/email/verification-notification', [VerificationController::class, 'resendVerification']
+    )->middleware(['auth', 'throttle:6,1','auth:sanctum'])->name('verification.send');
 
 //==============Token Generator (Sanctum)======================
 
@@ -63,9 +57,6 @@ Route::post('/token', function (Request $request) { //sanctum token generator
     
     $user = User::where('email', $request->email)->first();
 
-    //to be added with migration
-    // User::where('user_id', $user->id)
-    //             ->update(['last_login' => Carbon::now()]);
     
     if (! $user || ! Hash::check($request->password, $user->password)) {
         throw ValidationException::withMessages([
@@ -73,5 +64,12 @@ Route::post('/token', function (Request $request) { //sanctum token generator
         ]);
     }
     
-    return $user->createToken($request->device_name)->plainTextToken;
+    $userToken = $user->createToken($request->device_name)->plainTextToken;
+
+    User::where('id', $user->id)->update([
+        'last_login' => Carbon::now(),
+        'remember_token'=> $userToken
+                ]);
+    
+    return $userToken;
 });

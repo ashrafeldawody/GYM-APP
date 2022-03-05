@@ -51,9 +51,10 @@ class UserController extends Controller
                     ->update(['avatar'=> $request->file('avatar')->store('uploads','public')]);
             }
 
-
             return "Information updated successfully";
+
         }else{
+            
             return "Error updating your information";
         }
     }
