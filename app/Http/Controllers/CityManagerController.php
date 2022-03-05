@@ -18,16 +18,13 @@ class CityManagerController extends Controller
      */
     public function index(CityManagersDataTable $dataTable)
     {
-        $cityManagers = Manager::role('city_manager')->get();
-        //dd(CityManagersResource::collection($cityManagers));
         if (request()->ajax()) {
-            $data = CityManagersResource::collection($cityManagers);
+            $data = CityManagersResource::collection(Manager::role('city_manager')->get());
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->rawColumns(['action'])
                 ->make(true);
         }
-
         return $dataTable->render('dashboard.cityManagers.index');
     }
 

@@ -1,27 +1,27 @@
 @extends('layouts.datatables')
 
 @section('table_header')
-    {{ __('City Managers Table') }}
+    {{ __('Gym Managers Table') }}
 @endsection
 
 @section('table_route')
-    "{{ route('dashboard.city-managers.index') }}"
+    "{{ route('dashboard.gym_managers.index') }}"
 @endsection
 
-@section('form_data_endpoint')
-    "{{ route('dashboard.city-managers.formData') }}"
-@endsection
+{{--@section('form_data_endpoint')--}}
+{{--    "{{ route('dashboard.gym_managers.formData') }}"--}}
+{{--@endsection--}}
 
 @section('add_endpoint')
-    "{{ route('dashboard.city-managers.create') }}"
+    "{{ route('dashboard.gym_managers.create') }}"
 @endsection
 
 @section('update_endpoint')
-    "{{ route('dashboard.city-managers.update', '') }}"
+    "{{ route('dashboard.gym_managers.update', '') }}"
 @endsection
 
 @section('destroy_endpoint')
-    "{{ route('dashboard.city-managers.destroy', '') }}"
+    "{{ route('dashboard.gym_managers.destroy', '') }}"
 @endsection
 
 @section('table_columns')
@@ -31,5 +31,6 @@
     {data: 'national_id', name: 'national_id'},
     {data: 'gender', name: 'gender'},
     {data: 'birth_date', name: 'birth_date'},
+    {data: 'gym', name: 'gym'},
     {data: 'city', name: 'city'},
 @endsection

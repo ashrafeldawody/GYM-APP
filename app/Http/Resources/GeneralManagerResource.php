@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CityManagersResource extends JsonResource
+class GeneralManagerResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -23,7 +23,6 @@ class CityManagersResource extends JsonResource
             'birth_date' => $this->birth_date,
             'avatar' => $this->avatar,
             'is_banned' => $this->is_banned,
-            'city' => $this->city->name,
         ];
     }
 }

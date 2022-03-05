@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class AttendanceResource extends JsonResource
 {
@@ -14,14 +15,19 @@ class AttendanceResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $dataArray = [
             'user_name' => $this->user->name,
             'user_email' => $this->user->email,
             'session_name' => $this->trainingSession->name,
             'attendance_time'=> date('h:i:s a', strtotime($this->attendance_datetime)),
             'attendance_date'=> date('d/m/Y', strtotime($this->attendance_datetime)),
-            'gym' => $this->trainingSession->gym->name,
-            'city' => $this->trainingSession->gym->city->name,
         ];
+        if (Auth::user()->can('show_gym_data')) {
+            $dataArray['gym'] = $this->trainingSession->gym->name;
+        }
+        if (Auth::user()->can('show_city_data')) {
+            $dataArray['city'] = $this->trainingSession->gym->city->name;
+        };
+        return $dataArray;
     }
 }

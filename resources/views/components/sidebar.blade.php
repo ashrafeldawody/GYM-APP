@@ -62,7 +62,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{route('dashboard.gym_managers.index')}}" class="nav-link">
                                     <i class="nav-icon fas fa-dumbbell"></i>
                                     <p>Gym Managers</p>
                                 </a>

@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             CitySeeder::class,
             GymSeeder::class,
+            GeneralManagerSeeder::class,
             GymManagerSeeder::class,
             CoachSeeder::class,
             UserSeeder::class,

@@ -2,14 +2,15 @@
 
 namespace App\DataTables;
 
-use App\Models\Manager;
+use App\Models\GymManager;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class CityManagersDataTable extends DataTable
+class GymManagersDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -21,16 +22,16 @@ class CityManagersDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'citymanagersdatatable.action');
+            ->addColumn('action', 'gymmanagers.action');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Manager $model
+     * @param \App\Models\GymManager $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Manager $model)
+    public function query(GymManager $model)
     {
         return $model->newQuery();
     }
@@ -43,12 +44,18 @@ class CityManagersDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-            ->setTableId('datatable')
-            ->selectAddClassName("table")
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->dom('Bfrtip')
-            ->orderBy(1);
+                    ->setTableId('datatable')
+                    ->columns($this->getColumns())
+                    ->minifiedAjax()
+                    ->dom('Bfrtip')
+                    ->orderBy(1)
+                    ->buttons(
+                        Button::make('create'),
+                        Button::make('export'),
+                        Button::make('print'),
+                        Button::make('reset'),
+                        Button::make('reload')
+                    );
     }
 
     /**
@@ -58,7 +65,7 @@ class CityManagersDataTable extends DataTable
      */
     protected function getColumns()
     {
-        return [
+        $columnsArray = [
             Column::make(''),
             Column::make('#'),
             Column::make('name'),
@@ -66,8 +73,12 @@ class CityManagersDataTable extends DataTable
             Column::make('national_id'),
             Column::make('gender'),
             Column::make('birth_date'),
-            Column::make('city'),
+            Column::make('gym'),
         ];
+        if (Auth::user()->can('show_city_data')) {
+            $columnsArray[] = Column::make('city');
+        }
+        return $columnsArray;
     }
 
     /**
@@ -77,6 +88,6 @@ class CityManagersDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'CityManagers_' . date('YmdHis');
+        return 'GymManagers_' . date('YmdHis');
     }
 }

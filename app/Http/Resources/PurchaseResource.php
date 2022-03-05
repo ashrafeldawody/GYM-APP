@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Html\Column;
 
 class PurchaseResource extends JsonResource
 {
@@ -14,13 +16,18 @@ class PurchaseResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $dataArray = [
             'user_name' => $this->user->name,
             'user_email' => $this->user->email,
             'package_name' => $this->trainingPackage->name,
             'amount_paid' => $this->trainingPackage->price / 100,
-            'gym' => $this->gym->name,
-            'city' => $this->gym->city->name,
         ];
+        if (Auth::user()->can('show_gym_data')) {
+            $dataArray['gym'] = $this->gym->name;
+        }
+        if (Auth::user()->can('show_city_data')) {
+            $dataArray['city'] = $this->gym->city->name;
+        };
+        return $dataArray;
     }
 }
