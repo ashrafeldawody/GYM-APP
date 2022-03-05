@@ -43,7 +43,6 @@ class PackagesController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
