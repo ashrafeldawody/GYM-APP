@@ -6,7 +6,6 @@ use App\Http\Controllers\CityManagerController;
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\PackagesController;
-use App\Http\Controllers\RevenueController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -25,12 +24,12 @@ use App\Http\Controllers\PurchaseController;
 */
 
 Route::get('/', function () {
-    return redirect()->route('dashboard.permission:purchases');
+    return redirect()->route('dashboard.');
 });
 
 Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(function () {
 
-    Route::get('/', [PurchaseController::class, 'index'])->name('permission:purchases');
+    Route::get('/', [PurchaseController::class, 'index'])->middleware('permission:purchases');
 
     Route::resource('city-managers', CityManagerController::class);
     Route::get('/city-managers-form-data', [CityManagerController::class, 'getFormData'])->name('city-managers.formData');

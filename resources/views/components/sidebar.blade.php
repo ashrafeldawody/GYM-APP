@@ -111,14 +111,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('dashboard.purchases.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.purchases.index') || \Illuminate\Support\Facades\Route::is('dashboard.') ? 'active':''}}">
                             <i class="nav-icon fas fa-money-bill-wave"></i>
-                            <p>Revenue</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('dashboard.purchases.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.purchases.index') ? 'active':''}}">
-                            <i class="nav-icon fas fa-cubes"></i>
                             <p>Purchase History</p>
                         </a>
                     </li>
