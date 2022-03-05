@@ -50,6 +50,8 @@
 
     - 📌 Add New Coach
 
+    - 📌 Edit Coach Name
+
     - 📌 Delete Coach
 
       - Check first if he is related to data

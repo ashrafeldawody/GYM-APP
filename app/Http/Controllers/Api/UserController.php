@@ -30,7 +30,7 @@ class UserController extends Controller
             return $userData;
         }else{
             return "Forbidden access, You are not allowed to show this information";
-        }        
+        }
     }
 
 
@@ -41,7 +41,7 @@ class UserController extends Controller
 
         unset($request['_method']);
         unset($request['password_confirmation']);
-        
+
         if($userToken == $requestToken){
             $request->merge(['password' => Hash::make(request()->password)]);
             User::where('id', $userId)->update(request()->all());
@@ -54,8 +54,16 @@ class UserController extends Controller
             return "Information updated successfully";
 
         }else{
-            
+
             return "Error updating your information";
         }
     }
 }
+
+/*
+ * get the remaining packages replace all by
+ * TrainingSession::all()->where('starts_at', '>', Illuminate\Support\Carbon::now())->count();
+ * User->trainingSessions->count(); // total
+ * User->trainingSessions->where('starts_at', '>', Illuminate\Support\Carbon::now())->count(); // remaining
+ *
+ * */
