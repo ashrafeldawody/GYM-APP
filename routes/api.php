@@ -33,7 +33,20 @@ Route::post('new',[RegisterationController::class, 'registerNewUser']);
 Auth::routes(['verify' => true]);
 
 Route::middleware('auth:sanctum','verified')->group(function(){
-    Route::resource('users', UserController::class);
+    Route::get('/users/{user}',[UserController::class, 'show']);
+    Route::put('/users/{user}', [UserController::class, 'update']);
+    Route::get('/users/remaining-sessions/{user}',[UserController::class, 'getRemainingSessions']);
+    Route::post('/users/remaining-sessions/{user}',[UserController::class, 'setRemainingSession']);
+
+
+    // Route::get('/posts', [PostController::class, 'index'])->name('post.index');
+    // Route::get('/posts/create', [PostController::class, 'create'])->name('post.create');
+    // Route::get('/posts/{post}', [PostController::class, 'show'])->name('post.show');
+    // Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('post.edit');
+    // Route::post('/posts',[PostController::class, 'store'])->name('posts.store');
+    // Route::put('/posts/{post}', [PostController::class, 'update'])->name('post.update');
+    // Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('post.destroy');
+    // Route::get('/users', [UserController::class, 'index'])->name('user.index');
     
     });
 

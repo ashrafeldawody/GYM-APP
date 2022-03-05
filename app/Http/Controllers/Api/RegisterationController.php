@@ -42,7 +42,8 @@ class RegisterationController extends Controller
             $newUser["Verification Status"] = "An Email has been sent to your mail, Please verify your mail";
             return $newUser;
         }else{
-            return "An error ocurred while registering your information";
+            return response()
+        ->json(['message' => 'An error ocurred while registering your information!']);
         }
 
 
