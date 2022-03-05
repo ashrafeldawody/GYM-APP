@@ -20,7 +20,7 @@ class City extends Model
 
     public function gyms()
     {
-        return $this->hasMany(Gym::class);
+        return $this->hasMany(Gym::class)->orderBy('name');
     }
     public function purchases() {
         return $this->hasManyThrough(Purchase::class,Gym::class)->with('user','trainingPackage','gym','gym.city');

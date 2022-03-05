@@ -132,7 +132,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.packages.index') ? 'active':''}}">
+                                <a href="{{route('dashboard.purchases.create')}}" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.packages.index') ? 'active':''}}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Buy Package For user</p>
                                 </a>
@@ -141,7 +141,7 @@
                     </li>
                 @else
                     <li class="nav-item">
-                        <a href="#" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.packages.index') ? 'active':''}}">
+                        <a href="{{route('dashboard.purchases.create')}}" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.packages.index') ? 'active':''}}">
                             <i class="nav-icon fas fa-cubes"></i>
                             <p>Buy Package For user</p>
                         </a>

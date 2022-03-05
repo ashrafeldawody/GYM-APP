@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\DataTables\PurchasesDataTable;
 use App\Http\Resources\PurchaseResource;
 use App\Models\City;
+use App\Models\Gym;
 use App\Models\Purchase;
 use App\Http\Requests\StorePurchaseRequest;
 use App\Http\Requests\UpdatePurchaseRequest;
+use App\Models\TrainingPackage;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -40,7 +43,17 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        // This  will show the view of  buy_package_for_user form
+        $packages = TrainingPackage::select('id','name')->orderBy('name')->get();
+        $users = User::select('id','name')->orderBy('name')->get();
+
+        if(Auth::user()->hasRole('city_manager'))
+            $gyms = Auth::user()->city->gyms;
+        else if(Auth::user()->hasRole('gym_manager'))
+            $gyms = Auth::user()->gym;
+        else
+            $gyms = Gym::select('id','name')->orderBy('name')->get();
+
+        return view('dashboard.purchases.buy',compact('packages','users','gyms'));
     }
 
     /**
@@ -51,7 +64,6 @@ class PurchaseController extends Controller
      */
     public function store(StorePurchaseRequest $request)
     {
-        // This method will store a new package record in the database
     }
 
     /**

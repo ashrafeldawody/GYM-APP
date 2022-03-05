@@ -32,10 +32,9 @@ class ManagerController extends Controller
     }
     public function updateBasicInformation(Request $request)
     {
-
         $request->validate([
             'name' => 'required|min:3|max:100',
-            'email' => 'required|email:rfc,dns|max:100',
+            'email' => 'required|unique:managers|email:rfc,dns|max:100',
             'gender' => 'required|in:male,female',
             'birth_date' => 'date_format:Y-m-d|before:today',
             'avatar' => 'mimes:jpg,jpeg,bmp,png'
