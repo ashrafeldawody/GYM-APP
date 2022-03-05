@@ -3,8 +3,10 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Html\Column;
 
-class CityManagersResource extends JsonResource
+class GymManagersResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,7 +16,8 @@ class CityManagersResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+
+        $dataArray = [
             'id' => $this->id,
             'name' => $this->name,
             'national_id' => $this->national_id,
@@ -23,7 +26,12 @@ class CityManagersResource extends JsonResource
             'birth_date' => $this->birth_date,
             'avatar' => $this->avatar,
             'is_banned' => $this->is_banned,
-            'city' => $this->city->name,
+            'gym' => $this->gym->name,
         ];
+        if (Auth::user()->can('show_city_data')) {
+            $dataArray['city'] = $this->gym->city->name;
+        };
+        return $dataArray;
+
     }
 }

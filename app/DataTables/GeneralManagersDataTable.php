@@ -2,14 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\Manager;
+use App\Models\GeneralManager;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class CityManagersDataTable extends DataTable
+class GeneralManagersDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -21,16 +21,16 @@ class CityManagersDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'citymanagersdatatable.action');
+            ->addColumn('action', 'generalmanagers.action');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Manager $model
+     * @param \App\Models\GeneralManager $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Manager $model)
+    public function query(GeneralManager $model)
     {
         return $model->newQuery();
     }
@@ -43,12 +43,18 @@ class CityManagersDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-            ->setTableId('datatable')
-            ->selectAddClassName("table")
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->dom('Bfrtip')
-            ->orderBy(1);
+                    ->setTableId('datatable')
+                    ->columns($this->getColumns())
+                    ->minifiedAjax()
+                    ->dom('Bfrtip')
+                    ->orderBy(1)
+                    ->buttons(
+                        Button::make('create'),
+                        Button::make('export'),
+                        Button::make('print'),
+                        Button::make('reset'),
+                        Button::make('reload')
+                    );
     }
 
     /**
@@ -62,11 +68,10 @@ class CityManagersDataTable extends DataTable
             Column::make(''),
             Column::make('#'),
             Column::make('name'),
-            Column::make('email'),
             Column::make('national_id'),
+            Column::make('email'),
             Column::make('gender'),
             Column::make('birth_date'),
-            Column::make('city'),
         ];
     }
 
@@ -77,6 +82,6 @@ class CityManagersDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'CityManagers_' . date('YmdHis');
+        return 'GeneralManagers_' . date('YmdHis');
     }
 }
