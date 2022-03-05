@@ -50,7 +50,7 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-cubes"></i>
                             <p>
-                                Managers
+                                Employees
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
@@ -73,6 +73,12 @@
                                     <p>General Managers</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Couches</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 @else
@@ -84,7 +90,31 @@
                         </a>
                     </li>
                 @endcan
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>Couches</p>
+                        </a>
+                    </li>
                 @endrole
+                    <li class="nav-item">
+                        <a href="{{route('dashboard.users.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.users.index') ? 'active':''}}">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>Users</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('dashboard.sessions.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.sessions.index') ? 'active':''}}">
+                            <i class="nav-icon fas fa-calendar-check"></i>
+                            <p>Training Sessions</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('dashboard.attendance.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.attendance.index') ? 'active':''}}">
+                            <i class="nav-icon fas fa-user-clock"></i>
+                            <p>Attendance</p>
+                        </a>
+                    </li>
                 @role('admin')
                     <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -117,30 +147,6 @@
                         </a>
                     </li>
                 @endrole
-                    <li class="nav-item">
-                        <a href="{{route('dashboard.sessions.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.sessions.index') ? 'active':''}}">
-                            <i class="nav-icon fas fa-calendar-check"></i>
-                            <p>Training Sessions</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-users"></i>
-                            <p>Couches</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('dashboard.users.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.users.index') ? 'active':''}}">
-                            <i class="nav-icon fas fa-users"></i>
-                            <p>Users</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('dashboard.attendance.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.attendance.index') ? 'active':''}}">
-                            <i class="nav-icon fas fa-user-clock"></i>
-                            <p>Attendance</p>
-                        </a>
-                    </li>
                     <li class="nav-item">
                         <a href="{{route('dashboard.purchases.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.purchases.index') || \Illuminate\Support\Facades\Route::is('dashboard.') ? 'active':''}}">
                             <i class="nav-icon fas fa-money-bill-wave"></i>

@@ -27,31 +27,34 @@ Route::get('/', function () {
     return redirect()->route('dashboard.');
 });
 
+Auth::routes();
 Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(function () {
 
-    Route::get('/', [PurchaseController::class, 'index'])->middleware('permission:purchases');
-
-    Route::resource('city-managers', CityManagerController::class);
-    Route::get('/city-managers-form-data', [CityManagerController::class, 'getFormData'])->name('city-managers.formData');
 
     Route::resource('cities', CityController::class)->middleware('permission:cities');
-
     Route::get('/cities-form-data', [CityController::class, 'getFormData'])->name('cities.formData');
 
     Route::resource('gyms', GymController::class)->middleware('permission:gyms');
     Route::get('/gyms-form-data', [GymController::class, 'getFormData'])->name('gyms.formData');
 
-    Route::resource('purchases', PurchaseController::class)->only(['index', 'create', 'store'])->middleware('permission:purchases');
+    Route::resource('city-managers', CityManagerController::class);
+    Route::get('/city-managers-form-data', [CityManagerController::class, 'getFormData'])->name('city-managers.formData');
 
-    Route::resource('attendance', AttendanceController::class)->only(['index', 'create', 'update'])->middleware('permission:attendance');
+    Route::resource('gym_managers', GymManagerController::class);
 
-    Route::get('/attendance-form-data', [AttendanceController::class, 'getFormData'])->name('attendance.formData');
+    Route::resource('general_managers', GeneralManagerController::class);
 
-    Route::resource('packages', PackagesController::class)->middleware('permission:packages');
+    Route::resource('coaches', CoachController::class);
+
+    Route::resource('users', UserController::class)->middleware('permission:users');
 
     Route::resource('sessions', SessionsController::class)->middleware('permission:sessions');
 
-    Route::resource('users', UserController::class)->middleware('permission:users');
+    Route::resource('attendance', AttendanceController::class)->only(['index', 'create', 'update'])->middleware('permission:attendance');
+    Route::get('/attendance-form-data', [AttendanceController::class, 'getFormData'])->name('attendance.formData');
+
+    Route::resource('packages', PackagesController::class)->middleware('permission:packages');
+    Route::resource('purchases', PurchaseController::class)->only(['index', 'create', 'store'])->middleware('permission:purchases');
 
     Route::prefix('account')->name('account.')->group(function () {
         Route::get('/', [ManagerController::class,'index'])->name('index');
@@ -61,4 +64,3 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
     });
 });
 
-Auth::routes();
