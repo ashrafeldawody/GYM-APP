@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserInfoRequest;
+use App\Http\Resources\AttendanceApiResource;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -17,6 +18,14 @@ use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
+    // public function __construct($userId){
+    //     $userToken = User::where('id', $userId)->first(['remember_token'])->remember_token;
+    //     $requestToken = request()->bearerToken();
+    //     if ($userToken != $requestToken) {
+    //         return response()
+    //         ->json(['message' => 'Forbidden access, You are not allowed to show or edit this information!']);
+    //     }
+    // }
     // public function index(){
     //     $users = UserResource::collection(User::all());
     //     return $users;
@@ -34,7 +43,11 @@ class UserController extends Controller
         return response()
                 ->json(['message' => 'Forbidden access, You are not allowed to show this information!']);
         }
-    }        
+    }
+
+    public function getHistory(User $user){
+        dd($user->attendances,$user);    
+    }
     
 
 
