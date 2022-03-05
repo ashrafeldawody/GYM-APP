@@ -40,14 +40,17 @@ class ManagerController extends Controller
             'birth_date' => 'date_format:Y-m-d|before:today',
             'avatar' => 'mimes:jpg,jpeg,bmp,png'
         ]);
-
         Auth::user()->update([
               "name" => $request->name,
               "email" => $request->email,
               "birth_date" => $request->birth_date,
               "gender" => $request->gender,
-              "avatar" => $request->file('avatar')->store('images/avatars','public')
         ]);
+        if($request->file('avatar') != null){
+            Auth::user()->update([
+                "avatar" => $request->file('avatar')->store('images/avatars','public')
+            ]);
+        }
         return redirect()->route('dashboard.account.index')->with('message', 'Your Information has been updated!');
     }
 
