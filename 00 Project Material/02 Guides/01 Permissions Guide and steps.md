@@ -1,3 +1,4 @@
+```php
 1- Rules
 	=> creation:
 		$role = Rule::create(['name' => 'writer']);
@@ -202,6 +203,7 @@
             return $user->hasRole('Super Admin') ? true : null;
         });
     }
+```
 10- using artisan commands
 	=> You can create a role or permission from the console with artisan commands.
 		php artisan permission:create-role writer
@@ -220,13 +222,13 @@
 		=> There is also a show command to show a table of roles and permissions per guard:
 			php artisan permission:show
 
-11- Using a middleware
+//11- Using a middleware
 	=> Default Middleware
 		// you can use route group like this
 		Route::group(['middleware' => ['can:publish articles']], function () {
 			//
 		});
-	=> Package Middleware
+//	=> Package Middleware
 		// we will use this method in our project to specify the routes for each role
 		Route::group(['middleware' => ['role:super-admin']], function () {
 			//
@@ -248,7 +250,7 @@
 			//
 		});
 
-	=> Alternatively, you can separate multiple roles or permission with a | (pipe) character:
+//	=> Alternatively, you can separate multiple roles or permission with a | (pipe) character:
 		Route::group(['middleware' => ['role:super-admin|writer']], function () {
    			 //
 		});
@@ -260,7 +262,7 @@
 		Route::group(['middleware' => ['role_or_permission:super-admin|edit articles']], function () {
 			//
 		});
-	=> You can protect your controllers similarly, by setting desired middleware in the constructor:
+//	=> You can protect your controllers similarly, by setting desired middleware in the constructor:
 		public function __construct()
 		{
 			$this->middleware(['role:super-admin','permission:publish articles|edit articles']);
@@ -269,3 +271,4 @@
 		{
 			$this->middleware(['role_or_permission:super-admin|edit articles']);
 		}
+```

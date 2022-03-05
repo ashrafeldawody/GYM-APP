@@ -106,7 +106,7 @@ class CityController extends Controller
      * @param  \App\Models\City  $city
      * @return array
      */
-    public function update(UpdateCityRequest $request, City $city)
+    public function update(UpdateCityRequest $request, City $city): array
     {
         $city->update($request->validated());
         $newCityData = Datatables::of(CityResource::collection([$city]))->make(true);
@@ -121,9 +121,9 @@ class CityController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\City  $city
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function destroy(City $city)
+    public function destroy(City $city): array
     {
         if ($city != null) {
             $cityName = $city->name;

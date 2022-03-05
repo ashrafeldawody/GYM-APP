@@ -154,6 +154,8 @@
             },
             order: [[ 1, 'asc' ]]
         });
+        console.log("ajax URl: ", ajaxUrl);
+        console.log("DataTable:: ", datatable);
 
         datatable.on('select deselect draw.dt', function (e, dt, type, indexes) {
             const selectedCount = datatable.rows('.selected').data().length;

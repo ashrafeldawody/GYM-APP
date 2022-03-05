@@ -18,10 +18,8 @@ class GymManagerController extends Controller
      */
     public function index(GymManagersDataTable $dataTable)
     {
-        //
-        $gymManagers = Manager::role('gym_manager')->get();
         if (request()->ajax()) {
-            $data = GymManagersResource::collection($gymManagers);
+            $data = GymManagersResource::collection(Manager::role('gym_manager')->get());
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->rawColumns(['action'])

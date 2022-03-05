@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\GeneralManagerDataTable;
 use App\DataTables\GymManagersDataTable;
 use App\Http\Resources\CityManagersResource;
+use App\Http\Resources\GeneralManagerResource;
 use App\Http\Resources\GymManagersResource;
 use App\Models\Manager;
 use Illuminate\Http\Request;
@@ -16,18 +18,16 @@ class GeneralManagerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(GymManagersDataTable $dataTable)
+    public function index(GeneralManagerDataTable $dataTable)
     {
-        //
-        $gymManagers = Manager::role('gym_manager')->get();
         if (request()->ajax()) {
-            $data = GymManagersResource::collection($gymManagers);
+            $data = GeneralManagerResource::collection(Manager::whereDoesntHave('roles')->get());
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return $dataTable->render('dashboard.gymManagers.index');
+        return $dataTable->render('dashboard.generalManagers.index');
     }
 
     /**
