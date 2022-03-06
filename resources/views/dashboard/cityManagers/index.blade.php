@@ -5,23 +5,15 @@
 @endsection
 
 @section('table_route')
-    "{{ route('dashboard.city-managers.index') }}"
+    "{{ route('dashboard.city_managers.index') }}"
 @endsection
 
 @section('form_data_endpoint')
-    "{{ route('dashboard.city-managers.formData') }}"
-@endsection
-
-@section('add_endpoint')
-    "{{ route('dashboard.city-managers.create') }}"
+    "{{ route('dashboard.city_managers.create') }}"
 @endsection
 
 @section('update_endpoint')
-    "{{ route('dashboard.city-managers.update', '') }}"
-@endsection
-
-@section('destroy_endpoint')
-    "{{ route('dashboard.city-managers.destroy', '') }}"
+    "{{ route('dashboard.city_managers.update', '') }}"
 @endsection
 
 @section('table_columns')

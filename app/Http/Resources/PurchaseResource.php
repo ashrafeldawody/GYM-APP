@@ -17,10 +17,11 @@ class PurchaseResource extends JsonResource
     public function toArray($request)
     {
         $dataArray = [
+            'id' => $this->id,
             'user_name' => $this->user->name,
             'user_email' => $this->user->email,
             'package_name' => $this->trainingPackage->name,
-            'amount_paid' => $this->trainingPackage->price / 100,
+            'amount_paid' => $this->amount_paid / 100,
         ];
         if (Auth::user()->can('show_gym_data')) {
             $dataArray['gym'] = $this->gym->name;

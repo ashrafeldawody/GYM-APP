@@ -20,10 +20,16 @@ class Manager extends Authenticatable
         return $this->hasManyThrough(Coach::class, TrainingSessionCoach::class);
     }
     public function trainingPackages(){
-        return $this->hasMany(TrainingPackage::class);
+        return $this->belongsToMany(TrainingPackage::class);
+    }
+    public function purchases() {
+        return $this->hasMany(Purchase::class);
     }
     public function city() {
         return $this->hasOne(City::class);
+    }
+    public function gyms() {
+        return $this->hasManyThrough(Gym::class, City::class);
     }
     public function gym() {
         return $this->hasOneThrough(Gym::class,GymManager::class,'manager_id','id','id','gym_id');

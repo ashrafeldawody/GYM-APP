@@ -6,10 +6,13 @@ use App\DataTables\SessionsDataTable;
 use App\Http\Resources\CityResource;
 use App\Http\Resources\SessionResource;
 use App\Models\City;
+use App\Models\Coach;
+use App\Models\Manager;
 use App\Models\TrainingPackage;
 use App\Models\TrainingSession;
 use App\Http\Requests\StoreTrainingSessionRequest;
 use App\Http\Requests\UpdateTrainingSessionRequest;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class SessionsController extends Controller
@@ -38,12 +41,67 @@ class SessionsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function create()
     {
         // The creation form will have
         // name | day | start time | finish time | coaches (multiple select)
+        // we have to
+        $formData = [
+            'formLable' => 'Training Session',
+            'fields' => [
+                [
+                    'type' => 'text',
+                    'label' => 'Session Name',
+                    'name' => 'name',
+                    'valueKey' => 'name'
+                ],
+                [
+                    'type' => 'date',
+                    'label' => 'Day',
+                    'name' => 'day',
+                    'valueKey' => 'day'
+                ],
+                [
+                    'type' => 'time',
+                    'label' => 'Start Time',
+                    'name' => 'start_time',
+                    'valueKey' => 'start_time'
+                ],
+                [
+                    'type' => 'time',
+                    'label' => 'Finish Time',
+                    'name' => 'finish_time',
+                    'valueKey' => 'finish_time'
+                ],
+            ]
+        ];
+        if (Auth::user()->hasRole('gym_manager')) {
+            $coaches = Auth::user()->gym->coaches()->get(['id', 'name'])->toArray();
+            $formData['fields'][] = [
+                'label' => 'Coach',
+                'name' => 'coach_id',
+                'type' => 'select',
+                'valueKey' => 'id',
+                'text' => 'name',
+                'compare' => 'coach_name',
+                'options' => $coaches
+            ];
+        } else if (Auth::user()->hasRole('city_manager')) {
+            $gyms = Auth::User()->gyms;
+            $formData['fields'][] = [
+                'label' => 'Gym',
+                'name' => 'gym_id',
+                'type' => 'select',
+                'valueKey' => 'id',
+                'text' => 'name',
+                'compare' => 'gym_name',
+                'options' => $gyms
+            ];
+        } else {
+        }
+        return $formData;
     }
 
     /**
@@ -97,13 +155,14 @@ class SessionsController extends Controller
      * @param  \App\Models\TrainingSession  $trainingSession
      * @return array
      */
-    public function destroy(TrainingSession $trainingSession): array
+    public function destroy($id): array
     {
+        $trainingSession = TrainingSession::find($id);
         $trainingSessionName = $trainingSession->name;
-        if ($trainingSession->attendances()->count() > 0) {
+        if ($trainingSession->attendances->count()) {
             return [
                 'result' => false,
-                'userMessage' => "Can't delete <b>$trainingSessionName</b>, the Session has Users Attends to it"
+                'userMessage' => "Can't delete <b>$trainingSessionName</b> Session because it has Users Attends to it"
             ];
         } else {
             $trainingSession->delete();
@@ -112,62 +171,5 @@ class SessionsController extends Controller
                 'userMessage' => "<b>$trainingSessionName</b> has been successfully deleted"
             ];
         }
-    }
-    /**
-     * Create an array of fields to create a form in the frontend
-     *
-     * @return array with data neened to create frontend form dinamically
-     */
-    public function getFormData()
-    {
-        return [
-            'formLable' => 'City Manager',
-            'fields' => [
-                [
-                    'type' => 'text',
-                    'label' => 'Manager Name',
-                    'name' => 'name',
-                    'valueKey' => 'name'
-                ],
-                [
-                    'type' => 'email',
-                    'label' => 'Email',
-                    'name' => 'email',
-                    'valueKey' => 'email'
-                ],
-                [
-                    'type' => 'password',
-                    'label' => 'Password',
-                    'name' => 'password'
-                ],
-                [
-                    'type' => 'password',
-                    'label' => 'Confirm Password',
-                    'name' => 'password_confirmation'
-                ],
-                [
-                    'type' => 'text',
-                    'label' => 'National Id',
-                    'name' => 'national_id',
-                    'valueKey' => 'national_id'
-                ],
-                [
-                    'type' => 'radio',
-                    'label' => 'Gender',
-                    'name' => 'gender',
-                    'valueKey' => 'gender',
-                    'options' => [
-                        ['value' => 'male', 'text' => 'Male'],
-                        ['value' => 'female', 'text' => 'Female'],
-                    ]
-                ],
-                [
-                    'type' => 'date',
-                    'label' => 'Birth Date',
-                    'name' => 'birth_date',
-                    'valueKey' => 'birth_date'
-                ],
-            ]
-        ];
     }
 }

@@ -359,6 +359,7 @@
         // ----- * ----- * ----- * ----- * ----- * ----- * -----
 
         function showDeleteConfirm() {
+            console.log('in show confirm delete');
             let selectedData = datatable.rows('.selected').data();
             if (!selectedData.length) return;
 
@@ -377,7 +378,9 @@
         }
 
         function confirmDelete() {
+
             itemId = datatable.rows('.selected').data()[0].id;
+            console.log(itemId);
             if (itemId) {
                 toggleControlPanel(false);
                 $.ajax({

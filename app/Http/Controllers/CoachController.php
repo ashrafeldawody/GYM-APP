@@ -9,6 +9,7 @@ use App\Models\Coach;
 use App\Http\Requests\StoreCoachRequest;
 use App\Http\Requests\UpdateCoachRequest;
 use App\Models\Manager;
+use App\Models\TrainingSession;
 use Yajra\DataTables\Facades\DataTables;
 
 class CoachController extends Controller
@@ -33,11 +34,59 @@ class CoachController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function create()
     {
-        //
+        return [
+            'formLable' => 'Coach Manager',
+            'fields' => [
+                [
+                    'type' => 'text',
+                    'label' => 'Manager Name',
+                    'name' => 'name',
+                    'valueKey' => 'name'
+                ],
+                [
+                    'type' => 'email',
+                    'label' => 'Email',
+                    'name' => 'email',
+                    'valueKey' => 'email'
+                ],
+                [
+                    'type' => 'password',
+                    'label' => 'Password',
+                    'name' => 'password'
+                ],
+                [
+                    'type' => 'password',
+                    'label' => 'Confirm Password',
+                    'name' => 'password_confirmation'
+                ],
+                [
+                    'type' => 'text',
+                    'label' => 'National Id',
+                    'name' => 'national_id',
+                    'valueKey' => 'national_id'
+                ],
+                [
+                    'type' => 'radio',
+                    'label' => 'Gender',
+                    'name' => 'gender',
+                    'valueKey' => 'gender',
+                    'options' => [
+                        ['value' => 'male', 'text' => 'Male'],
+                        ['value' => 'female', 'text' => 'Female'],
+                    ]
+                ],
+                [
+                    'type' => 'date',
+                    'label' => 'Birth Date',
+                    'name' => 'birth_date',
+                    'valueKey' => 'birth_date'
+                ],
+            ]
+        ];
     }
 
     /**
@@ -89,68 +138,28 @@ class CoachController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Coach  $coach
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function destroy(Coach $coach)
+    public function destroy($id)
     {
-        //
+        $coach = Coach::find($id);
+        $coachName = $coach->name;
+        $trainingSessionsCount = $coach->trainingSessions->count();
+        if ($trainingSessionsCount) {
+            return [
+                'result' => false,
+                'userMessage' => "Can't delete <b>$coachName</b> Becase he is assigned to $trainingSessionsCount training Sessions"
+            ];
+        } else {
+            $coach->delete();
+            return [
+                'result' => true,
+                'userMessage' => "<b>$coachName</b> has been successfully deleted"
+            ];
+        }
+
+
+
     }
 
-    /**
-     * Create an array of fields to create a form in the frontend
-     *
-     * @return array with data neened to create frontend form dinamically
-     */
-    public function getFormData()
-    {
-        return [
-            'formLable' => 'City Manager',
-            'fields' => [
-                [
-                    'type' => 'text',
-                    'label' => 'Manager Name',
-                    'name' => 'name',
-                    'valueKey' => 'name'
-                ],
-                [
-                    'type' => 'email',
-                    'label' => 'Email',
-                    'name' => 'email',
-                    'valueKey' => 'email'
-                ],
-                [
-                    'type' => 'password',
-                    'label' => 'Password',
-                    'name' => 'password'
-                ],
-                [
-                    'type' => 'password',
-                    'label' => 'Confirm Password',
-                    'name' => 'password_confirmation'
-                ],
-                [
-                    'type' => 'text',
-                    'label' => 'National Id',
-                    'name' => 'national_id',
-                    'valueKey' => 'national_id'
-                ],
-                [
-                    'type' => 'radio',
-                    'label' => 'Gender',
-                    'name' => 'gender',
-                    'valueKey' => 'gender',
-                    'options' => [
-                        ['value' => 'male', 'text' => 'Male'],
-                        ['value' => 'female', 'text' => 'Female'],
-                    ]
-                ],
-                [
-                    'type' => 'date',
-                    'label' => 'Birth Date',
-                    'name' => 'birth_date',
-                    'valueKey' => 'birth_date'
-                ],
-            ]
-        ];
-    }
 }

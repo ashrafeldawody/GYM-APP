@@ -9,7 +9,7 @@
 @endsection
 
 @section('form_data_endpoint')
-    "{{ route('dashboard.general_managers.formData') }}"
+    "{{ route('dashboard.general_managers.create') }}"
 @endsection
 
 @section('add_endpoint')
@@ -18,10 +18,6 @@
 
 @section('update_endpoint')
     "{{ route('dashboard.general_managers.update', '') }}"
-@endsection
-
-@section('destroy_endpoint')
-    "{{ route('dashboard.general_managers.destroy', '') }}"
 @endsection
 
 @section('table_columns')

@@ -12,6 +12,22 @@
     "{{ route('dashboard.packages.index') }}"
 @endsection
 
+@section('form_data_endpoint')
+    "{{ route('dashboard.packages.create') }}"
+@endsection
+
+@section('add_endpoint')
+    "{{ route('dashboard.packages.create') }}"
+@endsection
+
+@section('update_endpoint')
+    "{{ route('dashboard.packages.update', '') }}"
+@endsection
+
+@section('destroy_endpoint')
+    "{{ route('dashboard.packages.destroy', '') }}"
+@endsection
+
 @section('table_columns')
     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
     {data: 'name', name: 'name'},

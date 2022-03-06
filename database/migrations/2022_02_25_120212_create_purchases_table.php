@@ -20,6 +20,8 @@ class CreatePurchasesTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('training_package_id')->constrained();
+            $table->unsignedInteger('amount_paid');
+            $table->unsignedInteger('sessions_number');
             $table->foreignId('manager_id')->constrained();
             $table->foreignId('gym_id')->constrained();
             $table->timestamps();

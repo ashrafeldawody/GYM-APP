@@ -17,11 +17,14 @@ class PurchaseFactory extends Factory
      */
     public function definition()
     {
+        $trainingPackage = TrainingPackage::all()->random();
         return [
             'user_id' => User::all()->random()->id,
-            'training_package_id' => TrainingPackage::all()->random()->id,
+            'training_package_id' => $trainingPackage->id,
             'manager_id' => Manager::all()->random()->id,
             'gym_id' => Gym::all()->random()->id,
+            'amount_paid' => $trainingPackage->price,
+            'sessions_number' => $trainingPackage->sessions_number,
         ];
     }
 }

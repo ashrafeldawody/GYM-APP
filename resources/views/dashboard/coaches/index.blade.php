@@ -9,7 +9,7 @@
 @endsection
 
 @section('form_data_endpoint')
-    "{{ route('dashboard.coaches.formData') }}"
+    "{{ route('dashboard.coaches.create') }}"
 @endsection
 
 @section('add_endpoint')
@@ -23,6 +23,7 @@
 @section('destroy_endpoint')
     "{{ route('dashboard.coaches.destroy', '') }}"
 @endsection
+
 @section('table_columns')
     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
     {data: 'name', name: 'name'},

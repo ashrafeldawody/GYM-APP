@@ -13,8 +13,23 @@
 @endsection
 
 @section('destroy_endpoint')
-    "{{ route('dashboard.gyms.destroy', '') }}"
+    "{{ route('dashboard.sessions.destroy', '') }}"
 @endsection
+
+
+@section('form_data_endpoint')
+    "{{ route('dashboard.sessions.create') }}"
+@endsection
+
+@section('add_endpoint')
+    "{{ route('dashboard.sessions.create') }}"
+@endsection
+
+@section('update_endpoint')
+    "{{ route('dashboard.sessions.update', '') }}"
+@endsection
+
+
 
 @section('table_columns')
     {data: 'DT_RowIndex', name: 'DT_RowIndex'},

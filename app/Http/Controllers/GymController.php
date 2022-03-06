@@ -9,6 +9,7 @@ use App\Models\Coach;
 use App\Models\Gym;
 use App\Http\Requests\StoreGymRequest;
 use App\Http\Requests\UpdateGymRequest;
+use App\Models\Manager;
 use Yajra\DataTables\Facades\DataTables;
 
 class GymController extends Controller
@@ -33,11 +34,32 @@ class GymController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function create()
     {
         //
+        $managers = Manager::whereDoesntHave('roles')->get(['id', 'name'])->toArray();
+        return [
+            'formLable' => 'City',
+            'fields' => [
+                [
+                    'label' => 'City Name',
+                    'name' => 'name',
+                    'type' => 'text',
+                    'valueKey' => 'name'
+                ],
+                [
+                    'label' => 'Manager',
+                    'name' => 'manager_id',
+                    'type' => 'select',
+                    'valueKey' => 'id',
+                    'text' => 'name',
+                    'compare' => 'manager_name',
+                    'options' => $managers
+                ]
+            ]
+        ];
     }
 
     /**
@@ -89,10 +111,22 @@ class GymController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Gym  $gym
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function destroy(Gym $gym)
     {
-        //
+        $gymName = $gym->name;
+        if (count($gym->trainingSessions)) {
+            return [
+                'result' => false,
+                'userMessage' => "Can't delete <b>$gymName</b> Gym because it has training sessions"
+            ];
+        } else {
+            $gym->delete();
+            return [
+                'result' => true,
+                'userMessage' => "<b>$gymName</b> has been successfully deleted"
+            ];
+        }
     }
 }

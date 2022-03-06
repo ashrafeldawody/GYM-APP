@@ -21,6 +21,10 @@ class Gym extends Model
         return $this->hasMany(TrainingSession::class);
     }
 
+    public function coaches() {
+        return $this->hasMany(Coach::class);
+    }
+
     public function trainingPackages(){
         return $this->hasMany(TrainingPackage::class);
     }

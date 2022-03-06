@@ -15,6 +15,7 @@ class SessionResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'starts_at' => $this->starts_at,
             'finishes_at' => $this->finishes_at,

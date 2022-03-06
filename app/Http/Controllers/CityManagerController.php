@@ -7,6 +7,7 @@ use App\Models\Manager;
 use App\Http\Requests\StoreManagerRequest;
 use App\Http\Requests\UpdateManagerRequest;
 use App\Http\Resources\CityManagersResource;
+use TheSeer\Tokenizer\Exception;
 use Yajra\DataTables\Facades\DataTables;
 
 class CityManagerController extends Controller
@@ -28,13 +29,14 @@ class CityManagerController extends Controller
         return $dataTable->render('dashboard.cityManagers.index');
     }
 
-        /**
-     * Create an array of fields to create a form in the frontend
+    /**
+     * Show the form for creating a new resource.
      *
-     * @return array with data neened to create frontend form dinamically
+     * @return array
      */
-    public function getFormData()
+    public function create()
     {
+        //
         return [
             'formLable' => 'City Manager',
             'fields' => [
@@ -87,19 +89,9 @@ class CityManagerController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreManagerRequest  $request
+     * @param \App\Http\Requests\StoreManagerRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreManagerRequest $request)
@@ -110,7 +102,7 @@ class CityManagerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Manager  $manager
+     * @param \App\Models\Manager $manager
      * @return \Illuminate\Http\Response
      */
     public function show(Manager $manager)
@@ -121,7 +113,7 @@ class CityManagerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Manager  $manager
+     * @param \App\Models\Manager $manager
      * @return \Illuminate\Http\Response
      */
     public function edit(Manager $manager)
@@ -132,8 +124,8 @@ class CityManagerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateManagerRequest  $request
-     * @param  \App\Models\Manager  $manager
+     * @param \App\Http\Requests\UpdateManagerRequest $request
+     * @param \App\Models\Manager $manager
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateManagerRequest $request, Manager $manager)
@@ -141,14 +133,4 @@ class CityManagerController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Manager  $manager
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Manager $manager)
-    {
-        //
-    }
 }

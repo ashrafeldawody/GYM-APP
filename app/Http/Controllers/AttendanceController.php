@@ -31,7 +31,12 @@ class AttendanceController extends Controller
         return $dataTable->render('dashboard.attendance.index');
     }
 
-    public function getFormData()
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return array
+     */
+    public function create()
     {
         $users = User::get(['id', 'name'])->toArray();
         $trainingSessions = TrainingSession::get(['id', 'name'])->toArray();
@@ -73,16 +78,6 @@ class AttendanceController extends Controller
                 ],
             ]
         ];
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**

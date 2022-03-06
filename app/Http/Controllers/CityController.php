@@ -32,8 +32,7 @@ class CityController extends Controller
 
     public function getFormData()
     {
-        $managers = Manager::get(['id', 'name'])->toArray();
-
+        $managers = Manager::whereDoesntHave('roles')->get(['id', 'name'])->toArray();
         return [
             'formLable' => 'City',
             'fields' => [
@@ -59,11 +58,31 @@ class CityController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function create()
     {
-        //
+        $managers = Manager::whereDoesntHave('roles')->get(['id', 'name'])->toArray();
+        return [
+            'formLable' => 'City',
+            'fields' => [
+                [
+                    'label' => 'City Name',
+                    'name' => 'name',
+                    'type' => 'text',
+                    'valueKey' => 'name'
+                ],
+                [
+                    'label' => 'Manager',
+                    'name' => 'manager_id',
+                    'type' => 'select',
+                    'valueKey' => 'id',
+                    'text' => 'name',
+                    'compare' => 'manager_name',
+                    'options' => $managers
+                ]
+            ]
+        ];
     }
 
     /**

@@ -9,7 +9,7 @@
 @endsection
 
 @section('form_data_endpoint')
-    "{{ route('dashboard.gym_managers.formData') }}"
+    "{{ route('dashboard.gym_managers.create') }}"
 @endsection
 
 @section('add_endpoint')

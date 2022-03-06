@@ -9,6 +9,8 @@ use App\Models\City;
 use App\Models\TrainingPackage;
 use App\Http\Requests\StoreTrainingPackageRequest;
 use App\Http\Requests\UpdateTrainingPackageRequest;
+use App\Models\TrainingSession;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -39,10 +41,35 @@ class PackagesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function create()
+    public function create(): array
     {
+        $users = User::get(['id', 'name'])->toArray();
+        $trainingSessions = TrainingSession::get(['id', 'name'])->toArray();
+        return [
+            'formLable' => 'Package',
+            'fields' => [
+                [
+                    'label' => 'Package Name',
+                    'name' => 'name',
+                    'type' => 'text',
+                    'valueKey' => 'name'
+                ],
+                [
+                    'type' => 'text',
+                    'label' => 'Price',
+                    'name' => 'price',
+                    'valueKey' => 'price'
+                ],
+                [
+                    'type' => 'text',
+                    'label' => 'Sessions Number',
+                    'name' => 'sessions_number',
+                    'valueKey' => 'sessions_number'
+                ],
+            ]
+        ];
     }
 
     /**
@@ -94,10 +121,23 @@ class PackagesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\TrainingPackage  $trainingPackage
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function destroy(TrainingPackage $trainingPackage)
+    public function destroy($id)
     {
-        //
+        $trainingPackage = TrainingPackage::find($id);
+        $trainingPackageName = $trainingPackage->name;
+        if (count($trainingPackage->purchases)) {
+            return [
+                'result' => false,
+                'userMessage' => "Can't delete <b>$trainingPackageName</b>, package because there is users bought it"
+            ];
+        } else {
+            $trainingPackage->delete();
+            return [
+                'result' => true,
+                'userMessage' => "<b>$trainingPackageName</b> has been successfully deleted"
+            ];
+        }
     }
 }
