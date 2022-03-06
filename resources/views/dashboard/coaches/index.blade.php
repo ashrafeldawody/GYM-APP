@@ -23,6 +23,7 @@
 @section('destroy_endpoint')
     "{{ route('dashboard.coaches.destroy', '') }}"
 @endsection
+
 @section('table_columns')
     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
     {data: 'name', name: 'name'},

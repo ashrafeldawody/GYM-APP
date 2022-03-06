@@ -52,7 +52,7 @@
 
     - 📌 Edit Coach Name
 
-    - 📌 Delete Coach
+    - ✔ Delete Coach
 
       - Check first if he is related to data
 

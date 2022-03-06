@@ -157,7 +157,6 @@ class SessionsController extends Controller
      */
     public function destroy($id): array
     {
-        
         $trainingSession = TrainingSession::find($id);
         $trainingSessionName = $trainingSession->name;
         if ($trainingSession->attendances->count()) {
