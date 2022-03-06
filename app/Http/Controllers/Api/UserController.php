@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
 
-
     public function show(Request $request)
     {
         return UserResource::make($request->user());
@@ -49,7 +48,7 @@ class UserController extends Controller
             ->json(['message' => 'Information updated successfully!']);
     }
 
-    public function getRemainingSessions(Request $request)
+    public function getRemainingSessions(Request $request,$sessionId)
     {
 
         $attendedSessions = $request->user()->attendances->count();
@@ -62,7 +61,8 @@ class UserController extends Controller
         ]);
     }
 
-    public function setRemainingSession(Request $request)
+    public function attend(Request $request)
     {
+        //to be implemented
     }
 }

@@ -6,24 +6,23 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use app\Models\User;
+use App\Models\User;
 
-class WelcomeMailNotification extends Notification implements ShouldQueue
+class WeMissYou extends Notification
 {
     use Queueable;
 
     public $member;
-    public $options;
+
 
     /**
-     * Create a new message instance.
+     * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(User $member, $options = null)
+    public function __construct(User $member)
     {
         $this->member = $member;
-        $this->options = $options;
     }
 
 
@@ -46,10 +45,10 @@ class WelcomeMailNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                ->view('email.welcome_message')->with([
-                    'options' => $this->options
-                ]);
+        return (new MailMessage)->view('email.WeMissYou')->with([
+            'name' => $this->member->name
+        ]);;
+                   
     }
 
     /**
