@@ -13,7 +13,7 @@
 @endsection
 
 @section('destroy_endpoint')
-    "{{ route('dashboard.gyms.destroy', '') }}"
+    "{{ route('dashboard.sessions.destroy', '') }}"
 @endsection
 
 @section('table_columns')

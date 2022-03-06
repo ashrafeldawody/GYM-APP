@@ -70,7 +70,7 @@
 
     - you can't edit the session if their is users attended to it
 
-  - 📌 Delete Training Session
+  - ✔ Delete Training Session
 
     - can't be deleted if it has attendancies.
 

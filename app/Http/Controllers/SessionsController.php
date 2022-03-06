@@ -97,13 +97,14 @@ class SessionsController extends Controller
      * @param  \App\Models\TrainingSession  $trainingSession
      * @return array
      */
-    public function destroy(TrainingSession $trainingSession): array
+    public function destroy($id): array
     {
+        $trainingSession = TrainingSession::find($id);
         $trainingSessionName = $trainingSession->name;
-        if ($trainingSession->attendances()->count() > 0) {
+        if ($trainingSession->attendances->count()) {
             return [
                 'result' => false,
-                'userMessage' => "Can't delete <b>$trainingSessionName</b>, the Session has Users Attends to it"
+                'userMessage' => "Can't delete <b>$trainingSessionName</b> Session because it has Users Attends to it"
             ];
         } else {
             $trainingSession->delete();
