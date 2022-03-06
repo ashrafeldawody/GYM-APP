@@ -20,10 +20,6 @@
     "{{ route('dashboard.general_managers.update', '') }}"
 @endsection
 
-@section('destroy_endpoint')
-    "{{ route('dashboard.general_managers.destroy', '') }}"
-@endsection
-
 @section('table_columns')
     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
     {data: 'name', name: 'name'},

@@ -12,16 +12,8 @@
     "{{ route('dashboard.city_managers.create') }}"
 @endsection
 
-@section('add_endpoint')
-    "{{ route('dashboard.city_managers.create') }}"
-@endsection
-
 @section('update_endpoint')
     "{{ route('dashboard.city_managers.update', '') }}"
-@endsection
-
-@section('destroy_endpoint')
-    "{{ route('dashboard.city_managers.destroy', '') }}"
 @endsection
 
 @section('table_columns')

@@ -6,11 +6,11 @@
 
   - 📌 Edit City name or City Manager
 
-    - 📌 demote CityManager to GeneralManager
+    - ⌛ demote CityManager to GeneralManager
 
     - 📌 promote GeneralManager to CityManager
 
-  - 📌 Delete City only if it has 0 gyms related to it
+  - ✔ Delete City only if it has 0 gyms related to it
 
 - 📌 Gyms
 
@@ -36,15 +36,11 @@
 
     - 📌 ban and unban gymManager
 
-    - 📌 delete gymManager (soft delete)
+    - 📌 delete gymManager (soft delete) This action won't delete him it will just demote him to general
 
   - 📌 General Managers
 
     - 📌 Add new General Manager
-
-    - 📌 Delete General Manager (Soft delete)
-
-      - Check if it has related data first
 
   - 📌 Coaches
 
@@ -58,13 +54,13 @@
 
 - ✔ Users
 
-- ⌛ Training Sessions
+- 📌 Training Sessions
 
-  - ⌛ Add new Training Session (name, day, start time, finish time, coaches(multi select))
+  - 📌 Add new Training Session (name, day, start time, finish time, coaches(multi select))
 
     - Check for the overlap
 
-  - ⌛ Edit Training Session
+  - 📌 Edit Training Session
 
     - no restriction on editing name
 

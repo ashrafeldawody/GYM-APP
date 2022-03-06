@@ -9,6 +9,7 @@ use App\Http\Resources\GeneralManagerResource;
 use App\Http\Resources\GymManagersResource;
 use App\Models\Manager;
 use Illuminate\Http\Request;
+use TheSeer\Tokenizer\Exception;
 use Yajra\DataTables\Facades\DataTables;
 
 class GeneralManagerController extends Controller
@@ -38,7 +39,7 @@ class GeneralManagerController extends Controller
     public function create(): array
     {
         return [
-            'formLable' => 'City Manager',
+            'formLable' => 'General Manager',
             'fields' => [
                 [
                     'type' => 'text',
@@ -129,17 +130,6 @@ class GeneralManagerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Manager $manager)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Manager  $manager
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Manager $manager)
     {
         //
     }
