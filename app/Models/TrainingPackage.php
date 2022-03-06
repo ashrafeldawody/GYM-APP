@@ -14,5 +14,7 @@ class TrainingPackage extends Model
     public function admin(){
         return $this->belongsTo(Manager::class,'admin_id');
     }
-
+    public function purchases() {
+        return $this->hasMany(Purchase::class);
+    }
 }

@@ -24,6 +24,9 @@
     "{{ route('dashboard.packages.update', '') }}"
 @endsection
 
+@section('destroy_endpoint')
+    "{{ route('dashboard.packages.destroy', '') }}"
+@endsection
 
 @section('table_columns')
     {data: 'DT_RowIndex', name: 'DT_RowIndex'},

@@ -69,6 +69,7 @@
     - no restriction on editing name
 
     - you can't edit the session if their is users attended to it
+
   - 📌 Delete Training Session
 
     - can't be deleted if it has attendancies.
@@ -85,6 +86,6 @@
 
   - 📌 Edit Package price or session number
 
-  - 📌 Can't delete package if their is some one bought it
+  - ✔ Can't delete package if their is some one bought it
 
     - Check if you edit a certain package price or sessions number it won't affect on the already bought packages.

@@ -96,13 +96,25 @@ class PackagesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\TrainingPackage  $trainingPackage
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function destroy(TrainingPackage $trainingPackage)
+    public function destroy($id)
     {
-        //
+        $trainingPackage = TrainingPackage::find($id);
+        $trainingPackageName = $trainingPackage->name;
+        if (count($trainingPackage->purchases)) {
+            return [
+                'result' => false,
+                'userMessage' => "Can't delete <b>$trainingPackageName</b>, package because there is users bought it"
+            ];
+        } else {
+            $trainingPackage->delete();
+            return [
+                'result' => true,
+                'userMessage' => "<b>$trainingPackageName</b> has been successfully deleted"
+            ];
+        }
     }
-
 
     public function getFormData()
     {
