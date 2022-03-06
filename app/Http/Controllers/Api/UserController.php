@@ -50,14 +50,14 @@ class UserController extends Controller
         $requestToken = request()->bearerToken();
 
         if($userToken == $requestToken){
-            return AttendanceApiResource::collection($user->attendances);    
+            return AttendanceApiResource::collection($user->attendances);
         }else{
             return response()
                 ->json(['message' => 'Forbidden access, You are not allowed to show this information!']);
         }
-        
+
     }
-    
+
 
 
     public function update($userId,Request $request,UpdateUserInfoRequest $validate){
@@ -86,19 +86,16 @@ class UserController extends Controller
         }
     }
 
-    public function getRemainingSessions($userId){
+    public function getRemainingSessions($userId) {
         $userToken = User::where('id', $userId)->first(['remember_token'])->remember_token;
         $requestToken = request()->bearerToken();
-        if($userToken == $requestToken){   
-
-        $remainingSessionsCount = User::where('id',$userId)->random()->trainingSessions
-          ->where('starts_at', '>',Carbon::now())->count();
-        $total_training_sessions = User::where('id',$userId)->random()->trainingSessions;
-
-        return response()
-        ->json([
-            'total_training_sessions'=> $total_training_sessions,
-            'remaining__training_sessions'=> $remainingSessionsCount,
+        if($userToken == $requestToken) {
+            $attendedSessions = User::where('id', $userId)->first()->attendances->count();
+            $totalTrainingSessions = User::where('id', $userId)->first()->packages->pluck('sessions_number')->sum();
+            $remainingSessionsCount = $totalTrainingSessions - $attendedSessions;
+            return response()->json([
+                'total_training_sessions'=> $totalTrainingSessions,
+                'remaining__training_sessions'=> $remainingSessionsCount,
             ]);
         }
     }
@@ -111,13 +108,3 @@ class UserController extends Controller
         }
     }
 }
-
-/*
- * get the remaining packages replace all by
- * TrainingSession::all()->where('starts_at', '>', Illuminate\Support\Carbon::now())->count();
- * $this->trainingSessions->count(); // total
- * $this->trainingSessions->where('starts_at', '>', Illuminate\Support\Carbon::now())->count(); // remaining
- *
- * */
-
-
