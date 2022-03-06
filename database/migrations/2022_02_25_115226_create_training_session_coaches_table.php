@@ -17,7 +17,7 @@ class CreateTrainingSessionCoachesTable extends Migration
     {
         Schema::create('training_session_coaches', function (Blueprint $table) {
             $table->foreignId('coach_id')->constrained();
-            $table->foreignId('training_session_id')->constrained();
+            $table->foreignId('training_session_id')->constrained()->onDelete('cascade');
             $table->foreignId('manager_id')->constrained();
             $table->primary(['training_session_id', 'coach_id']);
         });
