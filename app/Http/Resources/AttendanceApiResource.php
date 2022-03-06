@@ -15,7 +15,6 @@ class AttendanceApiResource extends JsonResource
      */
     public function toArray($request)
     {
-
         //AttendanceApiResource::collection(User::where('id', $userID)->first()->attendances)
         return [
             'session_name' => $this->trainingSession->name,

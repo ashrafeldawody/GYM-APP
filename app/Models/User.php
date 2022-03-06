@@ -35,20 +35,19 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
     ];
 
-    public function purchases()
-    {
-        return $this->hasMany(Purchase::class, 'user_id');
+    public function purchases() {
+        return $this->hasMany(Purchase::class);
     }
+    public function packages() {
+        return $this->belongsToMany(TrainingPackage::class, 'purchases');
+    }
+
     public function trainingSessions(){
         return $this->belongsToMany(TrainingSession::class, 'attendances');
     }
-    
-    public function attendances() {
-        return $this->hasMany(Attendance::class);
-    }
 
-    public function getRemainingSessions(){
-        $this->trainingSessions->count();
-        $this->trainingSessions->where('starts_at', '>', Carbon::now())->count(); // remaining
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
     }
 }
