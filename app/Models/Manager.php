@@ -43,13 +43,7 @@ class Manager extends Authenticatable
             return Purchase::where('created_at', '>', Carbon::now()->subDays($days))->get()->sum('trainingPackage.price');
     }
 
-
-    public function demoteGymManager() {
-        // 1- delete the gymManager record
-        // 2- remove role
-    }
-    public function promote($newRole) {
-        // if promote to gymManager
-        //
+    public function setRole($role) {
+        $this->syncRoles($role);
     }
 }

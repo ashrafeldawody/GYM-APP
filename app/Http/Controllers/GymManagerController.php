@@ -135,22 +135,17 @@ class GymManagerController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Manager  $manager
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function destroy(Manager $manager)
+    public function destroy($id)
     {
-        //
-    }
-
-
-    /**
-     * Create an array of fields to create a form in the frontend
-     *
-     * @return array with data neened to create frontend form dinamically
-     */
-    public function getFormData()
-    {
-
+        $GymManager = Manager::find($id);
+        $GymManagerName = Manager::find($id)->name;
+        $GymManager->setRole('');
+        return [
+            'result' => true,
+            'userMessage' => "<b>$GymManagerName</b> Deleted Successfuly"
+        ];
     }
 
 }

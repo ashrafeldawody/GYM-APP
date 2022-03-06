@@ -6,7 +6,7 @@
 
   - 📌 Edit City name or City Manager
 
-    - ⌛ demote CityManager to GeneralManager
+    - 📌 demote CityManager to GeneralManager
 
     - 📌 promote GeneralManager to CityManager
 
@@ -36,7 +36,7 @@
 
     - 📌 ban and unban gymManager
 
-    - 📌 delete gymManager (soft delete) This action won't delete him it will just demote him to general
+    - ✔ delete gymManager (soft delete) This action won't delete him it will just demote him to general
 
   - 📌 General Managers
 
