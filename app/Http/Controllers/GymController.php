@@ -89,10 +89,22 @@ class GymController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Gym  $gym
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function destroy(Gym $gym)
     {
-        //
+        $gymName = $gym->name;
+        if (count($gym->trainingSessions)) {
+            return [
+                'result' => false,
+                'userMessage' => "Can't delete <b>$gymName</b> Gym because it has training sessions"
+            ];
+        } else {
+            $gym->delete();
+            return [
+                'result' => true,
+                'userMessage' => "<b>$gymName</b> has been successfully deleted"
+            ];
+        }
     }
 }

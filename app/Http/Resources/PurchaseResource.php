@@ -17,6 +17,7 @@ class PurchaseResource extends JsonResource
     public function toArray($request)
     {
         $dataArray = [
+            'id' => $this->id,
             'user_name' => $this->user->name,
             'user_email' => $this->user->email,
             'package_name' => $this->trainingPackage->name,

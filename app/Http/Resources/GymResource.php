@@ -17,6 +17,7 @@ class GymResource extends JsonResource
     public function toArray($request)
     {
        $dataArray = [
+           'id' => $this->id,
            'name' => $this->name,
            'created_at' => date('d-m-Y', strtotime($this->created_at)),
            'cover_image' => $this->cover_image,

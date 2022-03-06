@@ -18,7 +18,7 @@
 
   - 📌 Edit Gym data (name, cover_image)
 
-  - 📌 Delete Gym only if it has 0 training sessions
+  - ✔ Delete Gym only if it has 0 training sessions
 
   > All Employees Will have same Edit form That will alow the admin to edit their main informations like name, email, ... etc.
   > we can't delete city manager but we can first change the city manager from cities tab then when he is demoted to general manager we can delete him. => but only if he dosn't have any data related to him or we can restrict deleting him.
