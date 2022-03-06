@@ -6,10 +6,13 @@ use App\DataTables\SessionsDataTable;
 use App\Http\Resources\CityResource;
 use App\Http\Resources\SessionResource;
 use App\Models\City;
+use App\Models\Coach;
+use App\Models\Manager;
 use App\Models\TrainingPackage;
 use App\Models\TrainingSession;
 use App\Http\Requests\StoreTrainingSessionRequest;
 use App\Http\Requests\UpdateTrainingSessionRequest;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class SessionsController extends Controller
@@ -44,9 +47,9 @@ class SessionsController extends Controller
     {
         // The creation form will have
         // name | day | start time | finish time | coaches (multiple select)
-
-        return [
-            'formLable' => 'City Manager',
+        // we have to
+        $formData = [
+            'formLable' => 'Training Session',
             'fields' => [
                 [
                     'type' => 'text',
@@ -74,11 +77,31 @@ class SessionsController extends Controller
                 ],
             ]
         ];
-
-
-
-
-
+        if (Auth::user()->hasRole('gym_manager')) {
+            $coaches = Auth::user()->gym->coaches()->get(['id', 'name'])->toArray();
+            $formData['fields'][] = [
+                'label' => 'Coach',
+                'name' => 'coach_id',
+                'type' => 'select',
+                'valueKey' => 'id',
+                'text' => 'name',
+                'compare' => 'coach_name',
+                'options' => $coaches
+            ];
+        } else if (Auth::user()->hasRole('city_manager')) {
+            $gyms = Auth::User()->gyms;
+            $formData['fields'][] = [
+                'label' => 'Gym',
+                'name' => 'gym_id',
+                'type' => 'select',
+                'valueKey' => 'id',
+                'text' => 'name',
+                'compare' => 'gym_name',
+                'options' => $gyms
+            ];
+        } else {
+        }
+        return $formData;
     }
 
     /**

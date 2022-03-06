@@ -25,6 +25,9 @@ class Manager extends Authenticatable
     public function city() {
         return $this->hasOne(City::class);
     }
+    public function gyms() {
+        return $this->hasManyThrough(Gym::class, City::class);
+    }
     public function gym() {
         return $this->hasOneThrough(Gym::class,GymManager::class,'manager_id','id','id','gym_id');
     }

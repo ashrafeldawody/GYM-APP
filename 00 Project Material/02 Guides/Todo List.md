@@ -58,13 +58,13 @@
 
 - ✔ Users
 
-- 📌 Training Sessions
+- ⌛ Training Sessions
 
-  - 📌 Add new Training Session (name, day, start time, finish time, coaches(multi select))
+  - ⌛ Add new Training Session (name, day, start time, finish time, coaches(multi select))
 
     - Check for the overlap
 
-  - 📌 Edit Training Session
+  - ⌛ Edit Training Session
 
     - no restriction on editing name
 

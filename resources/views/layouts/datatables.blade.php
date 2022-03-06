@@ -380,6 +380,7 @@
         function confirmDelete() {
 
             itemId = datatable.rows('.selected').data()[0].id;
+            console.log(itemId);
             if (itemId) {
                 toggleControlPanel(false);
                 $.ajax({
