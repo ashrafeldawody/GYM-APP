@@ -63,6 +63,7 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
     Route::get('/attendance-form-data', [AttendanceController::class, 'getFormData'])->name('attendance.formData')->middleware('permission:attendance');
 
     Route::resource('packages', PackagesController::class)->middleware('permission:packages');
+    Route::get('/packages-form-data', [PackagesController::class, 'getFormData'])->name('packages.formData')->middleware('permission:packages');
 
     Route::resource('purchases', PurchaseController::class)->only(['index', 'create', 'store'])->middleware('permission:purchases');
 

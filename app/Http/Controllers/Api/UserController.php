@@ -53,7 +53,7 @@ class UserController extends Controller
     {
 
         $attendedSessions = $request->user()->attendances->count();
-        $totalTrainingSessions = $request->user()->packages->pluck('sessions_number')->sum();
+        $totalTrainingSessions = $request->user()->purchases->pluck('sessions_number')->sum();
         $remainingSessionsCount = $totalTrainingSessions - $attendedSessions;
 
         return response()->json([
