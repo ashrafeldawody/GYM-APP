@@ -28,13 +28,14 @@ class CityManagerController extends Controller
         return $dataTable->render('dashboard.cityManagers.index');
     }
 
-        /**
-     * Create an array of fields to create a form in the frontend
+    /**
+     * Show the form for creating a new resource.
      *
-     * @return array with data neened to create frontend form dinamically
+     * @return array
      */
-    public function getFormData()
+    public function create()
     {
+        //
         return [
             'formLable' => 'City Manager',
             'fields' => [
@@ -84,16 +85,6 @@ class CityManagerController extends Controller
                 ],
             ]
         ];
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**

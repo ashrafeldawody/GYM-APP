@@ -36,34 +36,24 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
     Route::get('/', [PurchaseController::class, 'index'])->middleware('permission:purchases');
 
     Route::resource('cities', CityController::class)->middleware('permission:cities');
-    Route::get('/cities-form-data', [CityController::class, 'getFormData'])->name('cities.formData')->middleware('permission:cities');
 
     Route::resource('gyms', GymController::class)->middleware('permission:gyms');
-    Route::get('/gyms-form-data', [GymController::class, 'getFormData'])->name('gyms.formData')->middleware('permission:gyms');;
 
     Route::resource('city_managers', CityManagerController::class)->middleware('permission:city_managers');
-    Route::get('/city-managers-form-data', [CityManagerController::class, 'getFormData'])->name('city_managers.formData')->middleware('permission:city_managers');
 
     Route::resource('gym_managers', GymManagerController::class)->middleware('permission:gym_managers');
-    Route::get('/gym-managers-form-data', [GymManagerController::class, 'getFormData'])->name('gym_managers.formData')->middleware('permission:gym_managers');
 
     Route::resource('general_managers', GeneralManagerController::class)->middleware('permission:general_managers');
-    Route::get('/general-managers-form-data', [GeneralManagerController::class, 'getFormData'])->name('general_managers.formData')->middleware('permission:general_managers');
 
     Route::resource('coaches', CoachController::class)->middleware('permission:coaches');
-    Route::get('/coaches-form-data', [CoachController::class, 'getFormData'])->name('coaches.formData')->middleware('permission:coaches');
 
     Route::resource('users', UserController::class)->middleware('permission:users');
-    Route::get('/users-form-data', [UserController::class, 'getFormData'])->name('users.formData')->middleware('permission:users');
 
     Route::resource('sessions', SessionsController::class)->middleware('permission:sessions');
-    Route::get('/sessions-form-data', [SessionsController::class, 'getFormData'])->name('sessions.formData')->middleware('permission:sessions');
 
     Route::resource('attendance', AttendanceController::class)->only(['index', 'create', 'update'])->middleware('permission:attendance');
-    Route::get('/attendance-form-data', [AttendanceController::class, 'getFormData'])->name('attendance.formData')->middleware('permission:attendance');
 
     Route::resource('packages', PackagesController::class)->middleware('permission:packages');
-    Route::get('/packages-form-data', [PackagesController::class, 'getFormData'])->name('packages.formData')->middleware('permission:packages');
 
     Route::resource('purchases', PurchaseController::class)->only(['index', 'create', 'store'])->middleware('permission:purchases');
 

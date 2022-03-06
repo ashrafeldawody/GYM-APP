@@ -13,7 +13,7 @@
 @endsection
 
 @section('form_data_endpoint')
-    "{{ route('dashboard.packages.formData') }}"
+    "{{ route('dashboard.packages.create') }}"
 @endsection
 
 @section('add_endpoint')

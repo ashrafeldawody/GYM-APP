@@ -21,7 +21,7 @@
 @endsection
 
 @section('form_data_endpoint')
-    "{{ route('dashboard.cities.formData') }}"
+    "{{ route('dashboard.cities.create') }}"
 @endsection
 
 @section('table_columns')

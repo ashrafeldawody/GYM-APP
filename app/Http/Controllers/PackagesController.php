@@ -41,10 +41,35 @@ class PackagesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function create()
+    public function create(): array
     {
+        $users = User::get(['id', 'name'])->toArray();
+        $trainingSessions = TrainingSession::get(['id', 'name'])->toArray();
+        return [
+            'formLable' => 'Package',
+            'fields' => [
+                [
+                    'label' => 'Package Name',
+                    'name' => 'name',
+                    'type' => 'text',
+                    'valueKey' => 'name'
+                ],
+                [
+                    'type' => 'text',
+                    'label' => 'Price',
+                    'name' => 'price',
+                    'valueKey' => 'price'
+                ],
+                [
+                    'type' => 'text',
+                    'label' => 'Sessions Number',
+                    'name' => 'sessions_number',
+                    'valueKey' => 'sessions_number'
+                ],
+            ]
+        ];
     }
 
     /**
@@ -115,34 +140,4 @@ class PackagesController extends Controller
             ];
         }
     }
-
-    public function getFormData()
-    {
-        $users = User::get(['id', 'name'])->toArray();
-        $trainingSessions = TrainingSession::get(['id', 'name'])->toArray();
-        return [
-            'formLable' => 'Package',
-            'fields' => [
-                [
-                    'label' => 'Package Name',
-                    'name' => 'name',
-                    'type' => 'text',
-                    'valueKey' => 'name'
-                ],
-                [
-                    'type' => 'text',
-                    'label' => 'Price',
-                    'name' => 'price',
-                    'valueKey' => 'price'
-                ],
-                [
-                    'type' => 'text',
-                    'label' => 'Sessions Number',
-                    'name' => 'sessions_number',
-                    'valueKey' => 'sessions_number'
-                ],
-            ]
-        ];
-    }
-
 }
