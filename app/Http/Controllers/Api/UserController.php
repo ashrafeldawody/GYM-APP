@@ -32,21 +32,20 @@ class UserController extends Controller
     // }
 
     public function show($userId){
-        $userToken = User::where('id', $userId)->first(['remember_token'])->remember_token;
+        $userToken = User::find($userId)->remember_token;
         $requestToken = request()->bearerToken();
 
         if ($userToken == $requestToken) {
             $userData = UserResource::make(User::find($userId));
             return $userData;
         } else {
-
-        return response()
-                ->json(['message' => 'Forbidden access, You are not allowed to show this information!']);
+            return response()
+                    ->json(['message' => 'Forbidden access, You are not allowed to show this information!']);
         }
     }
 
     public function getHistory($userId,User $user){
-        $userToken = User::where('id', $userId)->first(['remember_token'])->remember_token;
+        $userToken = User::find($userId)->remember_token;
         $requestToken = request()->bearerToken();
 
         if($userToken == $requestToken){
@@ -62,7 +61,7 @@ class UserController extends Controller
 
     public function update($userId,Request $request,UpdateUserInfoRequest $validate){
 
-        $userToken = User::where('id', $userId)->first(['remember_token'])->remember_token;
+        $userToken =User::find($userId)->remember_token;
         $requestToken = request()->bearerToken();
 
         unset($request['_method']);
@@ -70,10 +69,10 @@ class UserController extends Controller
 
         if($userToken == $requestToken){
             $request->merge(['password' => Hash::make(request()->password)]);
-            User::where('id', $userId)->update(request()->all());
+            User::find($userId)->update(request()->all());
 
             if($request->has('avatar')){
-                User::where('id', $userId)
+                User::find($userId)
                     ->update(['avatar'=> $request->file('avatar')->store('uploads','public')]);
             }
 
@@ -87,21 +86,24 @@ class UserController extends Controller
     }
 
     public function getRemainingSessions($userId) {
-        $userToken = User::where('id', $userId)->first(['remember_token'])->remember_token;
+        $userToken = User::find($userId)->remember_token;
         $requestToken = request()->bearerToken();
         if($userToken == $requestToken) {
-            $attendedSessions = User::where('id', $userId)->first()->attendances->count();
-            $totalTrainingSessions = User::where('id', $userId)->first()->packages->pluck('sessions_number')->sum();
+            $attendedSessions = User::find($userId)->attendances->count();
+            $totalTrainingSessions = User::find($userId)->packages->pluck('sessions_number')->sum();
             $remainingSessionsCount = $totalTrainingSessions - $attendedSessions;
             return response()->json([
                 'total_training_sessions'=> $totalTrainingSessions,
                 'remaining__training_sessions'=> $remainingSessionsCount,
             ]);
+        } else {
+            return response()
+                ->json(['message' => 'Forbidden access, You are not allowed to show this information!']);
         }
     }
 
     public function setRemainingSession($userId){
-        $userToken = User::where('id', $userId)->first(['remember_token'])->remember_token;
+        $userToken = User::find($userId)->remember_token;
         $requestToken = request()->bearerToken();
         if($userToken == $requestToken){
 
