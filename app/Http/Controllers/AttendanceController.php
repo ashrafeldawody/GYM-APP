@@ -44,7 +44,7 @@ class AttendanceController extends Controller
             'formLable' => 'Attendance',
             'fields' => [
                 [
-                    'type' => 'select',             // input type
+                     'type' => 'select',             // input type
                     'label' => 'Users',             // label above the input
                     'name' => 'user_id',            // name of the input
                     // key used to select the current option (row -> datatable row)
