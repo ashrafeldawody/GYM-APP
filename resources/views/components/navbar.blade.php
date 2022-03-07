@@ -1,5 +1,5 @@
 <div>
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <nav class="main-header navbar navbar-expand navbar-light">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
@@ -108,6 +108,16 @@
                 <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                     <i class="fas fa-expand-arrows-alt"></i>
                 </a>
+            </li>
+            <li class="nav-item">
+
+                <div class="custom-control custom-switch custom-switch-xl">
+                    <label class="theme-switch" for="checkbox">
+                        <input id="darkmode" type="checkbox" class="custom-control-input">
+                        <label class="custom-control-label" for="darkmode"></label>
+
+                    </label>
+                </div>
             </li>
         </ul>
     </nav>

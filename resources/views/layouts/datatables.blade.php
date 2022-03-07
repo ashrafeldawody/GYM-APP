@@ -1,6 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
+
     <div class="container">
     @yield('page-start')
     <div class="row justify-content-center">

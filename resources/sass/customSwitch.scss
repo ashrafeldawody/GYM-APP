@@ -1,0 +1,60 @@
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: green;
+    border-color: darken(green, 10%);
+}
+
+//---------------CUSTOM SIZE STYLING---------------//
+
+// Add class `.custom-switch-lg` to a `custom-switch`
+.custom-switch.custom-switch-lg {
+    padding-bottom: 1rem;
+    padding-left: 2.25rem;
+
+    & .custom-control-label {
+        padding-left: .75rem;
+        padding-top: 0.15rem;
+
+        &::before {
+            border-radius: 1rem;
+            height: 1.5rem;
+            width: 2.5rem;
+        }
+
+        &::after {
+            border-radius: .65rem;
+            height: calc(1.5rem - 4px);
+            width: calc(1.5rem - 4px);
+        }
+    }
+
+    .custom-control-input:checked ~ .custom-control-label::after{
+        transform: translateX(1rem);
+    }
+}
+
+// Add class `.custom-switch-xl` to a `custom-switch`
+.custom-switch.custom-switch-xl {
+    padding-bottom: 1rem;
+    padding-left: 2.25rem;
+
+    & .custom-control-label {
+        padding-left: 2rem;
+        padding-top: 0.5rem;
+
+        &::before {
+            border-radius: 1rem;
+            height: 2rem;
+            width: 3.5rem;
+        }
+
+        &::after {
+            border-radius: 2rem;
+            height: calc(2rem - 4px);
+            width: calc(2rem - 4px);
+        }
+    }
+
+    .custom-control-input:checked ~ .custom-control-label::after {
+        transform: translateX(1.5rem);
+    }
+}

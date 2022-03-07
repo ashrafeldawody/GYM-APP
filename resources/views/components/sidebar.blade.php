@@ -1,4 +1,7 @@
-<div>
+<div class="wrapper">
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img src="{{url('dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60" width="60">
+    </div>
     <aside class="main-sidebar sidebar-dark-primary elevation-4 position-fixed h-100">
         <a href="#" class="brand-link">
             <img src="{{url('dist/img/AdminLTELogo.png')}}" class="brand-image img-circle elevation-3" style="opacity: .8">
