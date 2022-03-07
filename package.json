@@ -19,8 +19,6 @@
     },
     "dependencies": {
         "admin-lte": "3.2",
-        "jquery": "^3.6.0",
-        "n": "^8.0.2",
-        "stable": "^0.1.8"
+        "jquery": "^3.6.0"
     }
 }
