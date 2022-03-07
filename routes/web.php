@@ -93,7 +93,7 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
     Route::resource('packages', PackagesController::class)->middleware('permission:packages');
 
     Route::resource('purchases', PurchaseController::class)->only(['index', 'create', 'store'])->middleware('permission:purchases');
-
+    Route::get('purchases/finish/{status}',[PurchaseController::class,'pay'])->middleware('permission:purchases');
 
     Route::prefix('account')->name('account.')->group(function () {
         Route::get('/', [ManagerController::class,'index'])->name('index');

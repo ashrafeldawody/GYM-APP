@@ -25,6 +25,7 @@ class PurchaseFactory extends Factory
             'gym_id' => Gym::all()->random()->id,
             'amount_paid' => $trainingPackage->price,
             'sessions_number' => $trainingPackage->sessions_number,
+            'is_paid' => 1
         ];
     }
 }

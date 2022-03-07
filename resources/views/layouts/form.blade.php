@@ -2,24 +2,12 @@
 
 @section('content')
 
-    @if (Session::has('success'))
-        <div class="alert alert-success text-center">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-            <p>{{ Session::get('success') }}</p>
-        </div>
-    @endif
+    <div class="w-75 m-auto">
+        @if(Session::has('message'))
+            <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+        @endif
+    <div class="card card-primary">
 
-    @if(count($errors) > 0)
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <div class="card card-primary w-75 m-auto">
         <div class="card-header">
             @yield("card-title")
         </div>
@@ -36,6 +24,6 @@
         </form>
 
     </div>
-@yield('page-footer')
+    </div>
 @endsection
 
