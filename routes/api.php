@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\RegisterationController;
+use App\Http\Controllers\Api\RegistrationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VerificationController;
@@ -28,18 +28,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::post('new',[RegisterationController::class, 'registerNewUser']);
+Route::post('new',[RegistrationController::class, 'registerNewUser']);
 
 Auth::routes(['verify' => true]);
 
 Route::middleware('auth:sanctum','verified')->group(function(){
-    Route::get('/users/{user}',[UserController::class, 'show']);
-    Route::put('/users/{user}', [UserController::class, 'update']);
-    Route::get('/users/remaining-sessions/{user}',[UserController::class, 'getRemainingSessions']);
-    Route::post('/users/remaining-sessions/{user}',[UserController::class, 'setRemainingSession']);
-    Route::get('/users/{user}/history', [UserController::class, 'getHistory']);
+    Route::get('/users/',[UserController::class, 'show']);
+    Route::put('/users/', [UserController::class, 'update']);
+    Route::get('/users/remaining-sessions/',[UserController::class, 'getRemainingSessions']);
+    Route::post('/users/training-sessions/{id}/attend',[UserController::class, 'attend']);
+    Route::get('/users/history', [UserController::class, 'getHistory']);
 
-    
     });
 
 
@@ -73,7 +72,6 @@ Route::post('/token', function (Request $request) { //sanctum token generator
 
     User::where('id', $user->id)->update([
         'last_login' => Carbon::now(),
-        'remember_token'=> $userToken
                 ]);
     
     return $userToken;

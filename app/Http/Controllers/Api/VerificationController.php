@@ -8,15 +8,21 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Notifications\WelcomeMailNotification;
 use Illuminate\Support\Facades\Notification;
-
+use App\Mail\WelcomeMember;
+use Illuminate\Support\Facades\Mail;
 
 class VerificationController extends Controller
 {
     public  function verify(EmailVerificationRequest $request,$userId){
         
         $request->fulfill();
+
         $newUser = User::where('id',$userId)->first();
-        Notification::send($newUser,new WelcomeMailNotification($newUser));
+
+
+        // Notification::send($newUser,new WelcomeMailNotification($newUser));
+        Mail::to($newUser)->send(new WelcomeMember($newUser));
+
 
         return response()
         ->json(['message' => 'Verified Successfully']);

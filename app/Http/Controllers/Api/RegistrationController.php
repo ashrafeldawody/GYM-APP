@@ -11,7 +11,7 @@ use Illuminate\Auth\Events\Registered;
 
 
 
-class RegisterationController extends Controller
+class RegistrationController extends Controller
 {
     public function registerNewUser(StoreUserRequest $request){
         //caution > [password_confirmation] must be in the request
@@ -28,7 +28,6 @@ class RegisterationController extends Controller
             'gender'=> request()->gender,
             'birth_date'=> request()->birth_date,
             'password'=> Hash::make(request()->password),
-            // 'avatar'=> request('avatar')->store('uploads','public'),
         ]);
 
         if($request->has('avatar')){
@@ -36,16 +35,18 @@ class RegisterationController extends Controller
                 ->update(['avatar'=> $request->file('avatar')->store('uploads','public')]);
         }
 
+
         if($newUser){
             event(new Registered($newUser));
-
             $newUser["Verification Status"] = "An Email has been sent to your mail, Please verify your mail";
+
             return $newUser;
+
         }else{
+            
             return response()
         ->json(['message' => 'An error ocurred while registering your information!']);
         }
-
 
     }
 }

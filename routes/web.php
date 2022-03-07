@@ -15,6 +15,11 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PurchaseController;
+use App\Models\User;
+use App\Mail\WelcomeMember;
+use App\Mail\VerifyEmail;
+use App\Mail\ForgotPassword;
+use App\Mail\WeMissYou;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +35,38 @@ use App\Http\Controllers\PurchaseController;
 Route::get('/', function () {
     return redirect()->route('dashboard.');
 });
+
+//=======for testing only====
+Route::get('welcome-member', function () {
+
+    $member = User::where('id',15)->first();
+    return new WelcomeMember($member);
+});
+
+Route::get('verify-email', function () {
+
+    $member = User::where('id',15)->first();
+    $options = array(
+        'verify_url' => 'http://gotohere.com',
+    );
+    return new VerifyEmail($member, $options);
+});
+
+Route::get('forgot-password', function () {
+
+    $member = User::where('id',15)->first();
+    $options = array(
+        'reset_link' => 'http://gotohere.com',
+    );
+    return new ForgotPassword($member, $options);
+});
+
+// Route::get('we-miss-you', function () {
+
+//     $member = User::where('id',15)->first();
+//     return new WeMissYou($member);
+// });
+//=======
 
 Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(function () {
 
