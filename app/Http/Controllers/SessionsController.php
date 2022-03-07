@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\SessionsDataTable;
+use App\Http\Resources\CityGymCoachesResource;
 use App\Http\Resources\CityResource;
+use App\Http\Resources\GymCoachesResource;
 use App\Http\Resources\SessionResource;
 use App\Models\City;
 use App\Models\Coach;
+use App\Models\Gym;
 use App\Models\Manager;
 use App\Models\TrainingPackage;
 use App\Models\TrainingSession;
@@ -26,16 +29,13 @@ class SessionsController extends Controller
     {
         // This method has to return a datatables view that has these columns'
         // name | starts_at | finishes_at
-
         if (request()->ajax()) {
             $data = SessionResource::collection(TrainingSession::all());
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->make(true);
         }
-
         return $dataTable->render('dashboard.sessions.index');
-
     }
 
     /**
@@ -45,6 +45,7 @@ class SessionsController extends Controller
      */
     public function create()
     {
+
         // The creation form will have
         // name | day | start time | finish time | coaches (multiple select)
         // we have to
@@ -89,17 +90,51 @@ class SessionsController extends Controller
                 'options' => $coaches
             ];
         } else if (Auth::user()->hasRole('city_manager')) {
-            $gyms = Auth::User()->gyms;
+            $data  = GymCoachesResource::collection(Auth::User()->gyms);
             $formData['fields'][] = [
-                'label' => 'Gym',
-                'name' => 'gym_id',
-                'type' => 'select',
-                'valueKey' => 'id',
-                'text' => 'name',
-                'compare' => 'gym_name',
-                'options' => $gyms
+                'type' => 'nestedSelect',
+                'gyms' => $data,
+                'levels' => [
+                   [
+                       'key' => 'gyms',
+                       'label' => 'Gym',
+                       'text' => 'name',
+                   ],
+                   [
+                       'key' => 'coaches',
+                       'label' => 'coach',
+                       'valueKey' => 'id',
+                       'text' => 'name',
+                       'inputName' => 'coach_id'
+                   ]
+                ],
             ];
         } else {
+            $data  = CityGymCoachesResource::collection(City::with('gyms', 'gyms.coaches')->get());
+            $formData['fields'][] = [
+
+                'type' => 'nestedSelect',
+                'cities' => $data,
+                'levels' => [
+                    [
+                        'key' => 'cities',
+                        'label' => 'City',
+                        'text' => 'name',
+                    ],
+                    [
+                        'key' => 'gyms',
+                        'label' => 'Gym',
+                        'text' => 'name',
+                    ],
+                    [
+                        'key' => 'coaches',
+                        'label' => 'coach',
+                        'valueKey' => 'id',
+                        'text' => 'name',
+                        'inputName' => 'coach_id'
+                    ]
+                ],
+            ];
         }
         return $formData;
     }
