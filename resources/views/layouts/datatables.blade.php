@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container">
+<div class="container">
     @yield('page-start')
     <div class="row justify-content-center">
         <div class="col-md-12 mb-5">
@@ -95,6 +95,29 @@
 
 
 <script type="text/javascript">
+    let nestedSelectOptions = {};
+
+    function updateNestedSelect(event, index, label, text, valueKey) {
+        index = +index;
+        let nextIndex = index + 1;
+        let targerSelect = document.getElementById(`level_${nextIndex}_select`);
+
+        if (!targerSelect || !text) return;
+
+        let targetSelect = event.target;
+        let data = nestedSelectOptions[index + "." + targetSelect.value];
+
+        targerSelect.innerHTML = `<option>Select ${label}</option>`;
+        targerSelect.innerHTML += data.map((option) =>
+            `<option value="${option[valueKey] || option[text]}">${option[text]}</option>`
+        ).join("");
+
+        while (document.getElementById(`level_${++nextIndex}_select`)) {
+            let nextLevelSelect = document.getElementById(`level_${nextIndex}_select`);
+            nextLevelSelect.innerHTML = `<option>Select from above first</option>`;
+        }
+    }
+
     $(function () {
         const ajaxUrl = @yield('table_route', 'null');
         const formDataEndpoint = @yield('form_data_endpoint', 'null');
@@ -105,7 +128,6 @@
         if (!ajaxUrl) return;
 
         let isSelectable = addEndpoint != null || updateEndpoint != null || destroyEndpoint != null;
-        console.log(isSelectable);
 
         const controlsPanel = $('#controlsPanel');
         const addButton = $('#addButton');
@@ -152,8 +174,6 @@
             },
             order: [[ 1, 'asc' ]]
         });
-        console.log("ajax URl: ", ajaxUrl);
-        console.log("DataTable:: ", datatable);
 
         datatable.on('select deselect draw.dt', function (e, dt, type, indexes) {
             const selectedCount = datatable.rows('.selected').data().length;
@@ -218,6 +238,7 @@
 
             // Create the html form fields
             let formFields = '';
+            let loadNestedSelect = null;
 
             formData.fields.forEach(field => {
                 if (field.type == 'text' || field.type == 'email') {
@@ -227,7 +248,9 @@
                 } else if (field.type == 'select') {
                     formFields += createSelectField(field, selectedRow);
                 } else if (field.type == 'nestedSelect') {
+                    separateSelectLevel(field);
                     formFields += createNestedSelect(field);
+                    loadNestedSelect = field;
                 } else if (field.type == 'radio') {
                     formFields += createRadioField(field, selectedRow);
                 } else if (field.type == 'time') {
@@ -242,6 +265,8 @@
 
             // set formFields html in the form
             formElem.html(formFields);
+
+            //if (loadNestedSelect) createSelectLevel(???);
         }
 
         function createTextField(field, selectedRow = null) {
@@ -270,40 +295,48 @@
         }
 
         function createNestedSelect(field) {
-            console.log('field', field);
-            if (field.levels) {
-                console.log('field.levels', field.levels);
-                field.levels.forEach((level, index) => {
-                    console.log('level', level);
-                    //level.key
-                    //level.lable
-                    //level.text
-                    //level.valueKey
-                    //level.inputName
-                    let options = field[level.key];
-                    console.log("level options: ", options);
-                    let text = options[level.text];
-                    console.log("text: ", text);
-
-                    if (index < field.levels - 2) { // Not the last level
-                        let nestedOptions = options[field.levels[index + 1]['key']];
-                        console.log(nestedOptions);
-                    }
-                });
-            }
-            return `<div class="form-group">
-                    <label class="col-form-label">${field.label}</label>
-                    <select name="${field.name}" class="form-control">
-                        <option disabled>Select ${field.label}</option>
+            let selects = field.levels.map((level, index) => {
+                let nextLevelLabel = index < field.levels.length - 1 ? field.levels[index+1].label : '';
+                let nextLevelText = index < field.levels.length - 1 ? field.levels[index+1].text : '';
+                let nextLevelValueKey = index < field.levels.length - 1 ? field.levels[index+1].valueKey : '';
+                return `<div class="form-group">
+                    <label class="col-form-label">${level.label}</label>
+                    <select onchange="updateNestedSelect(event, '${index}', '${nextLevelLabel}', '${nextLevelText}', '${nextLevelValueKey}')"
+                        id="level_${index}_select" name="${level.inputName || ''}" class="form-control">
+                        <option>Select ${level.label}</option>
                         ${
-                            field.options.map(option =>
-                                `<option value="${option[field.valueKey]}" ${selectedOption == option[field.text] ? 'selected' : ''}>
-                                    ${option[field.text]}
-                                </option>`
-                            ).join("")
+                            index == 0 && field[level.key].map((option) =>
+                                `<option>${option[level.text]}</option>`
+                            ).join('')
                         }
                     </select>
                 </div>`;
+            }).join('');
+            return selects;
+        }
+
+        function separateSelectLevel(field, levelIndex = 0) {
+            if (field.levels) {
+                let level = field.levels[0];
+                let levelOptions = field[level.key];
+                levelOptions.forEach((option, index) => {
+                    let dataKey = null;
+                    if (field.levels.length > 1) { // Not the last level
+                        dataKey = option[level.text];
+                        let nextLevelKey = field.levels[1]['key'];
+                        let nestedOptions = option[nextLevelKey];
+                        nestedSelectOptions[levelIndex + "." + dataKey] = nestedOptions;
+
+                        let nextLevels = field.levels.filter((_, index) => index > 0);
+                        if (nextLevels.length) {
+                            separateSelectLevel({
+                                [nextLevels[0].key]: nestedOptions,
+                                levels: nextLevels
+                            }, levelIndex + 1);
+                        }
+                    }
+                });
+            }
         }
 
         function createRadioField(field, selectedRow) {
@@ -399,7 +432,6 @@
         // ----- * ----- * ----- * ----- * ----- * ----- * -----
 
         function showDeleteConfirm() {
-            console.log('in show confirm delete');
             let selectedData = datatable.rows('.selected').data();
             if (!selectedData.length) return;
 
@@ -419,7 +451,6 @@
 
         function confirmDelete() {
             itemId = datatable.rows('.selected').data()[0].id;
-            console.log(itemId);
             if (itemId) {
                 toggleControlPanel(false);
                 $.ajax({
