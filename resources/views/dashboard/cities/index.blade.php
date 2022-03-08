@@ -13,7 +13,7 @@
 @endsection
 
 @section('add_endpoint')
-    "{{ route('dashboard.cities.create') }}"
+    "{{ route('dashboard.cities.store') }}"
 @endsection
 
 @section('update_endpoint')

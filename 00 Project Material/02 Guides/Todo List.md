@@ -1,14 +1,14 @@
 # Project TodoList
 
-- 📌 Cities
+- ⌛ Cities
 
-  - 📌 Add new City
+  - ⌛ Add new City
 
-  - 📌 Edit City name or City Manager
+  - ⌛ Edit City name or City Manager
 
-    - 📌 demote CityManager to GeneralManager
+    - ✔ demote CityManager to GeneralManager
 
-    - 📌 promote GeneralManager to CityManager
+    - ✔ promote GeneralManager to CityManager
 
   - ✔ Delete City only if it has 0 gyms related to it
 
