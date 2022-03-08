@@ -28,6 +28,15 @@
             </div>
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{route('dashboard.home.index')}}" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.home.index') ? 'active':''}}">
+                        <i class="nav-icon fas fa-globe-americas"></i>
+                        <p>
+                            Dashboard
+                        </p>
+                    </a>
+                </li>
+
                 @can('show_city_data')
                     <li class="nav-item">
                         <a href="{{route('dashboard.cities.index')}}" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.cities.index') ? 'active':''}}">
