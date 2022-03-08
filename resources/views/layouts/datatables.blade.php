@@ -175,6 +175,9 @@
             order: [[ 1, 'asc' ]]
         });
 
+        // Prevent error alerts
+        $.fn.dataTable.ext.errMode = 'none';
+
         datatable.on('select deselect draw.dt', function (e, dt, type, indexes) {
             const selectedCount = datatable.rows('.selected').data().length;
             toggleControlPanel(selectedCount > 0);
@@ -265,8 +268,6 @@
 
             // set formFields html in the form
             formElem.html(formFields);
-
-            //if (loadNestedSelect) createSelectLevel(???);
         }
 
         function createTextField(field, selectedRow = null) {
@@ -420,8 +421,9 @@
         }
 
         function handleAddSuccess(response) {
+            console.log(response.newRowData);
             datatable.row.add(response.newRowData).draw(false);
-            datatable.rows('.selected').deselect();
+            datatable.page('last').draw('page');
             $('#formModal .close').click();
             showSuccessToast('Add success', response.userMessage);
         }
