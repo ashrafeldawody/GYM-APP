@@ -89,11 +89,19 @@ class CityController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreCityRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function store(StoreCityRequest $request)
     {
-        //
+        Manager::find($request->toArray()['manager_id'])->setRole('city_manager');
+        $city = City::create($request->toArray());
+        $newCityData = Datatables::of(CityResource::collection([$city]))->make(true);
+        return [
+            'result' => true,
+            'userMessage' => "<b>{$city->name}</b> has beed successfully created",
+            'updatedData' => $newCfstyData
+        ];
+
     }
 
     /**
@@ -125,8 +133,13 @@ class CityController extends Controller
      * @param  \App\Models\City  $city
      * @return array
      */
-    public function update(UpdateCityRequest $request, City $city): array
+    public function update(UpdateCityRequest $request,City $city): array
     {
+        $newManagerId = $request->validated()['manager_id'];
+        if ($newManagerId != $city->manager_id) {
+            $city->manager->setRole('');
+            Manager::find($newManagerId)->setRole('city_manager');
+        }
         $city->update($request->validated());
         $newCityData = Datatables::of(CityResource::collection([$city]))->make(true);
         return [

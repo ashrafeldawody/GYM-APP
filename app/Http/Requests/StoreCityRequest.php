@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreCityRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StoreCityRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -24,7 +25,7 @@ class StoreCityRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'min:3'
         ];
     }
 }

@@ -1,5 +1,4 @@
 @extends('layouts.datatables')
-
 @section('table_header')
     {{ __('Gyms Table') }}
 @endsection
@@ -28,7 +27,11 @@
     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
     {data: 'name', name: 'name'},
     {data: 'created_at', name: 'created_at'},
-    {data: 'cover_image', name: 'cover_image'},
+    {data: 'cover_image', name: 'cover_image',
+    render: function( data, type, full, meta ) {
+    return "<img src=\"/images/" + data + "\" height=\"100rem\" alt='No Image'/>";
+    }
+    },
     @can('show_city_data')
         {data: 'city_manager_name', name: 'city_manager_name'},
     @endcan

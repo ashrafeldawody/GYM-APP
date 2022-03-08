@@ -1,14 +1,14 @@
 # Project TodoList
 
-- 📌 Cities
+- ✔ Cities
 
-  - 📌 Add new City
+  - ✔ Add new City
 
-  - 📌 Edit City name or City Manager
+  - ✔ Edit City name or City Manager
 
-    - 📌 demote CityManager to GeneralManager
+    - ✔ demote CityManager to GeneralManager
 
-    - 📌 promote GeneralManager to CityManager
+    - ✔ promote GeneralManager to CityManager
 
   - ✔ Delete City only if it has 0 gyms related to it
 
@@ -24,7 +24,7 @@
   > we can't delete city manager but we can first change the city manager from cities tab then when he is demoted to general manager we can delete him. => but only if he dosn't have any data related to him or we can restrict deleting him.
 - 📌 Employees
 
-  - 📌 Edit Manager Data
+  - ⌛ Edit Manager Data
 
     - this will be applied to all employees list except the coach
 
@@ -34,13 +34,13 @@
 
     - 📌 Add new Gym Manager
 
-    - 📌 ban and unban gymManager
+    - ⌛ ban and unban gymManager
 
     - ✔ delete gymManager (soft delete) This action won't delete him it will just demote him to general
 
-  - 📌 General Managers
+  - ⌛ General Managers
 
-    - 📌 Add new General Manager
+    - ⌛ Add new General Manager
 
   - 📌 Coaches
 
@@ -85,3 +85,7 @@
   - ✔ Can't delete package if their is some one bought it
 
     - Check if you edit a certain package price or sessions number it won't affect on the already bought packages.
+
+- 📌 issues
+
+  - fixing cities modal issue on create

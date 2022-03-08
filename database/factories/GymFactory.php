@@ -17,7 +17,7 @@ class GymFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->streetName(),
-            'cover_image' => $this->faker->imageUrl(),
+            'cover_image' => $this->faker->image('public/images',400,300,null, false),
             'city_id' => City::all()->random()->id,
             'creator_id' => Manager::role(['admin', 'city_manager'])->get()->random()->id,
         ];

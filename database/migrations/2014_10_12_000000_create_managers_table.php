@@ -23,7 +23,7 @@ class CreateManagersTable extends Migration
             $table->string('password')->nullable();
             $table->string('avatar')->nullable();;
             $table->timestamp('email_verified_at')->nullable();
-            $table->boolean('is_banned')->default(false);
+            $table->timestamp('banned_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

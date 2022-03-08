@@ -3,17 +3,19 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Cog\Laravel\Ban\Traits\Bannable;
+use Cog\Contracts\Ban\Bannable as BannableContract;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class Manager extends Authenticatable
+class Manager extends Authenticatable implements BannableContract
 {
-    use HasApiTokens, HasFactory, Notifiable , HasRoles;
-
-    protected $hidden = ['password','email_verified_at','is_banned','remember_token','created_at','updated_at'];
+    use HasApiTokens, HasFactory, Notifiable , HasRoles,Bannable;
+    protected $hidden = ['password','email_verified_at','banned_at','remember_token','created_at','updated_at'];
     protected $guarded = [];
 
     public function coaches() {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\GeneralManagerDataTable;
 use App\DataTables\GymManagersDataTable;
+use App\Http\Requests\StoreGeneralManagerRequest;
 use App\Http\Resources\CityManagersResource;
 use App\Http\Resources\GeneralManagerResource;
 use App\Http\Resources\GymManagersResource;
@@ -95,9 +96,9 @@ class GeneralManagerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreGeneralManagerRequest $request)
     {
-        //
+
     }
 
     /**
