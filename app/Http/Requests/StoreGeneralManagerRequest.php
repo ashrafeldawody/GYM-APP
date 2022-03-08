@@ -25,7 +25,28 @@ class StoreGeneralManagerRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|min:3|unique:managers|string',
+            'email' => 'required|email|unique:managers',
+            'gender' => 'required',
+            'birth_date' => 'required|date|before:-20 years',
+            'password' => 'min:8',
+            'password_confirmation'=> 'required_with:password|same:password|min:8',
+            'avatar' => 'required|image',
+            'national_id' => 'digits:14',
+        ];
+    }
+
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'password_confirmation.*' => 'The password dosn\'t match',
+            'birth_date.before' => 'The Age of managers must be at least 20 years old',
         ];
     }
 }
