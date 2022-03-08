@@ -82,7 +82,7 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
 
     Route::resource('general_managers', GeneralManagerController::class)->middleware('permission:general_managers');
 
-    Route::resource('coaches', CoachController::class)->middleware('permission:coaches');
+    Route::resource('coaches', CoachController::class)->middleware('permission:coaches');;
 
     Route::resource('users', UserController::class)->middleware('permission:users');
 

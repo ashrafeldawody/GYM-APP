@@ -98,6 +98,8 @@ class CoachController extends Controller
     public function store(StoreCoachRequest $request)
     {
         //
+        dd("heloooooo");
+
     }
 
     /**
@@ -108,12 +110,6 @@ class CoachController extends Controller
      */
     public function show(Coach $coach)
     {
-        //
-
-        echo "
-
-                <h1> I'm here </h1>
-        ";
     }
 
     /**
