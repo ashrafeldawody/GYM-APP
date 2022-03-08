@@ -21,7 +21,7 @@ class CityController extends Controller
     {
         if (request()->ajax()) {
             $data = CityResource::collection(City::with('manager')->get());
-            return  Datatables::of($data)
+            return Datatables::of($data)
                 ->addIndexColumn()
                 ->rawColumns(['action'])
                 ->make(true);
@@ -99,7 +99,7 @@ class CityController extends Controller
         return [
             'result' => true,
             'userMessage' => "<b>{$city->name}</b> has beed successfully created",
-            'updatedData' => $newCfstyData
+            'newRowData' => $newCityData
         ];
 
     }
