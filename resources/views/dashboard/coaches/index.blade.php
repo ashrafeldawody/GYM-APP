@@ -13,7 +13,7 @@
 @endsection
 
 @section('add_endpoint')
-    "{{ route('dashboard.coaches.create') }}"
+    "{{ route('dashboard.coaches.store') }}"
 @endsection
 
 @section('update_endpoint')

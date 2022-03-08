@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\CityManagersDataTable;
+use App\Http\Resources\PurchaseResource;
 use App\Models\Manager;
 use App\Http\Requests\StoreManagerRequest;
 use App\Http\Requests\UpdateManagerRequest;
 use App\Http\Resources\CityManagersResource;
+use App\Models\Purchase;
+use Illuminate\Support\Facades\Auth;
 use TheSeer\Tokenizer\Exception;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -132,5 +135,8 @@ class CityManagerController extends Controller
     {
         //
     }
+
+
+
 
 }

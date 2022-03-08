@@ -30,8 +30,7 @@ class SessionsController extends Controller
         // This method has to return a datatables view that has these columns'
         // name | starts_at | finishes_at
         if (request()->ajax()) {
-            $data = SessionResource::collection(TrainingSession::all());
-            return Datatables::of($data)
+            return Datatables::of(SessionsController::getData())
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -205,6 +204,20 @@ class SessionsController extends Controller
                 'result' => true,
                 'userMessage' => "<b>$trainingSessionName</b> has been successfully deleted"
             ];
+        }
+    }
+    /**
+     * Remove the specified resource from storage.
+     * a method that return the data object according to the logged-in user
+     */
+    private static function getData(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        if (Auth::user()->hasRole('gym_manager')) {
+            return SessionResource::collection(TrainingSession::all());
+        } else if (Auth::user()->hasRole('city_manager')) {
+            return SessionResource::collection(TrainingSession::all());
+        } else {
+            return SessionResource::collection(TrainingSession::all());
         }
     }
 }
