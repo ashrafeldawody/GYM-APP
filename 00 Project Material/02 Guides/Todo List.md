@@ -34,7 +34,7 @@
 
     - 📌 Add new Gym Manager
 
-    - 📌 ban and unban gymManager
+    - ⌛ ban and unban gymManager
 
     - ✔ delete gymManager (soft delete) This action won't delete him it will just demote him to general
 
