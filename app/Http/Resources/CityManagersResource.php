@@ -23,7 +23,7 @@ class CityManagersResource extends JsonResource
             'birth_date' => $this->birth_date,
             'avatar' => $this->avatar,
             'is_banned' => $this->is_banned,
-            'city' => $this->city->name,
+            'city' => $this->city->name ?? '',
         ];
     }
 }
