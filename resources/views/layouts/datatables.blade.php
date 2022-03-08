@@ -420,11 +420,16 @@
         }
 
         function handleAddSuccess(response) {
-
+            datatable.row.add(response.newRowData).draw(false);
+            datatable.rows('.selected').deselect();
+            $('#formModal .close').click();
+            showSuccessToast('Add success', response.userMessage);
         }
 
         function handleAddFail(response) {
-
+            datatable.rows('.selected').deselect();
+            $('#confirmModal .close').click();
+            showErrorToast('Add failed', "Something wrong happened, Unknown error");
         }
 
         // ----- * ----- * ----- * ----- * ----- * ----- * -----
