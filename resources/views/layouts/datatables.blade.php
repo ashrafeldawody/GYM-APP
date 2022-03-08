@@ -39,7 +39,7 @@
 <div class="toast shadow-lg m-3 fade hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3500"
     style="position: fixed; right: 0; top: 0; margin-top: 1rem !important; z-index: 99999;">
     <div class="toast-header">
-        <strong id="toastTitle" class="mr-auto" style="min-width: 200px"></strong>
+        <strong id="toastTitle" class="mr-auto w-100" style="min-width: 200px; width: 100%;"></strong>
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -226,6 +226,8 @@
                     formFields += createTextField(field);
                 } else if (field.type == 'select') {
                     formFields += createSelectField(field, selectedRow);
+                } else if (field.type == 'nestedSelect') {
+                    formFields += createNestedSelect(field);
                 } else if (field.type == 'radio') {
                     formFields += createRadioField(field, selectedRow);
                 } else if (field.type == 'time') {
@@ -252,6 +254,43 @@
 
         function createSelectField(field, selectedRow) {
             let selectedOption = selectedRow ? selectedRow[field.compare] : '';
+            return `<div class="form-group">
+                    <label class="col-form-label">${field.label}</label>
+                    <select name="${field.name}" class="form-control">
+                        <option disabled>Select ${field.label}</option>
+                        ${
+                            field.options.map(option =>
+                                `<option value="${option[field.valueKey]}" ${selectedOption == option[field.text] ? 'selected' : ''}>
+                                    ${option[field.text]}
+                                </option>`
+                            ).join("")
+                        }
+                    </select>
+                </div>`;
+        }
+
+        function createNestedSelect(field) {
+            console.log('field', field);
+            if (field.levels) {
+                console.log('field.levels', field.levels);
+                field.levels.forEach((level, index) => {
+                    console.log('level', level);
+                    //level.key
+                    //level.lable
+                    //level.text
+                    //level.valueKey
+                    //level.inputName
+                    let options = field[level.key];
+                    console.log("level options: ", options);
+                    let text = options[level.text];
+                    console.log("text: ", text);
+
+                    if (index < field.levels - 2) { // Not the last level
+                        let nestedOptions = options[field.levels[index + 1]['key']];
+                        console.log(nestedOptions);
+                    }
+                });
+            }
             return `<div class="form-group">
                     <label class="col-form-label">${field.label}</label>
                     <select name="${field.name}" class="form-control">
@@ -379,7 +418,6 @@
         }
 
         function confirmDelete() {
-
             itemId = datatable.rows('.selected').data()[0].id;
             console.log(itemId);
             if (itemId) {
@@ -389,17 +427,29 @@
                     method: 'DELETE'
                 })
                 .done(function(response) {
-                    if (response.result == true) {
-                        datatable.row('.selected').remove().draw(true);
-                        $('#confirmModal .close').click();
-                        showSuccessToast('Delete success', response.userMessage);
-                    } else {
-                        datatable.rows('.selected').deselect();
-                        $('#confirmModal .close').click();
-                        showErrorToast('Delete failed', response.userMessage);
-                    }
+                    handleDeleteSuccess(response);
+                }).fail(function(response) {
+                    handleDeleteFail(response);
                 });
             }
+        }
+
+        function handleDeleteSuccess(response) {
+            if (response.result == true) {
+                datatable.row('.selected').remove().draw(true);
+                $('#confirmModal .close').click();
+                showSuccessToast('Delete success', response.userMessage);
+            } else {
+                datatable.rows('.selected').deselect();
+                $('#confirmModal .close').click();
+                showErrorToast('Delete failed', response.userMessage);
+            }
+        }
+
+        function handleDeleteFail() {
+            datatable.rows('.selected').deselect();
+            $('#confirmModal .close').click();
+            showErrorToast('Delete failed', "Something wrong happened, Unknown error");
         }
 
         // ----- * ----- * ----- * ----- * ----- * ----- * -----
@@ -431,8 +481,9 @@
 
         function showErrorToast(title, message) {
             $('.toast #toastTitle').html(title);
-            $('.toast #toastMessage').attr('class', 'text-danger');
+            $('.toast #toastTitle').attr('class', 'text-danger');
             $('.toast #toastMessage').html(message);
+            $('.toast #toastMessage').attr('class', 'text-danger');
             $('.toast').toast('show');
         }
     });
