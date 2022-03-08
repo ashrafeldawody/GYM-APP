@@ -4,14 +4,20 @@
 <div class="container" style="margin-top: 50px;">
     <div class="row justify-content-center">
         <div class="col-md-6">
+            @if (session('error'))
+                <div class="alert alert-danger my-4">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <div class="card card-outline card-primary">
                 <div class="card-header text-center h1">{{ __('Login') }}</div>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="input-group mb-3">
+
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{__('Email
                                 Address')}}</label>
 
