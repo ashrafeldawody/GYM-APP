@@ -7,6 +7,7 @@ use App\Http\Controllers\CoachController;
 use App\Http\Controllers\GeneralManagerController;
 use App\Http\Controllers\GymController;
 use App\Http\Controllers\GymManagerController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\SessionsController;
@@ -33,7 +34,7 @@ use App\Mail\WeMissYou;
 */
 
 Route::get('/', function () {
-    return redirect()->route('dashboard.');
+    return redirect()->route('dashboard.home');
 });
 
 //=======for testing only====
@@ -70,7 +71,9 @@ Route::get('forgot-password', function () {
 
 Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(function () {
 
-    Route::get('/', [PurchaseController::class, 'index'])->middleware('permission:purchases');
+    Route::get('/', [HomeController::class, 'index'])->middleware('permission:purchases')->name('home.index');;
+
+    Route::get('revenue', [PurchaseController::class, 'index'])->middleware('permission:purchases')->name('revenue');
 
     Route::resource('cities', CityController::class)->middleware('permission:cities');
 

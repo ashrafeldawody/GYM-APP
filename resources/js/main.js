@@ -9,6 +9,7 @@ try {
     require('admin-lte/plugins/datatables-buttons/js/dataTables.buttons');
 
     require('admin-lte/plugins/select2/js/select2.full.min');
+    require('admin-lte/plugins/chart.js/Chart.bundle.min');
 
     require("admin-lte/build/js/AdminLTE")
 } catch (e) {}
