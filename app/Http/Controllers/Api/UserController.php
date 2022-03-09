@@ -62,19 +62,30 @@ class UserController extends Controller
 
     public function attend(Request $request)
     {
-        
+
         $selectedSession = TrainingSession::find(request()->id);
 
-        // dd(UserController::getRemainingSessions($request));
+        $userSessions =  $request->user()->attendances->pluck('training_sessio
+n_id')->toArray();
+
         if(UserController::getRemainingSessions($request) <= 0){
             return response()->json(['message'=> "You must buy a package first!"]);
         }
 
-        if(!Carbon::parse($selectedSession['starts_at'])->isToday() || Carbon::parse($selectedSession['finishes_at'])< Carbon::now()){
-            // dd(!Carbon::parse($selectedSession['starts_at'])->isToday(),Carbon::parse($selectedSession['finishes_at'])< Carbon::now());
+        if (Carbon::parse($selectedSession['finishes_at']) < Carbon::now()) {
+            return response()->json([
+                'Message' => "This Session is already ended!",
+            ]);
+        }
+
+        if(!Carbon::parse($selectedSession['starts_at'])->isToday()){
             return response()->json([
                 'Message' => "The session is not available!",
             ]);
+        }
+
+        if(in_array(request()->id, $userSessions)){
+            return response()->json(['message'=> "You already attended this session"]);
         }
 
         Attendance::create([
@@ -82,16 +93,14 @@ class UserController extends Controller
             "training_session_id" => $selectedSession->id,
             "attendance_datetime" => Carbon::now(),
         ]);
+
         return response()->json([
             'Message' => "Session Attended successfully!",
         ]);
-        
-
     }
     public function getRemainingSessions(Request $request){
         $attendedSessions = $request->user()->attendances->count();
         $totalTrainingSessions = $request->user()->purchases->pluck('sessions_number')->sum();
-        // dd($attendedSessions, $totalTrainingSessions, $request->user()->purchases);
         return $totalTrainingSessions - $attendedSessions;
     }
 }
