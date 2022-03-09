@@ -34,7 +34,7 @@ use App\Mail\WeMissYou;
 */
 
 Route::get('/', function () {
-    return redirect()->route('dashboard.home');
+    return redirect()->route('dashboard.home.index');
 });
 
 //=======for testing only====
