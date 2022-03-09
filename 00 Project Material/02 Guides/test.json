@@ -1,164 +1,45 @@
 {
+    "name": "City 1",
+    "gyms": []
+},
+{
     "name": "City 2",
     "gyms": [
         {
-            "name": "Amir Radial",
-            "coaches": [
-                {
-                    "id": 49,
-                    "name": "Ottis Balistreri"
-                },
-                {
-                    "id": 50,
-                    "name": "Dr. Leonie Schaden Jr."
-                },
-                {
-                    "id": 51,
-                    "name": "Cristal Bartell"
-                },
-                {
-                    "id": 52,
-                    "name": "Clara Williamson"
-                },
-                {
-                    "id": 53,
-                    "name": "Beverly Erdman"
-                },
-                {
-                    "id": 54,
-                    "name": "Jermaine Kessler"
-                },
-                {
-                    "id": 55,
-                    "name": "Brenda Heidenreich II"
-                },
-                {
-                    "id": 56,
-                    "name": "Elinor Cartwright"
-                },
-                {
-                    "id": 57,
-                    "name": "Dr. Gabe Bergstrom"
-                },
-                {
-                    "id": 58,
-                    "name": "Jocelyn Lindgren"
-                },
-                {
-                    "id": 59,
-                    "name": "Elbert Kessler II"
-                },
-                {
-                    "id": 60,
-                    "name": "Joana Schamberger Jr."
-                }
-            ]
+            "id": 7,
+            "name": "Carlie Prairie"
         },
         {
-            "name": "Eulah Place",
-            "coaches": [
-                {
-                    "id": 133,
-                    "name": "Dr. Korey Lehner"
-                },
-                {
-                    "id": 134,
-                    "name": "Prof. Frieda Stoltenberg Sr."
-                },
-                {
-                    "id": 135,
-                    "name": "Sadie Kirlin"
-                },
-                {
-                    "id": 136,
-                    "name": "Laverna Boyer"
-                },
-                {
-                    "id": 137,
-                    "name": "Brain Gutmann"
-                },
-                {
-                    "id": 138,
-                    "name": "Lorenza Kilback"
-                },
-                {
-                    "id": 139,
-                    "name": "Mrs. Beryl Nikolaus Sr."
-                },
-                {
-                    "id": 140,
-                    "name": "Mrs. Vincenza Denesik"
-                },
-                {
-                    "id": 141,
-                    "name": "Jefferey Torphy"
-                },
-                {
-                    "id": 142,
-                    "name": "Vincenzo Dibbert"
-                },
-                {
-                    "id": 143,
-                    "name": "Mr. Sonny Schulist IV"
-                },
-                {
-                    "id": 144,
-                    "name": "Miss Joanny Nitzsche"
-                }
-            ]
+            "id": 11,
+            "name": "Gerhold Via"
         },
         {
-            "name": "Lavinia Orchard",
-            "coaches": [
-                {
-                    "id": 37,
-                    "name": "Dr. Clark Boyle Sr."
-                },
-                {
-                    "id": 38,
-                    "name": "Noel Halvorson"
-                },
-                {
-                    "id": 39,
-                    "name": "Lamont Ernser"
-                },
-                {
-                    "id": 40,
-                    "name": "Alek Mraz"
-                },
-                {
-                    "id": 41,
-                    "name": "Dahlia Mann DDS"
-                },
-                {
-                    "id": 42,
-                    "name": "Prof. Justyn Mitchell"
-                },
-                {
-                    "id": 43,
-                    "name": "Rosella Quitzon"
-                },
-                {
-                    "id": 44,
-                    "name": "Mr. Elmore Kassulke DDS"
-                },
-                {
-                    "id": 45,
-                    "name": "Prof. Clemens Zieme Sr."
-                },
-                {
-                    "id": 46,
-                    "name": "Lucinda Funk"
-                },
-                {
-                    "id": 47,
-                    "name": "Elisa Legros IV"
-                },
-                {
-                    "id": 48,
-                    "name": "Abe Hills"
-                }
-            ]
+            "id": 5,
+            "name": "Kub Mission"
+        },
+        {
+            "id": 8,
+            "name": "Mayer Prairie"
+        },
+        {
+            "id": 4,
+            "name": "Monahan Lock"
+        },
+        {
+            "id": 12,
+            "name": "Ortiz Villages"
+        },
+        {
+            "id": 6,
+            "name": "Robel Stravenue"
+        },
+        {
+            "id": 1,
+            "name": "Schiller Overpass"
+        },
+        {
+            "id": 9,
+            "name": "Schuppe Knoll"
         }
     ]
 },
@@ -166,269 +47,16 @@
     "name": "City 3",
     "gyms": [
         {
-            "name": "Botsford Center",
-            "coaches": [
-                {
-                    "id": 73,
-                    "name": "Prof. Rita Harris"
-                },
-                {
-                    "id": 74,
-                    "name": "Tessie Crist"
-                },
-                {
-                    "id": 75,
-                    "name": "Virgie Buckridge V"
-                },
-                {
-                    "id": 76,
-                    "name": "Hunter Hartmann V"
-                },
-                {
-                    "id": 77,
-                    "name": "Tania Heidenreich"
-                },
-                {
-                    "id": 78,
-                    "name": "Isabella Yundt"
-                },
-                {
-                    "id": 79,
-                    "name": "Isom Kling IV"
-                },
-                {
-                    "id": 80,
-                    "name": "Vita Smitham"
-                },
-                {
-                    "id": 81,
-                    "name": "Jesse Terry"
-                },
-                {
-                    "id": 82,
-                    "name": "Prof. Fern Balistreri"
-                },
-                {
-                    "id": 83,
-                    "name": "Gus Bruen"
-                },
-                {
-                    "id": 84,
-                    "name": "Mr. Cale Stamm DVM"
-                }
-            ]
+            "id": 2,
+            "name": "Ariane Run"
         },
         {
-            "name": "Denesik Light",
-            "coaches": [
-                {
-                    "id": 13,
-                    "name": "Natasha Dach"
-                },
-                {
-                    "id": 14,
-                    "name": "Fausto Gusikowski"
-                },
-                {
-                    "id": 15,
-                    "name": "Mr. Lew Reichert MD"
-                },
-                {
-                    "id": 16,
-                    "name": "Dana Emmerich"
-                },
-                {
-                    "id": 17,
-                    "name": "Allen Dare"
-                },
-                {
-                    "id": 18,
-                    "name": "Prof. Dagmar Hartmann"
-                },
-                {
-                    "id": 19,
-                    "name": "Tommie Doyle MD"
-                },
-                {
-                    "id": 20,
-                    "name": "Evan Mosciski DVM"
-                },
-                {
-                    "id": 21,
-                    "name": "Stephon King"
-                },
-                {
-                    "id": 22,
-                    "name": "Itzel Cruickshank"
-                },
-                {
-                    "id": 23,
-                    "name": "Shane Pfannerstill"
-                },
-                {
-                    "id": 24,
-                    "name": "Tyrell Parker"
-                }
-            ]
+            "id": 3,
+            "name": "Franecki Street"
         },
         {
-            "name": "Emery Pass",
-            "coaches": [
-                {
-                    "id": 1,
-                    "name": "Ms. Adrienne Feeney"
-                },
-                {
-                    "id": 2,
-                    "name": "Alexys Howe"
-                },
-                {
-                    "id": 3,
-                    "name": "Dr. Felipe Bashirian DDS"
-                },
-                {
-                    "id": 4,
-                    "name": "Dr. Armand Kub IV"
-                },
-                {
-                    "id": 5,
-                    "name": "Brandi Tremblay"
-                },
-                {
-                    "id": 6,
-                    "name": "Ms. Darlene Medhurst PhD"
-                },
-                {
-                    "id": 7,
-                    "name": "Prof. Levi Rowe"
-                },
-                {
-                    "id": 8,
-                    "name": "Toy Lang"
-                },
-                {
-                    "id": 9,
-                    "name": "Dr. Jon Deckow"
-                },
-                {
-                    "id": 10,
-                    "name": "Dr. Domingo Corwin III"
-                },
-                {
-                    "id": 11,
-                    "name": "John Stracke MD"
-                },
-                {
-                    "id": 12,
-                    "name": "Ciara Rath"
-                }
-            ]
-        },
-        {
-            "name": "Fisher Rest",
-            "coaches": [
-                {
-                    "id": 25,
-                    "name": "Dr. Tito Stanton PhD"
-                },
-                {
-                    "id": 26,
-                    "name": "Wilton Bode"
-                },
-                {
-                    "id": 27,
-                    "name": "Fletcher Kub III"
-                },
-                {
-                    "id": 28,
-                    "name": "Mrs. Candida Sawayn"
-                },
-                {
-                    "id": 29,
-                    "name": "Dr. Carolanne Hyatt DDS"
-                },
-                {
-                    "id": 30,
-                    "name": "Elise Runolfsson"
-                },
-                {
-                    "id": 31,
-                    "name": "Prof. Elijah Moore PhD"
-                },
-                {
-                    "id": 32,
-                    "name": "Dr. Kris Rogahn MD"
-                },
-                {
-                    "id": 33,
-                    "name": "Lauryn Witting"
-                },
-                {
-                    "id": 34,
-                    "name": "Garth King"
-                },
-                {
-                    "id": 35,
-                    "name": "Jeanette Johns IV"
-                },
-                {
-                    "id": 36,
-                    "name": "Webster Bashirian III"
-                }
-            ]
-        },
-        {
-            "name": "Friesen Point",
-            "coaches": [
-                {
-                    "id": 61,
-                    "name": "Brannon Brakus"
-                },
-                {
-                    "id": 62,
-                    "name": "Adaline Wuckert DDS"
-                },
-                {
-                    "id": 63,
-                    "name": "Miss Nadia Weimann"
-                },
-                {
-                    "id": 64,
-                    "name": "Jarod Brakus"
-                },
-                {
-                    "id": 65,
-                    "name": "Alicia Dibbert"
-                },
-                {
-                    "id": 66,
-                    "name": "Esther Eichmann"
-                },
-                {
-                    "id": 67,
-                    "name": "Adriel Klocko"
-                },
-                {
-                    "id": 68,
-                    "name": "Irving Dickinson"
-                },
-                {
-                    "id": 69,
-                    "name": "Ethan Senger DVM"
-                },
-                {
-                    "id": 70,
-                    "name": "Ms. Marguerite Hyatt I"
-                },
-                {
-                    "id": 71,
-                    "name": "Prof. Davin Legros"
-                },
-                {
-                    "id": 72,
-                    "name": "Isaias D'Amore"
-                }
-            ]
+            "id": 10,
+            "name": "Raynor Ports"
         }
     ]
 }

@@ -111,7 +111,6 @@ class SessionsController extends Controller
         } else {
             $data  = CityGymCoachesResource::collection(City::with('gyms', 'gyms.coaches')->get());
             $formData['fields'][] = [
-
                 'type' => 'nestedSelect',
                 'cities' => $data,
                 'levels' => [
