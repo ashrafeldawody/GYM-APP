@@ -15,6 +15,7 @@ use App\Models\TrainingPackage;
 use App\Models\TrainingSession;
 use App\Http\Requests\StoreTrainingSessionRequest;
 use App\Http\Requests\UpdateTrainingSessionRequest;
+use App\Models\TrainingSessionCoach;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -142,23 +143,46 @@ class SessionsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreTrainingSessionRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function store(StoreTrainingSessionRequest $request)
     {
+        $sessionName = $request->toArray()['name'];
+        $sessionDay = $request->toArray()['day'];
+        $sessionStartsAt = $request->toArray()['starts_at'];
+        $sessionFinishesAt = $request->toArray()['finishes_at'];
+        $coachesIds = $request->toArray()['coach_id'];
+        $gymId = Coach::find($coachesIds[0])->gym->id;
+        $startsAt = date('Y-m-d H:i:s', strtotime("$sessionDay $sessionStartsAt"));
+        $finishesAt = date('Y-m-d H:i:s', strtotime("$sessionDay $sessionFinishesAt"));
+
+
         if (SessionsController::checkOverLab($request)) {
-            return "error";
+            return [
+                'result' => false,
+                'userMessage' => "<b>$sessionName->name</b> Can't be added because it overlabs with an existing session"
+            ];
         }
-        // add the validation on the date and the starts at time
-//        $trainingSessions = TrainingSession::whereDate('starts_at', $request->toArray()['day'])->get();
-//        $sessionName = $request->toArray()['name'];
-//        $sessionDay = $request->toArray()['day'];
-//        $sessionStartsAt = $request->toArray()['starts_at'];
-//        $sessionFinishesAt = $request->toArray()['finishes_at'];
-//        $coachesIds = $request->toArray()['coach_id'];
-//        $startsAt = date('Y-m-d H:i:s', strtotime("$sessionDay $sessionStartsAt"));
-//        $finishesAt = date('Y-m-d H:i:s', strtotime("$sessionDay $sessionFinishesAt"));
-        TrainingSession::create($request);
+//         add the validation on the date and the starts at time
+        $session = TrainingSession::create([
+            'name' => $sessionName,
+            'starts_at' => $startsAt,
+            'finishes_at' => $finishesAt,
+            'gym_id' => $gymId,
+        ]);
+
+        foreach ($coachesIds as $coachId) {
+            TrainingSessionCoach::create([
+                'coach_id' => $coachId,
+                'training_session_id' => $session->id,
+                'manager_id' => Auth::user()->id,
+            ]);
+        }
+
+        return [
+            'result' => true,
+            'userMessage' => "<b>$sessionName</b> has been successfully Created"
+        ];
     }
 
 
