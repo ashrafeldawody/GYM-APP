@@ -213,9 +213,9 @@ class SessionsController extends Controller
     private static function getData(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         if (Auth::user()->hasRole('gym_manager')) {
-            return SessionResource::collection(TrainingSession::all());
+            return SessionResource::collection(Auth::user()->gym->trainingSessions);
         } else if (Auth::user()->hasRole('city_manager')) {
-            return SessionResource::collection(TrainingSession::all());
+            return SessionResource::collection(Auth::user()->city->sessions);
         } else {
             return SessionResource::collection(TrainingSession::all());
         }

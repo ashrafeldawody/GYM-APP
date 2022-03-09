@@ -17,7 +17,6 @@ class City extends Model
     {
         return $this->belongsTo(Manager::class, 'manager_id');
     }
-
     public function gyms()
     {
         return $this->hasMany(Gym::class)->orderBy('name');
@@ -27,5 +26,8 @@ class City extends Model
     }
     public function attendances() {
         return $this->hasManyDeep(Attendance::class,[Gym::class,TrainingSession::class])->with('user','trainingSession','trainingSession.gym','trainingSession.gym.city');
+    }
+    public function sessions() {
+        return $this->hasManyThrough(TrainingSession::class, Gym::class);
     }
 }
