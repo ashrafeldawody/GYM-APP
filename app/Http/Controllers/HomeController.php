@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\City;
 use App\Models\Purchase;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,8 @@ class HomeController extends Controller
         $maleFemaleChart = $this->maleFemaleAttendanceChart();
         $revenuePerMonth = $this->revenuePerMonth();
         $citiesAttendances = $this->getCityAttendanceChart();
-        return view('dashboard.home.index', compact('maleFemaleChart','revenuePerMonth','citiesAttendances'));
+        $usersCart = $this->getTopUsersChart();
+        return view('dashboard.home.index', compact('maleFemaleChart','revenuePerMonth','citiesAttendances','usersCart'));
     }
 
     private function maleFemaleAttendanceChart()
@@ -84,9 +86,25 @@ class HomeController extends Controller
             ->labels($citiesSessions->pluck('name')->toArray())
             ->datasets([
                 [
-                    'backgroundColor' => ["#84FF63","#8463FF","#6384FF"],
-                    'hoverBackgroundColor' => ["#84FF63",'#FF6384', '#36A2EB'],
+                    'backgroundColor' => ["#84FF63","#8463FF","#6384FF",'#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966',],
+                    'hoverBackgroundColor' => ["#84FF63",'#FF6384', '#36A2EB','#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966',],
                     'data' => $citiesSessions->pluck('sessions_count')->toArray()
+                ]
+            ])
+            ->options([]);
+    }
+    private function getTopUsersChart(){
+        $users = User::select('name')->withCount('trainingSessions')->limit(10)->get();
+        return app()->chartjs
+            ->name('topUsersChart')
+            ->type('pie')
+            ->size(['width' => 400, 'height' => 200])
+            ->labels($users->pluck('name')->toArray())
+            ->datasets([
+                [
+                    'backgroundColor' => ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D', '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A'],
+                    'hoverBackgroundColor' => ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D', '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A'],
+                    'data' => $users->pluck('training_sessions_count')->toArray()
                 ]
             ])
             ->options([]);
