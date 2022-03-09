@@ -146,8 +146,21 @@ class SessionsController extends Controller
      */
     public function store(StoreTrainingSessionRequest $request)
     {
-        //
+        if (SessionsController::checkOverLab($request)) {
+            return "error";
+        }
+        // add the validation on the date and the starts at time
+//        $trainingSessions = TrainingSession::whereDate('starts_at', $request->toArray()['day'])->get();
+//        $sessionName = $request->toArray()['name'];
+//        $sessionDay = $request->toArray()['day'];
+//        $sessionStartsAt = $request->toArray()['starts_at'];
+//        $sessionFinishesAt = $request->toArray()['finishes_at'];
+//        $coachesIds = $request->toArray()['coach_id'];
+//        $startsAt = date('Y-m-d H:i:s', strtotime("$sessionDay $sessionStartsAt"));
+//        $finishesAt = date('Y-m-d H:i:s', strtotime("$sessionDay $sessionFinishesAt"));
+        TrainingSession::create($request);
     }
+
 
     /**
      * Display the specified resource.
@@ -219,5 +232,30 @@ class SessionsController extends Controller
         } else {
             return SessionResource::collection(TrainingSession::all());
         }
+    }
+
+    private static function checkOverLabHelber($startA, $endA, TrainingSession $sessionB): bool
+    {
+//        (StartA <= EndB)  and  (EndA >= StartB)
+        return ($startA <= $sessionB->finishes_at)  and  ($endA >= $sessionB->starts_at);
+    }
+
+    public function checkOverLab($request): bool
+    {
+        $sessionDay = $request->toArray()['day'];
+        $gymId = Coach::find($request->toArray()['coach_id'][0])->gym->id;
+        $trainingSessions = TrainingSession::whereDate('starts_at', $sessionDay)->where('gym_id', $gymId)->get();
+        $sessionStartsAt = $request->toArray()['starts_at'];
+        $sessionFinishesAt = $request->toArray()['finishes_at'];
+        $startsAt = date('Y-m-d H:i:s', strtotime("$sessionDay $sessionStartsAt"));
+        $finishesAt = date('Y-m-d H:i:s', strtotime("$sessionDay $sessionFinishesAt"));
+        if ($trainingSessions->count() > 0) {
+            foreach ($trainingSessions as $session) {
+                if (SessionsController::checkOverLabHelber($startsAt, $finishesAt, $session)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
