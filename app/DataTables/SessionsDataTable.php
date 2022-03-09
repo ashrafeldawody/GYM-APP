@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\TrainingSession;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -57,13 +58,21 @@ class SessionsDataTable extends DataTable
      */
     protected function getColumns()
     {
-        return [
+        $columnsArray = [
             Column::make(''),
             Column::make('#'),
             Column::make('name'),
             Column::make('starts_at'),
             Column::make('finishes_at'),
         ];
+
+        if (Auth::user()->can('show_gym_data')) {
+            $columnsArray[] = Column::make('gym');
+        }
+        if (Auth::user()->can('show_city_data')) {
+            $columnsArray[] = Column::make('city');
+        }
+        return $columnsArray;
     }
 
     /**

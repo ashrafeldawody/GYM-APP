@@ -14,6 +14,7 @@ class ManagerFactory extends Factory
      */
     public function definition()
     {
+        
         return [
             'name' => $this->faker->name(),
             'national_id' => $this->faker->unique()->numerify('##############'),
