@@ -16,7 +16,7 @@
 
                     <div class="card">
                         <div class="card-header border-0">
-                            <h3 class="card-title">Products</h3>
+                            <h3 class="card-title">Top Cities Attendances</h3>
                         </div>
                         <div class="card-body table-responsive p-0">
                             {!! $citiesAttendances->render() !!}
@@ -36,10 +36,10 @@
 
                     <div class="card">
                         <div class="card-header border-0">
-                            <h3 class="card-title">Cities Attendances</h3>
+                            <h3 class="card-title">Top Users</h3>
                         </div>
                         <div class="card-body">
-
+                            {!! $usersCart->render() !!}
                         </div>
                     </div>
                 </div>
