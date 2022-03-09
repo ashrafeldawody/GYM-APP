@@ -91,7 +91,7 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
 
     Route::resource('sessions', SessionsController::class)->middleware('permission:sessions');
 
-    Route::resource('attendance', AttendanceController::class)->only(['index', 'create', 'update'])->middleware('permission:attendance');
+    Route::resource('attendance', AttendanceController::class)->only(['index'])->middleware('permission:attendance');
 
     Route::resource('packages', PackagesController::class)->middleware('permission:packages');
 

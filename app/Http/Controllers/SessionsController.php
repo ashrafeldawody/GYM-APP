@@ -129,7 +129,8 @@ class SessionsController extends Controller
                         'label' => 'coach',
                         'valueKey' => 'id',
                         'text' => 'name',
-                        'inputName' => 'coach_id'
+                        'inputName' => 'coach_id',
+                        'multiSelect' => true
                     ]
                 ],
             ];

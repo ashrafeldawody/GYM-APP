@@ -86,6 +86,12 @@ class GeneralManagerController extends Controller
                     'name' => 'birth_date',
                     'valueKey' => 'birth_date'
                 ],
+                [
+                    'type' => 'file',
+                    'label' => 'Avatar Image',
+                    'name' => 'avatar',
+                    'valueKey' => 'avatar'
+                ],
             ]
         ];
     }
@@ -98,7 +104,7 @@ class GeneralManagerController extends Controller
      */
     public function store(StoreGeneralManagerRequest $request)
     {
-
+        dd("Heloooooooooooo");
     }
 
     /**

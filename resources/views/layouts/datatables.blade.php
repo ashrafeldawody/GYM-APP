@@ -38,7 +38,7 @@
 </div>
 
 <div class="toast shadow-lg m-3 fade hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3500"
-    style="position: fixed; right: 0; top: 0; margin-top: 1rem !important; z-index: 99999;">
+    style="position: fixed; right: 1.2rem; top: 0; margin-top: 1.2rem !important; z-index: 99999;">
     <div class="toast-header">
         <strong id="toastTitle" class="mr-auto w-100" style="min-width: 200px; width: 100%;"></strong>
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -151,9 +151,8 @@
         if (!addEndpoint) addButton.hide();
 
         let datatable = $('#datatable').DataTable({
-            bAutoWidth: false,
             scrollX: true,
-            responsive: true,
+            sScrollXInner: "100%",
             processing: true,
             serverSide: true,
             pageLength: 10,
@@ -180,7 +179,7 @@
             createdRow: function (row, data, index) {
                 $(row).css('cursor', 'pointer');
             },
-            order: [[ 1, 'asc' ]]
+            order: [[ 2, 'asc' ]]
         });
 
         // Prevent error alerts
@@ -252,7 +251,7 @@
             let loadNestedSelect = null;
 
             formData.fields.forEach(field => {
-                if (field.type === 'text' || field.type === 'email') {
+                if (field.type === 'text' || field.type === 'email' || field.type === 'number') {
                     formFields += createTextField(field, selectedRow);
                 } else if (!isToEdit && field.type === 'password') {
                     formFields += createTextField(field);
@@ -280,6 +279,8 @@
 
             // set formFields html in the form
             formElem.html(formFields);
+
+            $('.select2').select2()
         }
 
         function createTextField(field, selectedRow = null) {
@@ -290,17 +291,26 @@
                 </div>`;
         }
 
+        // needs:
+        // field {label, name, text, valueKey, selectedText, selectedValue, multiSelect}
         function createSelectField(field, selectedRow) {
-            let selectedOption = selectedRow ? selectedRow[field.compare] : '';
+            let currentSelected = '';
+            if (selectedRow) {
+                let selectedText = selectedRow[field.selectedText];
+                let selectedId = selectedRow[field.selectedValue];
+                if (selectedText && selectedId) {
+                    currentSelected = `<option value="${selectedId}" 'selected'>${selectedText}</option>`;
+                }
+            }
             return `<div class="form-group">
                     <label class="col-form-label">${field.label}</label>
-                    <select name="${field.name}" class="form-control">
+                    <select name="${field.name}${field.multiSelect ? '[]' : ''}" class="${field.multiSelect ? 'select2' : 'form-control'}"
+                            ${field.multiSelect ? 'multiple="multiple" data-placeholder="Select a ' + field.label + '" style="width: 100%;"' : ''}>
                         <option disabled>Select ${field.label}</option>
+                        ${currentSelected}
                         ${
                             field.options.map(option =>
-                                `<option value="${option[field.valueKey]}" ${selectedOption == option[field.text] ? 'selected' : ''}>
-                                    ${option[field.text]}
-                                </option>`
+                                `<option value="${option[field.valueKey]}">${option[field.text]}</option>`
                             ).join("")
                         }
                     </select>
@@ -315,7 +325,9 @@
                 return `<div class="form-group">
                     <label class="col-form-label">${level.label}</label>
                     <select onchange="updateNestedSelect(event, '${index}', '${nextLevelLabel}', '${nextLevelText}', '${nextLevelValueKey}')"
-                        id="level_${index}_select" name="${level.inputName || ''}" class="form-control">
+                        id="level_${index}_select" name="${level.inputName || ''}${level.multiSelect ? '[]' : ''}"
+                        class="${level.multiSelect ? 'select2' : 'form-control'}"
+                        ${level.multiSelect ? 'multiple="multiple" data-placeholder="Select a ' + level.label + '" style="width: 100%;"' : ''}>
                         <option>Select ${level.label}</option>
                         ${
                             index == 0 && field[level.key].map((option) =>
@@ -396,17 +408,22 @@
         }
 
         function handleEditSuccess(response) {
-            datatable.rows('.selected').data(response.updatedData).draw(false);
-            datatable.rows('.selected').deselect();
-            $('#formModal .close').click();
-            showSuccessToast('Edit success', response.userMessage);
+            if (response.result === true) {
+                datatable.rows('.selected').data(response.updatedData).draw(false);
+                datatable.rows('.selected').deselect();
+                $('#formModal .close').click();
+                showSuccessToast('Edit success', response.userMessage);
+            } else {
+                $('#confirmModal .close').click();
+                showErrorToast('Delete failed', response.userMessage);
+            }
         }
 
         function handleEditFail(response) {
             let message = response.responseJSON.message;
             let errors = response.responseJSON.errors;
-            let errorsAlerts = '<div class="alert alert-danger" role="alert">';
-                errorsAlerts += `<p><strong>${message}</strong></p>`;
+            let errorsAlerts = '<div class="alert alert-danger" role="alert">'
+                + `<p><strong>${message}</strong></p>`;
             for (const error in errors) {
                 errorsAlerts += `<div>${errors[error]}</div>`;
             }
@@ -491,7 +508,7 @@
         }
 
         function handleDeleteSuccess(response) {
-            if (response.result == true) {
+            if (response.result === true) {
                 datatable.row('.selected').remove().draw(true);
                 $('#confirmModal .close').click();
                 showSuccessToast('Delete success', response.userMessage);
