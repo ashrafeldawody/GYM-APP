@@ -11,10 +11,17 @@ class Purchase extends Model
 
     protected $guarded = [];
 
-    public function trainingPackage(){
-        return $this->belongsTo(TrainingPackage::class);
+    public function scopePaid($query)
+    {
+        return $query->where('published', true);
     }
 
+    protected static function booted()
+    {
+        static::addGlobalScope('ancient', function (Builder $builder) {
+            $builder->where('paid', 1);
+        });
+    }
     public function user()
     {
         return $this->belongsTo(User::class)->select('id','name','email');
