@@ -252,7 +252,7 @@
             let loadNestedSelect = null;
 
             formData.fields.forEach(field => {
-                if (field.type === 'text' || field.type === 'email') {
+                if (field.type === 'text' || field.type === 'email' || field.type === 'number') {
                     formFields += createTextField(field, selectedRow);
                 } else if (!isToEdit && field.type === 'password') {
                     formFields += createTextField(field);
@@ -280,6 +280,8 @@
 
             // set formFields html in the form
             formElem.html(formFields);
+
+            $('.select2').select2()
         }
 
         function createTextField(field, selectedRow = null) {
@@ -290,17 +292,26 @@
                 </div>`;
         }
 
+        // needs:
+        // field {label, name, text, valueKey, selectedText, selectedValue, multiSelect}
         function createSelectField(field, selectedRow) {
-            let selectedOption = selectedRow ? selectedRow[field.compare] : '';
+            let currentSelected = '';
+            if (selectedRow) {
+                let selectedText = selectedRow[field.selectedText];
+                let selectedId = selectedRow[field.selectedValue];
+                if (selectedText && selectedId) {
+                    currentSelected = `<option value="${selectedId}" 'selected'>${selectedText}</option>`;
+                }
+            }
             return `<div class="form-group">
                     <label class="col-form-label">${field.label}</label>
-                    <select name="${field.name}" class="form-control">
+                    <select name="${field.name}${field.multiSelect ? '[]' : ''}" class="${field.multiSelect ? 'select2' : 'form-control'}"
+                            ${field.multiSelect ? 'multiple="multiple" data-placeholder="Select a ' + field.label + '" style="width: 100%;"' : ''}>
                         <option disabled>Select ${field.label}</option>
+                        ${currentSelected}
                         ${
                             field.options.map(option =>
-                                `<option value="${option[field.valueKey]}" ${selectedOption == option[field.text] ? 'selected' : ''}>
-                                    ${option[field.text]}
-                                </option>`
+                                `<option value="${option[field.valueKey]}">${option[field.text]}</option>`
                             ).join("")
                         }
                     </select>
@@ -315,7 +326,9 @@
                 return `<div class="form-group">
                     <label class="col-form-label">${level.label}</label>
                     <select onchange="updateNestedSelect(event, '${index}', '${nextLevelLabel}', '${nextLevelText}', '${nextLevelValueKey}')"
-                        id="level_${index}_select" name="${level.inputName || ''}" class="form-control">
+                        id="level_${index}_select" name="${level.inputName || ''}${level.multiSelect ? '[]' : ''}"
+                        class="${level.multiSelect ? 'select2' : 'form-control'}"
+                        ${level.multiSelect ? 'multiple="multiple" data-placeholder="Select a ' + level.label + '" style="width: 100%;"' : ''}>
                         <option>Select ${level.label}</option>
                         ${
                             index == 0 && field[level.key].map((option) =>
