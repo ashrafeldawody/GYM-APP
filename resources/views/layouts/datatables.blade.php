@@ -441,9 +441,15 @@
         }
 
         function handleAddFail(response) {
-            datatable.rows('.selected').deselect();
-            $('#confirmModal .close').click();
-            showErrorToast('Add failed', "Something wrong happened, Unknown error");
+            let message = response.responseJSON.message;
+            let errors = response.responseJSON.errors;
+            let errorsAlerts = '<div class="alert alert-danger" role="alert">';
+                errorsAlerts += `<p><strong>${message}</strong></p>`;
+            for (const error in errors) {
+                errorsAlerts += `<div>${errors[error]}</div>`;
+            }
+            errorsAlerts += '</div>';
+            alertsDiv.html(errorsAlerts);
         }
 
         // ----- * ----- * ----- * ----- * ----- * ----- * -----
