@@ -35,7 +35,7 @@ Auth::routes(['verify' => true]);
 Route::middleware('auth:sanctum','verified')->group(function(){
     Route::get('/users/',[UserController::class, 'show']);
     Route::put('/users/', [UserController::class, 'update']);
-    Route::get('/users/remaining-sessions/',[UserController::class, 'getRemainingSessions']);
+    Route::get('/users/remaining-sessions/',[UserController::class, 'getSessionsInfo']);
     Route::post('/users/training-sessions/{id}/attend',[UserController::class, 'attend']);
     Route::get('/users/history', [UserController::class, 'getHistory']);
 

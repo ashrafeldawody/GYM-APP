@@ -16,7 +16,7 @@ class TrainingSessionFactory extends Factory
      */
     public function definition()
     {
-        $startDate = Carbon::createFromTimeStamp($this->faker->dateTimeBetween('-1 years', '+1 month')->getTimestamp());
+        $startDate = Carbon::createFromTimeStamp($this->faker->dateTimeBetween('-1 week', '+1 week')->getTimestamp());
 
         return [
             'name' => $this->faker->unique()->name(),
