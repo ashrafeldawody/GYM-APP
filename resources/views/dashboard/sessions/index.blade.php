@@ -36,4 +36,10 @@
     {data: 'name', name: 'name'},
     {data: 'starts_at', name: 'starts_at'},
     {data: 'finishes_at', name: 'finishes_at'},
+    @can('show_gym_data')
+        {data: 'gym', name: 'gym'},
+    @endcan
+    @can('show_city_data')
+        {data: 'city', name: 'city'},
+    @endcan
 @endsection
