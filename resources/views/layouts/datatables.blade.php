@@ -151,9 +151,8 @@
         if (!addEndpoint) addButton.hide();
 
         let datatable = $('#datatable').DataTable({
-            bAutoWidth: false,
             scrollX: true,
-            responsive: true,
+            sScrollXInner: "100%",
             processing: true,
             serverSide: true,
             pageLength: 10,
@@ -180,7 +179,7 @@
             createdRow: function (row, data, index) {
                 $(row).css('cursor', 'pointer');
             },
-            order: [[ 1, 'asc' ]]
+            order: [[ 2, 'asc' ]]
         });
 
         // Prevent error alerts
