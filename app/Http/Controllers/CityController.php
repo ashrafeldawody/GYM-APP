@@ -63,6 +63,7 @@ class CityController extends Controller
     public function create()
     {
         $managers = Manager::whereDoesntHave('roles')->get(['id', 'name'])->toArray();
+
         return [
             'formLable' => 'City',
             'fields' => [
