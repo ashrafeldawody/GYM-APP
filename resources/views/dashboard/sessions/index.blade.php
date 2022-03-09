@@ -22,7 +22,7 @@
 @endsection
 
 @section('add_endpoint')
-    "{{ route('dashboard.sessions.create') }}"
+    "{{ route('dashboard.sessions.store') }}"
 @endsection
 
 @section('update_endpoint')

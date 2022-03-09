@@ -89,3 +89,24 @@
 - 📌 issues
 
   - fixing cities modal issue on create
+
+
+```php
+   $parameters = [
+      "name" => "dsada"
+      "day" => "2022-02-28"
+      "starts_at" => "23:07"
+      "finishes_at" => "12:07"
+      "coach_id" => array:3 [
+        0 => "62"
+        1 => "63"
+        2 => "64"
+      ]
+      $sessionName = parameters['name'];
+      $sessionDay = parameters['day'];
+      $start_at =  parameters['starts_at'];
+      $finishes_at =  parameters['finishes_at'];
+      $coach_id = parameters['coach_id'];
+
+       $combinedDT = date('Y-m-d H:i:s', strtotime("$sessionDay $starts_At"));
+```
