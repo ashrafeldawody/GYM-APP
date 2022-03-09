@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\GymManagersDataTable;
+use App\Http\Resources\CityGymCoachesResource;
+use App\Http\Resources\CityGymResource;
 use App\Http\Resources\GymManagersResource;
+use App\Models\City;
 use App\Models\Manager;
 use App\Http\Requests\StoreManagerRequest;
 use App\Http\Requests\UpdateManagerRequest;
@@ -35,53 +38,38 @@ class GymManagerController extends Controller
      */
     public function create()
     {
+        $managers = Manager::whereDoesntHave('roles')->get(['id', 'name'])->toArray();
+        $data  = CityGymResource::collection(City::with('gyms')->get());
         return [
-            'formLable' => 'City Manager',
+            'formLable' => 'Gym Manager',
             'fields' => [
                 [
-                    'type' => 'text',
-                    'label' => 'Manager Name',
-                    'name' => 'name',
-                    'valueKey' => 'name'
+                    'label' => 'Manager',
+                    'name' => 'manager_id',
+                    'type' => 'select',
+                    'valueKey' => 'id',
+                    'text' => 'name',
+                    'compare' => 'manager_name',
+                    'options' => $managers
                 ],
                 [
-                    'type' => 'email',
-                    'label' => 'Email',
-                    'name' => 'email',
-                    'valueKey' => 'email'
-                ],
-                [
-                    'type' => 'password',
-                    'label' => 'Password',
-                    'name' => 'password'
-                ],
-                [
-                    'type' => 'password',
-                    'label' => 'Confirm Password',
-                    'name' => 'password_confirmation'
-                ],
-                [
-                    'type' => 'text',
-                    'label' => 'National Id',
-                    'name' => 'national_id',
-                    'valueKey' => 'national_id'
-                ],
-                [
-                    'type' => 'radio',
-                    'label' => 'Gender',
-                    'name' => 'gender',
-                    'valueKey' => 'gender',
-                    'options' => [
-                        ['value' => 'male', 'text' => 'Male'],
-                        ['value' => 'female', 'text' => 'Female'],
-                    ]
-                ],
-                [
-                    'type' => 'date',
-                    'label' => 'Birth Date',
-                    'name' => 'birth_date',
-                    'valueKey' => 'birth_date'
-                ],
+                    'type' => 'nestedSelect',
+                    'cities' => $data,
+                    'levels' => [
+                        [
+                            'key' => 'cities',
+                            'label' => 'City',
+                            'text' => 'name',
+                        ],
+                        [
+                            'key' => 'gyms',
+                            'label' => 'Gym',
+                            'text' => 'name',
+                            'valueKey' => 'id',
+                            'inputName' => 'gym_id'
+                        ],
+                    ],
+                ]
             ]
         ];
     }
