@@ -38,7 +38,7 @@
 </div>
 
 <div class="toast shadow-lg m-3 fade hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3500"
-    style="position: fixed; right: 0; top: 0; margin-top: 1rem !important; z-index: 99999;">
+    style="position: fixed; right: 1.2rem; top: 0; margin-top: 1.2rem !important; z-index: 99999;">
     <div class="toast-header">
         <strong id="toastTitle" class="mr-auto w-100" style="min-width: 200px; width: 100%;"></strong>
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -409,17 +409,22 @@
         }
 
         function handleEditSuccess(response) {
-            datatable.rows('.selected').data(response.updatedData).draw(false);
-            datatable.rows('.selected').deselect();
-            $('#formModal .close').click();
-            showSuccessToast('Edit success', response.userMessage);
+            if (response.result === true) {
+                datatable.rows('.selected').data(response.updatedData).draw(false);
+                datatable.rows('.selected').deselect();
+                $('#formModal .close').click();
+                showSuccessToast('Edit success', response.userMessage);
+            } else {
+                $('#confirmModal .close').click();
+                showErrorToast('Delete failed', response.userMessage);
+            }
         }
 
         function handleEditFail(response) {
             let message = response.responseJSON.message;
             let errors = response.responseJSON.errors;
-            let errorsAlerts = '<div class="alert alert-danger" role="alert">';
-                errorsAlerts += `<p><strong>${message}</strong></p>`;
+            let errorsAlerts = '<div class="alert alert-danger" role="alert">'
+                + `<p><strong>${message}</strong></p>`;
             for (const error in errors) {
                 errorsAlerts += `<div>${errors[error]}</div>`;
             }
@@ -504,7 +509,7 @@
         }
 
         function handleDeleteSuccess(response) {
-            if (response.result == true) {
+            if (response.result === true) {
                 datatable.row('.selected').remove().draw(true);
                 $('#confirmModal .close').click();
                 showSuccessToast('Delete success', response.userMessage);
