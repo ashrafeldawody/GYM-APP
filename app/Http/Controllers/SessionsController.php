@@ -156,14 +156,13 @@ class SessionsController extends Controller
         $startsAt = date('Y-m-d H:i:s', strtotime("$sessionDay $sessionStartsAt"));
         $finishesAt = date('Y-m-d H:i:s', strtotime("$sessionDay $sessionFinishesAt"));
 
-
         if (SessionsController::checkOverLab($request)) {
             return [
                 'result' => false,
                 'userMessage' => "<b>$sessionName->name</b> Can't be added because it overlabs with an existing session"
             ];
         }
-//         add the validation on the date and the starts at time
+
         $session = TrainingSession::create([
             'name' => $sessionName,
             'starts_at' => $startsAt,
@@ -258,14 +257,9 @@ class SessionsController extends Controller
         }
     }
 
-    private static function checkOverLabHelber($startA, $endA, TrainingSession $sessionB): bool
+    private function checkOverLab($request): bool
     {
-//        (StartA <= EndB)  and  (EndA >= StartB)
-        return ($startA <= $sessionB->finishes_at)  and  ($endA >= $sessionB->starts_at);
-    }
-
-    public function checkOverLab($request): bool
-    {
+        // (StartA <= EndB)  and  (EndA >= StartB)
         $sessionDay = $request->toArray()['day'];
         $gymId = Coach::find($request->toArray()['coach_id'][0])->gym->id;
         $trainingSessions = TrainingSession::whereDate('starts_at', $sessionDay)->where('gym_id', $gymId)->get();
@@ -275,7 +269,7 @@ class SessionsController extends Controller
         $finishesAt = date('Y-m-d H:i:s', strtotime("$sessionDay $sessionFinishesAt"));
         if ($trainingSessions->count() > 0) {
             foreach ($trainingSessions as $session) {
-                if (SessionsController::checkOverLabHelber($startsAt, $finishesAt, $session)) {
+                if ( ($startsAt <= $session->finishes_at)  and  ($finishesAt >= $session->starts_at)) {
                     return true;
                 }
             }
