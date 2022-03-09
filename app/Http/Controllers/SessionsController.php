@@ -61,19 +61,19 @@ class SessionsController extends Controller
                     'type' => 'date',
                     'label' => 'Day',
                     'name' => 'day',
-                    'valueKey' => 'day'
+                    'valueKey' => 'starts_at'
                 ],
                 [
                     'type' => 'time',
                     'label' => 'Start Time',
-                    'name' => 'start_time',
-                    'valueKey' => 'start_time'
+                    'name' => 'starts_at',
+                    'valueKey' => 'starts_at'
                 ],
                 [
                     'type' => 'time',
                     'label' => 'Finish Time',
-                    'name' => 'finish_time',
-                    'valueKey' => 'finish_time'
+                    'name' => 'finishes_at',
+                    'valueKey' => 'finishes_at'
                 ],
             ]
         ];
