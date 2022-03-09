@@ -7,7 +7,8 @@
     <div class="row justify-content-center">
         <div class="col-md-12 mb-5">
             <div class="card">
-                <div class="card-header bg-light sticky-top">
+                <div class="card-header bg-light"
+                    style="position: -webkit-sticky; position: sticky; top: 0; z-index: 1020;">
                     <div class="d-flex justify-content-between">
                         <div class="h5 align-self-center my-2">@yield('table_header')</div>
                         <div class="d-flex">
@@ -91,8 +92,15 @@
     </div>
 </div>
 
-{{-- @yield('table_script') --}}
+<script>
+    const ajaxUrl = @yield('table_route', 'null');
+    const formDataEndpoint = @yield('form_data_endpoint', 'null');
+    const addEndpoint = @yield('add_endpoint', 'null');
+    const updateEndpoint = @yield('update_endpoint', 'null');
+    const destroyEndpoint = @yield('destroy_endpoint', 'null');
 
+    const tableColumns = [@yield('table_columns')];
+</script>
 
 <script type="text/javascript">
     let nestedSelectOptions = {};
@@ -244,22 +252,26 @@
             let loadNestedSelect = null;
 
             formData.fields.forEach(field => {
-                if (field.type == 'text' || field.type == 'email') {
+                if (field.type === 'text' || field.type === 'email') {
                     formFields += createTextField(field, selectedRow);
-                } else if (!isToEdit && field.type == 'password') {
+                } else if (!isToEdit && field.type === 'password') {
                     formFields += createTextField(field);
-                } else if (field.type == 'select') {
+                } else if (field.type === 'select') {
                     formFields += createSelectField(field, selectedRow);
-                } else if (field.type == 'nestedSelect') {
+                } else if (field.type === 'nestedSelect') {
                     separateSelectLevel(field);
                     formFields += createNestedSelect(field);
                     loadNestedSelect = field;
-                } else if (field.type == 'radio') {
+                } else if (field.type === 'radio') {
                     formFields += createRadioField(field, selectedRow);
-                } else if (field.type == 'time') {
+                } else if (field.type === 'time') {
                     let timeValue = selectedRow ? selectedRow[field.valueKey] : '';
+                    if (timeValue) {
+                        const found = timeValue.match(/\d\d:\d\d:\d\d/g);
+                        if (found && found.length > 0) timeValue =found[0];
+                    }
                     formFields += createDateTimeField(field, selectedRow, timeValue);
-                } else if (field.type == 'date') {
+                } else if (field.type === 'date') {
                     let dateValue = selectedRow ? selectedRow[field.valueKey] : '';
                     if (dateValue) dateValue = new Date(dateValue).toISOString().split("T")[0];
                     formFields += createDateTimeField(field, selectedRow, dateValue);
