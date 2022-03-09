@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,9 +19,13 @@ class Purchase extends Model
 
     protected static function booted()
     {
-        static::addGlobalScope('ancient', function (Builder $builder) {
-            $builder->where('paid', 1);
+        static::addGlobalScope('paid', function (Builder $builder) {
+            $builder->where('is_paid', 1);
         });
+    }
+
+    public function trainingPackage(){
+        return $this->belongsTo(TrainingPackage::class);
     }
     public function user()
     {
