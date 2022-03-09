@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\City;
 use App\Models\Purchase;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,7 +20,8 @@ class HomeController extends Controller
     {
         $maleFemaleChart = $this->maleFemaleAttendanceChart();
         $revenuePerMonth = $this->revenuePerMonth();
-        return view('dashboard.home.index', compact('maleFemaleChart','revenuePerMonth'));
+        $citiesAttendances = $this->getCityAttendanceChart();
+        return view('dashboard.home.index', compact('maleFemaleChart','revenuePerMonth','citiesAttendances'));
     }
 
     private function maleFemaleAttendanceChart()
@@ -27,7 +29,7 @@ class HomeController extends Controller
         $maleAttendances = Attendance::countByGender('male');
         $femaleAttendances = Attendance::countByGender('female');
         return app()->chartjs
-            ->name('pieChartTest')
+            ->name('maleFemaleChart')
             ->type('pie')
             ->size(['width' => 400, 'height' => 200])
             ->labels(['Male', 'Female'])
@@ -49,7 +51,7 @@ class HomeController extends Controller
         });
 
         return app()->chartjs
-            ->name('lineChartTest')
+            ->name('revenueChart')
             ->type('line')
             ->size(['width' => 400, 'height' => 200])
             ->labels($sorted_income->pluck('month')->toArray())
@@ -73,5 +75,20 @@ class HomeController extends Controller
             ->options([]);
 
     }
-
+    private function getCityAttendanceChart(){
+        $citiesSessions = City::select('name')->withCount('sessions')->get();
+        return app()->chartjs
+            ->name('citiesAttendancesChart')
+            ->type('pie')
+            ->size(['width' => 400, 'height' => 200])
+            ->labels($citiesSessions->pluck('name')->toArray())
+            ->datasets([
+                [
+                    'backgroundColor' => ["#84FF63","#8463FF","#6384FF"],
+                    'hoverBackgroundColor' => ["#84FF63",'#FF6384', '#36A2EB'],
+                    'data' => $citiesSessions->pluck('sessions_count')->toArray()
+                ]
+            ])
+            ->options([]);
+    }
 }
