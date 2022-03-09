@@ -79,6 +79,8 @@ class CityController extends Controller
                     'type' => 'select',
                     'valueKey' => 'id',
                     'text' => 'name',
+                    'selectedText' => 'manager_name',
+                    'selectedValue' => 'manager_id',
                     'compare' => 'manager_name',
                     'options' => $managers
                 ]
