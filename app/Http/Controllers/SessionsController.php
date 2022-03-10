@@ -212,11 +212,41 @@ class SessionsController extends Controller
      *
      * @param  \App\Http\Requests\UpdateTrainingSessionRequest  $request
      * @param  \App\Models\TrainingSession  $trainingSession
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function update(UpdateTrainingSessionRequest $request, TrainingSession $trainingSession)
+    public function update(UpdateTrainingSessionRequest $request, $trainingSessionID)
     {
         //
+        //
+        $trainingSession = TrainingSession::find($trainingSessionID);
+
+
+        $sessionName = $request->toArray()['name'];
+        $sessionDay = $request->toArray()['day'];
+        $sessionStartsAt = $request->toArray()['starts_at'];
+        $sessionFinishesAt = $request->toArray()['finishes_at'];
+        $coachesIds = $request->toArray()['coach_id'];
+        $gymId = Coach::find($coachesIds[0])->gym->id;
+        $startsAt = date('Y-m-d H:i:s', strtotime("$sessionDay $sessionStartsAt"));
+        $finishesAt = date('Y-m-d H:i:s', strtotime("$sessionDay $sessionFinishesAt"));
+
+
+        if ($trainingSession->attendances->count() > 0 &&
+            ($startsAt != $trainingSession->starts_at ||
+            $finishesAt != $trainingSession->finishes_at)) {
+            return [
+                'result' => false,
+                'userMessage' => "Cann't Edit <b>$sessionName->name</b> time because it has attendances in it"
+            ];
+        }
+
+        if (SessionsController::checkOverLab($request)) {
+            return [
+                'result' => false,
+                'userMessage' => "<b>$sessionName->name</b> Can't be added because it overlabs with an existing session"
+            ];
+        }
+
     }
 
     /**
@@ -253,7 +283,7 @@ class SessionsController extends Controller
         } else if (Auth::user()->hasRole('city_manager')) {
             return SessionResource::collection(Auth::user()->city->sessions);
         } else {
-            return SessionResource::collection(TrainingSession::all());
+            return SessionResource::collection(TrainingSession::with('gym', 'gym.city')->get());
         }
     }
 

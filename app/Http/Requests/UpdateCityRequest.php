@@ -25,11 +25,12 @@ class UpdateCityRequest extends FormRequest
      */
     public function rules()
     {
-        $cityId = $this->route('city');
+        $city = $this->route('city');
+        dd($this, $city);
         return [
             'name' => [
                 'required',
-                Rule::unique('cities')->ignore($cityId),
+                Rule::unique('cities')->ignore($city),
             ],
             'manager_id' => 'required|exists:managers,id'
         ];
