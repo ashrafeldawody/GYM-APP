@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\CoachesDataTable;
+use App\Http\Resources\CityGymResource;
 use App\Http\Resources\CityManagersResource;
 use App\Http\Resources\CoachResource;
+use App\Http\Resources\SessionResource;
+use App\Models\City;
 use App\Models\Coach;
 use App\Http\Requests\StoreCoachRequest;
 use App\Http\Requests\UpdateCoachRequest;
@@ -38,53 +41,34 @@ class CoachController extends Controller
      */
     public function create()
     {
+        $data  = CityGymResource::collection(City::with('gyms')->get());
         return [
-            'formLable' => 'Coach Manager',
+            'formLable' => 'Coach',
             'fields' => [
                 [
                     'type' => 'text',
-                    'label' => 'Manager Name',
+                    'label' => 'Coach Name',
                     'name' => 'name',
                     'valueKey' => 'name'
                 ],
                 [
-                    'type' => 'email',
-                    'label' => 'Email',
-                    'name' => 'email',
-                    'valueKey' => 'email'
-                ],
-                [
-                    'type' => 'password',
-                    'label' => 'Password',
-                    'name' => 'password'
-                ],
-                [
-                    'type' => 'password',
-                    'label' => 'Confirm Password',
-                    'name' => 'password_confirmation'
-                ],
-                [
-                    'type' => 'text',
-                    'label' => 'National Id',
-                    'name' => 'national_id',
-                    'valueKey' => 'national_id'
-                ],
-                [
-                    'type' => 'radio',
-                    'label' => 'Gender',
-                    'name' => 'gender',
-                    'valueKey' => 'gender',
-                    'options' => [
-                        ['value' => 'male', 'text' => 'Male'],
-                        ['value' => 'female', 'text' => 'Female'],
-                    ]
-                ],
-                [
-                    'type' => 'date',
-                    'label' => 'Birth Date',
-                    'name' => 'birth_date',
-                    'valueKey' => 'birth_date'
-                ],
+                    'type' => 'nestedSelect',
+                    'cities' => $data,
+                    'levels' => [
+                        [
+                            'key' => 'cities',
+                            'label' => 'City',
+                            'text' => 'name',
+                        ],
+                        [
+                            'key' => 'gyms',
+                            'label' => 'Gym',
+                            'text' => 'name',
+                            'valueKey' => 'id',
+                            'inputName' => 'gym_id'
+                        ],
+                    ],
+                ]
             ]
         ];
     }
@@ -93,34 +77,17 @@ class CoachController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreCoachRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function store(StoreCoachRequest $request)
     {
-        //
-        dd("heloooooo");
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Coach  $coach
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Coach $coach)
-    {
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Coach  $coach
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Coach $coach)
-    {
-        //
+        $coach = Coach::create($request->validated());
+        $newCoachData = Datatables::of(CoachResource::collection([$coach]))->make(true);
+        return [
+            'result' => true,
+            'userMessage' => "<b>$coach->name</b> is created successfully",
+            'newRowData' => $newCoachData
+        ];
     }
 
     /**
@@ -128,11 +95,35 @@ class CoachController extends Controller
      *
      * @param  \App\Http\Requests\UpdateCoachRequest  $request
      * @param  \App\Models\Coach  $coach
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function update(UpdateCoachRequest $request, Coach $coach)
+    public function update(UpdateCoachRequest $request,$id)
     {
-        //
+        $coach = Coach::find($id);
+        $coachName = $coach->name;
+        $trainingSessionsCount = $coach->trainingSessions->count();
+
+        if ($request->validated()['gym_id'] == 'Select Gym') {
+            $coach->update([
+               'name' =>  $request->validated()['name'],
+            ]);
+        } else {
+            if ($trainingSessionsCount) {
+                return [
+                    'result' => false,
+                    'userMessage' => "Can't Change <b>$coachName</b> Gym Becase he is assigned to $trainingSessionsCount training Sessions"
+                ];
+            } else {
+                $coach->upadate($request->validated());
+            }
+        }
+        $newCoachData = Datatables::of(CoachResource::collection([$coach]))->make(true);
+        return [
+            'result' => true,
+            'userMessage' => "<b>$coachName</b> Data Updated successfully",
+            'updatedData' => $newCoachData
+        ];
+
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UpdateCoachRequest extends FormRequest
 {
@@ -24,8 +25,13 @@ class UpdateCoachRequest extends FormRequest
      */
     public function rules()
     {
+        $coachId = $this->route('coach');
         return [
-            //
+            'name' => [
+                'required',
+                Rule::unique('training_packages')->ignore($coachId),
+            ],
+            'gym_id' => 'required',
         ];
     }
 }

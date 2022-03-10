@@ -42,11 +42,11 @@
 
     - ⌛ Add new General Manager
 
-  - 📌 Coaches
+  - ✔ Coaches
 
-    - 📌 Add New Coach
+    - ✔ Add New Coach
 
-    - 📌 Edit Coach Name
+    - ✔ Edit Coach Name
 
     - ✔ Delete Coach
 
@@ -76,11 +76,11 @@
 
 - ✔ Revenue Card
 
-- 📌 Packages
+- ✔ Packages
 
-  - 📌 Add new package
+  - ✔ Add new package
 
-  - 📌 Edit Package price or session number
+  - ✔ Edit Package price or session number
 
   - ✔ Can't delete package if their is some one bought it
 

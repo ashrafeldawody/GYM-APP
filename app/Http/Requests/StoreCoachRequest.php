@@ -25,7 +25,8 @@ class StoreCoachRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|unique:coaches',
+            'gym_id' => 'required|not_in:"Select Gym"'
         ];
     }
 }
