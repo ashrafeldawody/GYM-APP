@@ -19,14 +19,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard.home.index');
+        $years = Purchase::select(DB::raw('YEAR(created_at) as year'))->distinct()->orderBy('year','desc')->get()->pluck('year');
+        return view('dashboard.home.index',compact('years'));
     }
 
     public function maleFemaleAttendanceData()
     {
-        $Male = Attendance::countByGender('male');
-        $Female = Attendance::countByGender('female');
-        return compact('Male','Female');
+        $males = Attendance::countByGender('male');
+        $females = Attendance::countByGender('female');
+        return [
+            'labels' => ['Male','Female'],
+            'values' => [$males,$females],
+        ];
     }
 
     public function revenuePerMonth($year)
@@ -35,41 +39,21 @@ class HomeController extends Controller
         $sorted_income = $purchases->sortBy(function ($item, $i) {
             return ( Carbon::parse($item->month)->format("m") );
         });
-        $months = $sorted_income->pluck('month')->toArray();
-        $incomes = $sorted_income->pluck('total')->toArray();
-        return compact('months','incomes');
+        $labels = $sorted_income->pluck('month')->toArray();
+        $values = $sorted_income->pluck('total')->toArray();
+        return compact('labels','values');
 
     }
-    public function getCityAttendanceChart(){
+    public function topCities(){
         $citiesSessions = City::select('name')->withCount('sessions')->get();
-        return app()->chartjs
-            ->name('citiesAttendancesChart')
-            ->type('pie')
-            ->size(['width' => 400, 'height' => 200])
-            ->labels($citiesSessions->pluck('name')->toArray())
-            ->datasets([
-                [
-                    'backgroundColor' => ["#84FF63","#8463FF","#6384FF",'#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966',],
-                    'hoverBackgroundColor' => ["#84FF63",'#FF6384', '#36A2EB','#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966',],
-                    'data' => $citiesSessions->pluck('sessions_count')->toArray()
-                ]
-            ])
-            ->options([]);
+        $labels = $citiesSessions->pluck('name')->toArray();
+        $values = $citiesSessions->pluck('sessions_count')->toArray();
+        return compact('labels','values');
     }
-    public function getTopUsersChart(){
+    public function topUsers(){
         $users = User::select('name')->withCount('trainingSessions')->limit(10)->get();
-        return app()->chartjs
-            ->name('topUsersChart')
-            ->type('pie')
-            ->size(['width' => 400, 'height' => 200])
-            ->labels($users->pluck('name')->toArray())
-            ->datasets([
-                [
-                    'backgroundColor' => ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D', '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A'],
-                    'hoverBackgroundColor' => ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D', '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A'],
-                    'data' => $users->pluck('training_sessions_count')->toArray()
-                ]
-            ])
-            ->options([]);
+        $labels = $users->pluck('name')->toArray();
+        $values = $users->pluck('training_sessions_count')->toArray();
+        return compact('labels','values');
     }
 }

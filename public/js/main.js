@@ -13130,7 +13130,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   \********************************/
 /***/ (() => {
 
-window.loadMaleFemaleChart = function (selector, route) {
+window.loadPieChart = function (selector, route) {
   $.ajax({
     type: 'GET',
     url: route
@@ -13140,11 +13140,11 @@ window.loadMaleFemaleChart = function (selector, route) {
       type: 'pie',
       data: {
         datasets: [{
-          backgroundColor: ['#FF6384', '#36A2EB'],
-          hoverBackgroundColor: ['#FF6384', '#36A2EB'],
-          data: Object.values(data)
+          backgroundColor: ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D', '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A'],
+          hoverBackgroundColor: ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D', '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A'],
+          data: data.values
         }],
-        labels: Object.keys(data)
+        labels: data.labels
       }
     });
   }).fail(function () {
@@ -13161,10 +13161,10 @@ window.loadRevenueChart = function (selector, route) {
     new Chart(ctx, {
       type: 'line',
       data: {
-        labels: data.months,
+        labels: data.labels,
         datasets: [{
-          data: data.incomes,
-          label: "Africa",
+          data: data.values,
+          label: "Revenue",
           borderColor: "#3e95cd",
           fill: false
         }]
