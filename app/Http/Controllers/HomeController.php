@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Attendance;
 use App\Models\City;
+use App\Models\Gym;
 use App\Models\Purchase;
+use App\Models\TrainingSession;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,8 +21,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $citiesCount = City::count();
+        $gymsCount = Gym::count();
+        $trainingSessionsCount = TrainingSession::count();
+        $usersCount = User::count();
         $years = Purchase::select(DB::raw('YEAR(created_at) as year'))->distinct()->orderBy('year','desc')->get()->pluck('year');
-        return view('dashboard.home.index',compact('years'));
+        return view('dashboard.home.index',compact('years','citiesCount','gymsCount','trainingSessionsCount','usersCount'));
     }
 
     public function maleFemaleAttendanceData()
