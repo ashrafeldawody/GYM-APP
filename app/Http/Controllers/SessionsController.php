@@ -156,7 +156,7 @@ class SessionsController extends Controller
         $startsAt = date('Y-m-d H:i:s', strtotime("$sessionDay $sessionStartsAt"));
         $finishesAt = date('Y-m-d H:i:s', strtotime("$sessionDay $sessionFinishesAt"));
 
-        if (SessionsController::checkOverLab($request)) {
+        if (SessionsController::checkOverLab($request, '')) {
             return [
                 'result' => false,
                 'userMessage' => "<b>$sessionName->name</b> Can't be added because it overlabs with an existing session"
@@ -178,9 +178,11 @@ class SessionsController extends Controller
             ]);
         }
 
+        $newSessionData = Datatables::of(SessionResource::collection([$session]))->make(true);
         return [
             'result' => true,
-            'userMessage' => "<b>$sessionName</b> has been successfully Created"
+            'userMessage' => "<b>$sessionName</b> has been successfully Created",
+            'newRowData' => $newSessionData,
         ];
     }
 
@@ -216,36 +218,51 @@ class SessionsController extends Controller
      */
     public function update(UpdateTrainingSessionRequest $request, $trainingSessionID)
     {
-        //
-        //
         $trainingSession = TrainingSession::find($trainingSessionID);
-
         $sessionName = $request->toArray()['name'];
         $sessionDay = $request->toArray()['day'];
         $sessionStartsAt = $request->toArray()['starts_at'];
         $sessionFinishesAt = $request->toArray()['finishes_at'];
-        $coachesIds = $request->toArray()['coach_id'];
-        $gymId = Coach::find($coachesIds[0])->gym->id;
+        $coachesIds = $request->toArray()['coach_id'] ?? '';
         $startsAt = date('Y-m-d H:i:s', strtotime("$sessionDay $sessionStartsAt"));
         $finishesAt = date('Y-m-d H:i:s', strtotime("$sessionDay $sessionFinishesAt"));
 
-
-        if ($trainingSession->attendances->count() > 0 &&
-            ($startsAt != $trainingSession->starts_at ||
-            $finishesAt != $trainingSession->finishes_at)) {
-            return [
-                'result' => false,
-                'userMessage' => "Cann't Edit <b>$sessionName->name</b> time because it has attendances in it"
-            ];
+        if (($startsAt != $trainingSession->starts_at || $finishesAt != $trainingSession->finishes_at)) {
+            if ($trainingSession->attendances->count() > 0) {
+                return [
+                    'result' => false,
+                    'userMessage' => "Cann't Edit <b>$sessionName->name</b> time because it has attendances in it"
+                ];
+            }
+            if (SessionsController::checkOverLab($request, $trainingSession)) {
+                return [
+                    'result' => false,
+                    'userMessage' => "<b>$sessionName->name</b> Can't be added because it overlabs with an existing session"
+                ];
+            }
         }
+        $trainingSession->update([
+            'name' => $sessionName,
+            'starts_at' => $startsAt,
+            'finishes_at' => $finishesAt,
+        ]);
 
-        if (SessionsController::checkOverLab($request)) {
-            return [
-                'result' => false,
-                'userMessage' => "<b>$sessionName->name</b> Can't be added because it overlabs with an existing session"
-            ];
+        if ($coachesIds != '') {
+            TrainingSessionCoach::where('training_session_id', $trainingSession->id)->delete();
+            foreach ($coachesIds as $coachId) {
+                TrainingSessionCoach::create([
+                    'coach_id' => $coachId,
+                    'training_session_id' => $trainingSession->id,
+                    'manager_id' => Auth::user()->id,
+                ]);
+            }
         }
-
+        $newSessionData = Datatables::of(SessionResource::collection([$trainingSession]))->make(true);
+        return [
+            'result' => true,
+            'userMessage' => "<b>$sessionName</b> has been successfully updated",
+            'updatedData' => $newSessionData
+        ];
     }
 
     /**
@@ -286,7 +303,7 @@ class SessionsController extends Controller
         }
     }
 
-    private function checkOverLab($request): bool
+    private function checkOverLab($request, $trainingSessionId): bool
     {
         // (StartA <= EndB)  and  (EndA >= StartB)
         $sessionDay = $request->toArray()['day'];
@@ -298,6 +315,7 @@ class SessionsController extends Controller
         $finishesAt = date('Y-m-d H:i:s', strtotime("$sessionDay $sessionFinishesAt"));
         if ($trainingSessions->count() > 0) {
             foreach ($trainingSessions as $session) {
+                if ($trainingSessionId != '' && $trainingSessionId == $session->id) continue;
                 if ( ($startsAt <= $session->finishes_at)  and  ($finishesAt >= $session->starts_at)) {
                     return true;
                 }

@@ -35,7 +35,6 @@ class UpdateTrainingSessionRequest extends FormRequest
             'day' => 'required|date|after:yesterday',
             'starts_at' => 'required',
             'finishes_at' => 'required|after:starts_at',
-            'coach_id' => 'required',
         ];
     }
 
@@ -54,7 +53,6 @@ class UpdateTrainingSessionRequest extends FormRequest
             'starts_at.required' => 'Start Time is required',
             'finishes_at.required' => 'Finish Time is required',
             'finishes_at.after' => 'Finish Time must be after start time !',
-            'coach_id.required' => 'You have to select at least one coach',
         ];
     }
 }
