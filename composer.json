@@ -1,4 +1,8 @@
 {
+    "post-install-cmd": [
+        "php artisan clear-compiled",
+        "chmod -R 777 public/"
+    ],
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
