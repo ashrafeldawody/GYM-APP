@@ -13131,6 +13131,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ (() => {
 
 window.loadPieChart = function (selector, route) {
+  var randomColors = getRandomColorsArray(12);
   $.ajax({
     type: 'GET',
     url: route
@@ -13140,8 +13141,8 @@ window.loadPieChart = function (selector, route) {
       type: 'pie',
       data: {
         datasets: [{
-          backgroundColor: ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D', '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A'],
-          hoverBackgroundColor: ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D', '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A'],
+          backgroundColor: randomColors,
+          hoverBackgroundColor: randomColors,
           data: data.values
         }],
         labels: data.labels
@@ -13174,6 +13175,23 @@ window.loadRevenueChart = function (selector, route) {
     console.log("Error retrieving chart data");
   });
 };
+
+function getRandomColorsArray(size) {
+  var letters = '6789ABCDE'.split('');
+  var colors = [];
+
+  for (var i = 0; i < size; i++) {
+    var color = '#';
+
+    for (var _i = 0; _i < 6; _i++) {
+      color += letters[Math.floor(Math.random() * 8)];
+    }
+
+    colors.push(color);
+  }
+
+  return colors;
+}
 
 /***/ }),
 

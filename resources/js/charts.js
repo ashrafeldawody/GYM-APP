@@ -1,4 +1,5 @@
 window.loadPieChart =  function(selector,route){
+        let randomColors = getRandomColorsArray(12);
         $.ajax( {
             type:'GET',
             url:route,
@@ -9,8 +10,8 @@ window.loadPieChart =  function(selector,route){
                 type: 'pie',
                 data: {
                     datasets: [{
-                        backgroundColor: ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D', '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A'],
-                        hoverBackgroundColor: ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D', '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A'],
+                        backgroundColor: randomColors,
+                        hoverBackgroundColor: randomColors,
                         data: data.values,
                     }],
                     labels: data.labels,
@@ -46,4 +47,16 @@ window.loadRevenueChart =  function(selector,route){
         .fail(function() {
             console.log("Error retrieving chart data");
         });
+}
+function getRandomColorsArray(size) {
+    let letters = '6789ABCDE'.split('');
+    let colors = [];
+    for (let i = 0; i < size; i++ ) {
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 8)];
+        }
+        colors.push(color);
+    }
+    return colors;
 }

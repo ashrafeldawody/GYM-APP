@@ -45,7 +45,7 @@ class HomeController extends Controller
 
     }
     public function topCities(){
-        $citiesSessions = City::select('name')->withCount('sessions')->get();
+        $citiesSessions = City::select('name')->withCount('sessions')->limit(10)->get();
         $labels = $citiesSessions->pluck('name')->toArray();
         $values = $citiesSessions->pluck('sessions_count')->toArray();
         return compact('labels','values');

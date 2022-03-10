@@ -34,7 +34,7 @@ class Manager extends Authenticatable implements BannableContract
         return $this->hasManyThrough(Gym::class, City::class);
     }
     public function gym() {
-        return $this->hasOneThrough(Gym::class,GymsManagers::class,'manager_id','id','id','gym_id');
+        return $this->hasOneThrough(Gym::class,GymManager::class,'manager_id','id','id','gym_id');
     }
     public function revenue($days){
         if ($this->hasRole('gym_manager'))
