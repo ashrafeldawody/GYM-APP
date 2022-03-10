@@ -3,6 +3,56 @@
 @section('content')
     <div class="content">
         <div class="container-fluid">
+            @hasrole('admin')
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-success"><i class="fas fa-city"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Cities</span>
+                            <span class="info-box-number">{{$citiesCount}}</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-warning"><i class="fas fa-dumbbell"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Gyms</span>
+                            <span class="info-box-number">{{$gymsCount}}</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-danger"><i class="far fa-calendar"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Training Sessions</span>
+                            <span class="info-box-number">{{ $trainingSessionsCount }}</span>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-3 col-sm-6 col-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-info"><i class="far fa-user"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Users</span>
+                            <span class="info-box-number">{{$usersCount}}</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            @endrole
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card">
