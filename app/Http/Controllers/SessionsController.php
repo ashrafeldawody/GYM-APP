@@ -220,7 +220,6 @@ class SessionsController extends Controller
         //
         $trainingSession = TrainingSession::find($trainingSessionID);
 
-
         $sessionName = $request->toArray()['name'];
         $sessionDay = $request->toArray()['day'];
         $sessionStartsAt = $request->toArray()['starts_at'];

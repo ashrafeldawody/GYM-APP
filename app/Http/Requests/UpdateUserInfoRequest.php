@@ -26,10 +26,13 @@ class UpdateUserInfoRequest extends FormRequest
      */
     public function rules()
     {
+        $userId = $this->route('user');
         return [
             'name' => ['min:3'],
-            'email' => ['required'],
-            // 'email' => [Rule::unique('users','email')->ignore($this->id, 'id')],
+             'email' => [
+                 'required',
+                 Rule::unique('users')->ignore($userId)
+             ],
             'gender' =>['in:male,female'],
             'birth_date' =>['nullable','date_format:Y-m-d','before:today','after:1920-01-01'],
             'avatar' =>['nullable','image'],

@@ -26,7 +26,6 @@ class UpdateCityRequest extends FormRequest
     public function rules()
     {
         $city = $this->route('city');
-        dd($this, $city);
         return [
             'name' => [
                 'required',
