@@ -582,7 +582,7 @@
             if (response.result === true) {
                 let selectedData = datatable.rows('.selected').data()[0];
                 selectedData['is_banned'] = response.isBanned;
-                datatable.row('.selected').remove().draw(true);
+                updateToggleBanText(response.isBanned);
                 showSuccessToast('Toggle ban success', response.userMessage);
             } else {
                 datatable.rows('.selected').deselect();
@@ -610,10 +610,7 @@
             if (toggleBanEndpoint) {
                 toggleBanButton.show()
                 let selectedData = datatable.rows('.selected').data()[0];
-                if (selectedData) {
-                    selectedData['is_banned'] === true
-                        ? toggleBanButton.html('Unban') : toggleBanButton.html('ban');
-                }
+                if (selectedData) updateToggleBanText(selectedData['is_banned']);
             } else {
                 toggleBanButton.hide();
             }
@@ -621,6 +618,12 @@
 
         function hideControlPanle() {
             controlsPanel.hide();
+        }
+
+        // ----- * ----- * ----- * -----
+
+        function updateToggleBanText(isBanned) {
+            isBanned === true ? toggleBanButton.html('Unban') : toggleBanButton.html('ban');
         }
 
         // ----- * ----- * ----- * -----
