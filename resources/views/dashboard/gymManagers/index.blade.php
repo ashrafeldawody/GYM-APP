@@ -13,7 +13,7 @@
 @endsection
 
 @section('add_endpoint')
-    "{{ route('dashboard.gym_managers.create') }}"
+    "{{ route('dashboard.gym_managers.store') }}"
 @endsection
 
 @section('update_endpoint')

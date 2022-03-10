@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\GymsDataTable;
 use App\Http\Resources\CoachResource;
+use App\Http\Resources\GeneralManagerResource;
 use App\Http\Resources\GymCoachesResource;
 use App\Http\Resources\GymResource;
 use App\Models\City;
@@ -85,11 +86,28 @@ class GymController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreGymRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function store(StoreGymRequest $request)
     {
-        dd($request);
+        $gymData = [
+            'name' => $request->validated()['name'],
+            'cover_image' => '',
+            'creator_id' => $request->validated()[Auth::user()->id],
+        ];
+        if (Auth::user()->hasRole('admin')) {
+            $gymData['city_id'] = $request->validated()['city_id'];
+        } else {
+            $gymData['city_id'] = Auth::user()->city->id;
+        }
+        $gym = Gym::create($gymData);
+
+        $newManagerData = Datatables::of(GymResource::collection([$gym]))->make(true);
+        return [
+            'result' => true,
+            'userMessage' => "<b>$gym->name</b> has been successfully created ",
+            'newRowData' => $newManagerData
+        ];
     }
 
     /**
@@ -119,11 +137,23 @@ class GymController extends Controller
      *
      * @param  \App\Http\Requests\UpdateGymRequest  $request
      * @param  \App\Models\Gym  $gym
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function update(UpdateGymRequest $request, Gym $gym)
+    public function update(UpdateGymRequest $request, $id)
     {
-        //
+        $gym = Gym::find($id);
+        $gymData = [
+            'name' => $request->validated()['name'],
+            'cover_image' => '',
+        ];
+        $gym->update($gymData);
+
+        $newGymData = Datatables::of(GymResource::collection([$gym]))->make(true);
+        return [
+            'result' => true,
+            'userMessage' => "<b>$gym->name</b> Data Updated successfully",
+            'updatedData' => $newGymData
+        ];
     }
 
     /**

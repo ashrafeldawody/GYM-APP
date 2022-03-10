@@ -11,7 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 class GymManager extends Model
 {
     use HasApiTokens, HasFactory, Notifiable , HasRoles;
-
+    protected  $guarded = [];
     public $timestamps = false;
 
     public function manager() {

@@ -6,7 +6,9 @@ use App\DataTables\GymManagersDataTable;
 use App\Http\Resources\CityGymCoachesResource;
 use App\Http\Resources\CityGymResource;
 use App\Http\Resources\GymManagersResource;
+use App\Http\Resources\GymResource;
 use App\Models\City;
+use App\Models\GymManager;
 use App\Models\Manager;
 use App\Http\Requests\StoreManagerRequest;
 use App\Http\Requests\UpdateManagerRequest;
@@ -78,22 +80,20 @@ class GymManagerController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreManagerRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function store(StoreManagerRequest $request)
     {
-        //
-    }
+        $manager  = Manager::find($request->validated()['manager_id']);
+        $manager->setRole('gym_manager');
+        GymManager::create($request->validated());
+        $newManagerData = Datatables::of(GymManagersResource::collection([$manager]))->make(true);
+        return [
+            'result' => true,
+            'userMessage' => "<b>$manager->name</b> Has been created successfuly",
+            'newRowData' => $newManagerData
+        ];
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Manager  $manager
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Manager $manager)
-    {
-        //
     }
 
     /**
@@ -103,18 +103,6 @@ class GymManagerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Manager $manager)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateManagerRequest  $request
-     * @param  \App\Models\Manager  $manager
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateManagerRequest $request, Manager $manager)
     {
         //
     }

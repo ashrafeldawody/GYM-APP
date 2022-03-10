@@ -25,7 +25,8 @@ class StoreManagerRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'manager_id' => 'required',
+            'gym_id'=> 'required|not_in:"Select Gym"',
         ];
     }
 }
