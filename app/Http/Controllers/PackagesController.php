@@ -53,19 +53,19 @@ class PackagesController extends Controller
             'formLable' => 'Package',
             'fields' => [
                 [
+                    'type' => 'text',
                     'label' => 'Package Name',
                     'name' => 'name',
-                    'type' => 'text',
                     'valueKey' => 'name'
                 ],
                 [
-                    'type' => 'number',
+                    'type' => 'text',
                     'label' => 'Price',
                     'name' => 'price',
                     'valueKey' => 'price'
                 ],
                 [
-                    'type' => 'number',
+                    'type' => 'text',
                     'label' => 'Sessions Number',
                     'name' => 'sessions_number',
                     'valueKey' => 'sessions_number'

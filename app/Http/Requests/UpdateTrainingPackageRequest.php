@@ -31,8 +31,8 @@ class UpdateTrainingPackageRequest extends FormRequest
                 'required',
                 Rule::unique('training_packages')->ignore($packageId),
             ],
-            'price' => 'required',
-            'sessions_number' => 'required',
+            'price' => 'required|numeric',
+            'sessions_number' => 'required|integer',
         ];
     }
 

@@ -26,8 +26,8 @@ class StoreTrainingPackageRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:training_packages',
-            'price' => 'required',
-            'sessions_number' => 'required',
+            'price' => 'required|numeric',
+            'sessions_number' => 'required|integer',
         ];
     }
 }
