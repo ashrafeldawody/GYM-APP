@@ -146,69 +146,7 @@ class GymManagerController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Manager  $manager
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Manager $manager)
-    {
-        return [
-            'formLable' => 'General Manager',
-            'fields' => [
-                [
-                    'type' => 'text',
-                    'label' => 'Manager Name',
-                    'name' => 'name',
-                    'valueKey' => 'name',
-                    'addOnly' => true
-                ],
-                [
-                    'type' => 'email',
-                    'label' => 'Email',
-                    'name' => 'email',
-                    'valueKey' => 'email',
-                    'addOnly' => true
-                ],
-                [
-                    'type' => 'text',
-                    'label' => 'National Id',
-                    'name' => 'national_id',
-                    'valueKey' => 'national_id',
-                    'addOnly' => true
-                ],
-                [
-                    'type' => 'radio',
-                    'label' => 'Gender',
-                    'name' => 'gender',
-                    'valueKey' => 'gender',
-                    'options' => [
-                        ['value' => 'male', 'text' => 'Male'],
-                        ['value' => 'female', 'text' => 'Female'],
-                    ],
-                    'addOnly' => true
-                ],
-                [
-                    'type' => 'date',
-                    'label' => 'Birth Date',
-                    'name' => 'birth_date',
-                    'valueKey' => 'birth_date',
-                    'addOnly' => true
-                ],
-                [
-                    'type' => 'file',
-                    'label' => 'Avatar Image',
-                    'name' => 'avatar',
-                    'valueKey' => 'avatar',
-                    'addOnly' => true
-                ],
-            ]
-        ];
-    }
-
-    /**
      * Remove the specified resource from storage.
-     *
      * @param  \App\Models\Manager  $manager
      * @return array
      */
@@ -220,6 +158,17 @@ class GymManagerController extends Controller
         return [
             'result' => true,
             'userMessage' => "<b>$GymManagerName</b> Deleted Successfuly"
+        ];
+    }
+
+
+    public function ban($id): array
+    {
+        $manager = Manager::find($id);
+        $result = $manager->isbanned() ? $manager->unban() : $manager->ban();
+        return [
+            'result' => true,
+            'userMessage' => "<b>$manager->name</b> banned successfuly",
         ];
     }
 }

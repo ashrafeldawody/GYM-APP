@@ -90,10 +90,11 @@ class GymController extends Controller
      */
     public function store(StoreGymRequest $request)
     {
+        $coverImage = $request->file('cover_image') ?? '';
         $gymData = [
             'name' => $request->validated()['name'],
-            'cover_image' => '',
-            'creator_id' => $request->validated()[Auth::user()->id],
+            'cover_image' => $coverImage,
+            'creator_id' => Auth::user()->id,
         ];
         if (Auth::user()->hasRole('admin')) {
             $gymData['city_id'] = $request->validated()['city_id'];

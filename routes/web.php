@@ -86,6 +86,8 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
     Route::resource('city_managers', CityManagerController::class)->middleware('permission:city_managers');
 
     Route::resource('gym_managers', GymManagerController::class)->middleware('permission:gym_managers');
+    Route::patch('/gym_managers/ban/{gymManager}', [GymManagerController::class, 'ban'])->name('gym_managers.ban')->middleware('permission:gym_managers');
+
 
     Route::resource('general_managers', GeneralManagerController::class)->middleware('permission:general_managers');
 

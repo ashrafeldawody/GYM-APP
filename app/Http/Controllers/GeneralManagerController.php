@@ -108,7 +108,6 @@ class GeneralManagerController extends Controller
      */
     public function store(StoreGeneralManagerRequest $request)
     {
-
         $avatar = $request->validated()['avatar'] ??  '';
         $manager = Manager::create([
             'name' => $request->validated()['name'],
@@ -134,8 +133,6 @@ class GeneralManagerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Manager  $manager
      * @return array
      */
     public function update(UpdateGeneralManagerRequest $request,$id)

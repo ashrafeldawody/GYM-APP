@@ -42,7 +42,7 @@
 
     - ✔ Add new General Manager
 
-    - 📌 uploading managers image
+    - ✔ uploading managers image
 
   - ✔ Coaches
 
@@ -91,14 +91,3 @@
 - ✔ issues
 
   - fixing cities modal issue on create
-
-
-- 📌 uploading managers image
-
-- 📌 Edit Gym Manager Data it's completed but we just need another form for edit
-
-- 📌 Gyms
-
-  - ⌛ Add new Gym // completed just need the cover_image
-
-  - ⌛ Edit Gym data (name, cover_image) // completed just need the cover_image
