@@ -72,6 +72,8 @@ Route::get('forgot-password', function () {
 Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(function () {
 
     Route::get('/', [HomeController::class, 'index'])->middleware('permission:purchases')->name('home.index');;
+    Route::get('/home/charts/male-female-attendance', [HomeController::class, 'maleFemaleAttendanceData'])->middleware('permission:purchases')->name('carts.male-female-attendance');;
+    Route::get('/home/charts/revenue/{year}', [HomeController::class, 'revenuePerMonth'])->middleware('permission:purchases')->name('carts.revenue');;
 
     Route::get('revenue', [PurchaseController::class, 'index'])->middleware('permission:purchases')->name('revenue');
 

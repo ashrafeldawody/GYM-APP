@@ -10,7 +10,7 @@
                             <h3 class="card-title">Male / Female Attendance</h3>
                         </div>
                         <div class="card-body">
-                            {!! $maleFemaleChart->render() !!}
+                            <canvas id="maleFemaleChart"></canvas>
                         </div>
                     </div>
 
@@ -19,7 +19,9 @@
                             <h3 class="card-title">Top Cities Attendances</h3>
                         </div>
                         <div class="card-body table-responsive p-0">
-                            {!! $citiesAttendances->render() !!}
+                            <canvas id="citiesAttendances"></canvas>
+
+                            {{--                            {!! $citiesAttendances->render() !!}--}}
                         </div>
                     </div>
                 </div>
@@ -29,7 +31,8 @@
                             <h3 class="card-title">Revenue Of {{ now()->year }}</h3>
                         </div>
                         <div class="card-body">
-                            {!! $revenuePerMonth->render() !!}
+{{--                            {!! $revenuePerMonth->render() !!}--}}
+                            <canvas id="revenuePerMonth"></canvas>
 
                         </div>
                     </div>
@@ -39,11 +42,19 @@
                             <h3 class="card-title">Top Users</h3>
                         </div>
                         <div class="card-body">
-                            {!! $usersCart->render() !!}
+{{--                            {!! $usersCart->render() !!}--}}
+                            <canvas id="usersCart"></canvas>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        $(function(){
+            loadMaleFemaleChart('#maleFemaleChart','{{route('dashboard.carts.male-female-attendance')}}');
+            loadRevenueChart('#revenuePerMonth','{{route('dashboard.carts.revenue',2022)}}');
+        } )
+    </script>
 @endsection
