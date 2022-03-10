@@ -186,29 +186,6 @@ class SessionsController extends Controller
         ];
     }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\TrainingSession  $trainingSession
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TrainingSession $trainingSession)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\TrainingSession  $trainingSession
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(TrainingSession $trainingSession)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -231,13 +208,13 @@ class SessionsController extends Controller
             if ($trainingSession->attendances->count() > 0) {
                 return [
                     'result' => false,
-                    'userMessage' => "Cann't Edit <b>$sessionName->name</b> time because it has attendances in it"
+                    'userMessage' => "Cann't Edit <b>$sessionName</b> time because it has attendances in it"
                 ];
             }
             if (SessionsController::checkOverLab($request, $trainingSession)) {
                 return [
                     'result' => false,
-                    'userMessage' => "<b>$sessionName->name</b> Can't be added because it overlabs with an existing session"
+                    'userMessage' => "<b>$sessionName/b> Can't be added because it overlabs with an existing session"
                 ];
             }
         }

@@ -32,13 +32,11 @@ class UpdateTrainingSessionRequest extends FormRequest
                 'required',
                 Rule::unique('training_sessions')->ignore($sessionID),
             ],
-            'day' => 'required|date|after:yesterday',
+            'day' => 'required|date',
             'starts_at' => 'required',
             'finishes_at' => 'required|after:starts_at',
         ];
     }
-
-
     /**
      * Get the error messages for the defined validation rules.
      *
@@ -49,7 +47,6 @@ class UpdateTrainingSessionRequest extends FormRequest
         return [
             'name.required' => 'The session name is required',
             'day.required' => 'Day Field is required',
-            'day.after' => 'The Entered day is expired',
             'starts_at.required' => 'Start Time is required',
             'finishes_at.required' => 'Finish Time is required',
             'finishes_at.after' => 'Finish Time must be after start time !',
