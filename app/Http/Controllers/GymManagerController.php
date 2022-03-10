@@ -165,10 +165,18 @@ class GymManagerController extends Controller
     public function ban($id): array
     {
         $manager = Manager::find($id);
-        $result = $manager->isbanned() ? $manager->unban() : $manager->ban();
-        return [
-            'result' => true,
-            'userMessage' => "<b>$manager->name</b> banned successfuly",
-        ];
+        if ($manager->isbanned()) {
+            $manager->unban();
+            return [
+                'result' => true,
+                'userMessage' => "<b>$manager->name</b> unbanned successfuly",
+            ];
+        } else {
+            $manager->ban();
+            return [
+                'result' => false,
+                'userMessage' => "<b>$manager->name</b> banned successfuly",
+            ];
+        }
     }
 }
