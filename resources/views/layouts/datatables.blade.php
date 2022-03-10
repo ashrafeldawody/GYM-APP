@@ -60,7 +60,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="addEditForm"></form>
+                <form id="addEditForm" enctype="multipart/form-data"></form>
                 <div id="alertsDiv"></div>
             </div>
             <div class="modal-footer">
@@ -251,6 +251,9 @@
             let loadNestedSelect = null;
 
             formData.fields.forEach(field => {
+                if (field.editOnly === true && !isToEdit) return;
+                if (field.addOnly === true && isToEdit) return;
+
                 if (field.type === 'text' || field.type === 'email' || field.type === 'number') {
                     formFields += createTextField(field, selectedRow);
                 } else if (!isToEdit && field.type === 'password') {
@@ -284,6 +287,9 @@
 
             $('.select2').select2();
             $('.custom-file-input').init();
+            $('.custom-file input').change(function (e) {
+                e.target.files.length && $(this).next('.custom-file-label').html(e.target.files[0].name);
+            });
         }
 
         function createTextField(field, selectedRow = null) {
@@ -394,7 +400,7 @@
             return `<div class="form-group">
                     <label class="col-form-label">${field.label}</label>
                     <div class="custom-file">
-                        <input type="file" name="${field.name}" class="custom-file-input" id="${field.name}_input">
+                        <input type="file" accept="image/*" name="${field.name}" class="custom-file-input" id="${field.name}_input">
                         <label class="custom-file-label" for="${field.name}_input">Choose file</label>
                     </div>
                 </div>`;
@@ -410,7 +416,10 @@
             $.ajax({
                 url: updateEndpoint + `/${itemId}`,
                 method: 'PATCH',
-                data: data
+                data: data,
+                // data: new FormData(formElem.get(0)),
+                // processData: false,
+                // contentType: false,
             })
             .done(function(response) {
                 handleEditSuccess(response);
@@ -441,12 +450,12 @@
         // ----- * ----- * ----- * -----
 
         function submitAdd() {
-            let data = formElem.serialize();
-
             $.ajax({
                 url: addEndpoint,
                 method: 'POST',
-                data: data
+                data: new FormData(formElem.get(0)),
+                processData: false,
+                contentType: false,
             })
             .done(function(response) {
                 handleAddSuccess(response);
@@ -460,7 +469,6 @@
             console.log('response', response);
             if (response.newRowData) {
                 datatable.row.add(response.newRowData).draw(false);
-                datatable.page('last').draw('page');
                 $('#formModal .close').click();
                 showSuccessToast('Add success', response.userMessage);
             } else {

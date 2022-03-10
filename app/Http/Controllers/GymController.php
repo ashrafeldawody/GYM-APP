@@ -58,6 +58,12 @@ class GymController extends Controller
                     'type' => 'text',
                     'valueKey' => 'name'
                 ],
+                [
+                    'type' => 'file',
+                    'label' => 'Cover Image',
+                    'name' => 'cover_image',
+                    'valueKey' => 'cover_image'
+                ]
             ]
         ];
         if (Auth::user()->hasRole('admin')) {
@@ -69,16 +75,10 @@ class GymController extends Controller
                 'name' => 'city_id',
                 'valueKey' => 'id',
                 'compare' => 'city_name',
-                'options' => $cities
+                'options' => $cities,
+                'addOnly' => true
             ];
         }
-        $formData['fields'][] = [
-            'type' => 'file',
-            'label' => 'Cover Image',
-            'name' => 'cover_image',
-            'valueKey' => 'cover_image'
-        ];
-
         return $formData;
     }
 
@@ -90,10 +90,12 @@ class GymController extends Controller
      */
     public function store(StoreGymRequest $request)
     {
+        $coverImage = !$request->has('cover_image') ? ''
+            : $request->file('cover_image')->store('images','public');
         $gymData = [
             'name' => $request->validated()['name'],
-            'cover_image' => '',
-            'creator_id' => $request->validated()[Auth::user()->id],
+            'cover_image' => $coverImage,
+            'creator_id' => Auth::user()->id,
         ];
         if (Auth::user()->hasRole('admin')) {
             $gymData['city_id'] = $request->validated()['city_id'];
@@ -144,7 +146,7 @@ class GymController extends Controller
         $gym = Gym::find($id);
         $gymData = [
             'name' => $request->validated()['name'],
-            'cover_image' => '',
+            // 'cover_image' => '',
         ];
         $gym->update($gymData);
 

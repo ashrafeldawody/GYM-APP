@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class StoreCityRequest extends FormRequest
 {
@@ -24,8 +25,14 @@ class StoreCityRequest extends FormRequest
      */
     public function rules()
     {
+        $city = $this->route('city');
         return [
-            'name' => 'min:3'
+            'name' => [
+                'required',
+                'min:3',
+                Rule::unique('cities')->ignore($city),
+            ],
+            'manager_id' => 'required|exists:managers,id'
         ];
     }
 }

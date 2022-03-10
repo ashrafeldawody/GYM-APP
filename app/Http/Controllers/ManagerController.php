@@ -47,7 +47,7 @@ class ManagerController extends Controller
         ]);
         if($request->file('avatar') != null){
             Auth::user()->update([
-                "avatar" => $request->file('avatar')->store('images/','public')
+                "avatar" => $request->file('avatar')->store('images','public')
             ]);
         }
         return redirect()->route('dashboard.account.index')->with('message', 'Your Information has been updated!');

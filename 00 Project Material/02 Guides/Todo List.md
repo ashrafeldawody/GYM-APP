@@ -30,9 +30,9 @@
 
   - ✔ City Manager
 
-  - 📌 Gym Manager
+  - ✔ Gym Manager
 
-    - 📌 Add new Gym Manager
+    - ✔ Add new Gym Manager
 
     - ⌛ ban and unban gymManager
 
@@ -42,7 +42,7 @@
 
     - ✔ Add new General Manager
 
-    - 📌 uploading managers image
+    - ✔ uploading managers image
 
   - ✔ Coaches
 
@@ -91,4 +91,3 @@
 - ✔ issues
 
   - fixing cities modal issue on create
-

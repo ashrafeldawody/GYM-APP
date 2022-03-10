@@ -17,11 +17,17 @@
 @endsection
 
 @section('update_endpoint')
-    "{{ route('dashboard.general_managers.update', '') }}"
+{{--    "{{ route('dashboard.general_managers.update', '') }}"   --}}
+    "{{ route('dashboard.gym_managers.ban', '') }}"
+
 @endsection
 
 @section('destroy_endpoint')
     "{{ route('dashboard.gym_managers.destroy', '') }}"
+@endsection
+
+@section('ban_endpoint')
+    "{{ route('dashboard.gym_managers.ban', '') }}"
 @endsection
 
 @section('table_columns')

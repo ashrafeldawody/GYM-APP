@@ -168,6 +168,7 @@ class CityController extends Controller
                     'userMessage' => "Can't delete <b>$cityName</b>, the city has gyms"
                 ];
             } else {
+                Manager::find($city->manager->id)->setRole('');
                 $city->delete();
                 return [
                     'result' => true,

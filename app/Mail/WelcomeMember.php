@@ -28,7 +28,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use app\Models\User;
 
-class WelcomeMember extends Mailable
+class WelcomeMember extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 

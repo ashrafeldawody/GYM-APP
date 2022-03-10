@@ -19,7 +19,6 @@ class GymManagerSeeder extends Seeder
     {
         for ($i = 1; $i <= 12; $i++) {
             for ($j = 1; $j <= 4; $j++) {
-
                 // 1- General
                 $gymManager = Manager::factory()->create([
                     'name' => "Gym Manager $i $j",
