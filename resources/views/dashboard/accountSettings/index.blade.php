@@ -120,4 +120,9 @@
         });
 
     </script>
+    <script>
+        $('.custom-file input').change(function (e) {
+            e.target.files.length && $(this).next('.custom-file-label').html(e.target.files[0].name);
+        });
+    </script>
 @endsection
