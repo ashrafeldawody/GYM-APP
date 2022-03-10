@@ -90,12 +90,12 @@ class GeneralManagerController extends Controller
                     'name' => 'birth_date',
                     'valueKey' => 'birth_date'
                 ],
-//                [
-//                    'type' => 'file',
-//                    'label' => 'Avatar Image',
-//                    'name' => 'avatar',
-//                    'valueKey' => 'avatar'
-//                ],
+               [
+                   'type' => 'file',
+                   'label' => 'Avatar Image',
+                   'name' => 'avatar',
+                   'valueKey' => 'avatar'
+               ],
             ]
         ];
     }

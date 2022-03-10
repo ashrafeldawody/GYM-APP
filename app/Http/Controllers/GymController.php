@@ -58,6 +58,12 @@ class GymController extends Controller
                     'type' => 'text',
                     'valueKey' => 'name'
                 ],
+                [
+                    'type' => 'file',
+                    'label' => 'Cover Image',
+                    'name' => 'cover_image',
+                    'valueKey' => 'cover_image'
+                ]
             ]
         ];
         if (Auth::user()->hasRole('admin')) {
@@ -69,16 +75,10 @@ class GymController extends Controller
                 'name' => 'city_id',
                 'valueKey' => 'id',
                 'compare' => 'city_name',
-                'options' => $cities
+                'options' => $cities,
+                'addOnly' => true
             ];
         }
-        $formData['fields'][] = [
-            'type' => 'file',
-            'label' => 'Cover Image',
-            'name' => 'cover_image',
-            'valueKey' => 'cover_image'
-        ];
-
         return $formData;
     }
 
