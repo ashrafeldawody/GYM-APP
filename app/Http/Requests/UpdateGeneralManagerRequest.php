@@ -26,23 +26,11 @@ class UpdateGeneralManagerRequest extends FormRequest
     public function rules()
     {
 
-
-        /*
-         *
-         * c
-        return [
-            'name' => [
-                'required',
-                Rule::unique('training_packages')->ignore($coachId),
-            ],
-         * */
-
         $managerId = $this->route('general_manager');
         return [
             'name' => [
                 'required',
-                'min:3'.
-                'string',
+                'min:3',
                 Rule::unique('managers')->ignore($managerId),
             ],
             'email' => [

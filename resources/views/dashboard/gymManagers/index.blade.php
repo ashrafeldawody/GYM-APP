@@ -17,7 +17,7 @@
 @endsection
 
 @section('update_endpoint')
-    "{{ route('dashboard.gym_managers.update', '') }}"
+    "{{ route('dashboard.general_managers.update', '') }}"
 @endsection
 
 @section('destroy_endpoint')

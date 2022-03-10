@@ -24,7 +24,7 @@
   > we can't delete city manager but we can first change the city manager from cities tab then when he is demoted to general manager we can delete him. => but only if he dosn't have any data related to him or we can restrict deleting him.
 - 📌 Employees
 
-  - ⌛ Edit Manager Data
+  - ✔ Edit Manager Data
 
     - this will be applied to all employees list except the coach
 

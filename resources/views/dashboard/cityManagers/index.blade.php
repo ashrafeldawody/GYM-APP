@@ -13,7 +13,7 @@
 @endsection
 
 @section('update_endpoint')
-    "{{ route('dashboard.city_managers.update', '') }}"
+    "{{ route('dashboard.general_managers.update', '') }}"
 @endsection
 
 @section('table_columns')
