@@ -26,7 +26,7 @@
     "{{ route('dashboard.gym_managers.destroy', '') }}"
 @endsection
 
-@section('ban_endpoint')
+@section('toggle_ban_endpoint')
     "{{ route('dashboard.gym_managers.ban', '') }}"
 @endsection
 

@@ -169,12 +169,14 @@ class GymManagerController extends Controller
             $manager->unban();
             return [
                 'result' => true,
+                'isBanned' => false,
                 'userMessage' => "<b>$manager->name</b> unbanned successfuly",
             ];
         } else {
             $manager->ban();
             return [
-                'result' => false,
+                'result' => true,
+                'isBanned' => true,
                 'userMessage' => "<b>$manager->name</b> banned successfuly",
             ];
         }

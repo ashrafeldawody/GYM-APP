@@ -25,7 +25,7 @@ class GymManagersResource extends JsonResource
             'gender' => $this->gender,
             'birth_date' => $this->birth_date,
             'avatar' => $this->avatar,
-            'is_banned' => $this->is_banned,
+            'is_banned' => $this->banned_at ? true : false,
             'gym' => $this->gym->name,
         ];
         if (Auth::user()->can('show_city_data')) {
