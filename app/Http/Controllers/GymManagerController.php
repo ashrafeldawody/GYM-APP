@@ -45,6 +45,7 @@ class GymManagerController extends Controller
         return [
             'formLable' => 'Gym Manager',
             'fields' => [
+                // ----- * ----- Add form ----- * -----
                 [
                     'label' => 'Manager',
                     'name' => 'manager_id',
@@ -52,7 +53,8 @@ class GymManagerController extends Controller
                     'valueKey' => 'id',
                     'text' => 'name',
                     'compare' => 'manager_name',
-                    'options' => $managers
+                    'options' => $managers,
+                    'addOnly' => true
                 ],
                 [
                     'type' => 'nestedSelect',
@@ -71,7 +73,55 @@ class GymManagerController extends Controller
                             'inputName' => 'gym_id'
                         ],
                     ],
-                ]
+                    'addOnly' => true
+                ],
+                // ----- * ----- Edit form ----- * -----
+                [
+                    'type' => 'text',
+                    'label' => 'Manager Name',
+                    'name' => 'name',
+                    'valueKey' => 'name',
+                    'editOnly' => true
+                ],
+                [
+                    'type' => 'email',
+                    'label' => 'Email',
+                    'name' => 'email',
+                    'valueKey' => 'email',
+                    'editOnly' => true
+                ],
+                [
+                    'type' => 'text',
+                    'label' => 'National Id',
+                    'name' => 'national_id',
+                    'valueKey' => 'national_id',
+                    'editOnly' => true
+                ],
+                [
+                    'type' => 'radio',
+                    'label' => 'Gender',
+                    'name' => 'gender',
+                    'valueKey' => 'gender',
+                    'options' => [
+                        ['value' => 'male', 'text' => 'Male'],
+                        ['value' => 'female', 'text' => 'Female'],
+                    ],
+                    'editOnly' => true
+                ],
+                [
+                    'type' => 'date',
+                    'label' => 'Birth Date',
+                    'name' => 'birth_date',
+                    'valueKey' => 'birth_date',
+                    'editOnly' => true
+                ],
+                [
+                    'type' => 'file',
+                    'label' => 'Avatar Image',
+                    'name' => 'avatar',
+                    'valueKey' => 'avatar',
+                    'editOnly' => true
+                ],
             ]
         ];
     }
@@ -93,7 +143,6 @@ class GymManagerController extends Controller
             'userMessage' => "<b>$manager->name</b> Has been created successfuly",
             'newRowData' => $newManagerData
         ];
-
     }
 
     /**
@@ -104,7 +153,57 @@ class GymManagerController extends Controller
      */
     public function edit(Manager $manager)
     {
-        //
+        return [
+            'formLable' => 'General Manager',
+            'fields' => [
+                [
+                    'type' => 'text',
+                    'label' => 'Manager Name',
+                    'name' => 'name',
+                    'valueKey' => 'name',
+                    'addOnly' => true
+                ],
+                [
+                    'type' => 'email',
+                    'label' => 'Email',
+                    'name' => 'email',
+                    'valueKey' => 'email',
+                    'addOnly' => true
+                ],
+                [
+                    'type' => 'text',
+                    'label' => 'National Id',
+                    'name' => 'national_id',
+                    'valueKey' => 'national_id',
+                    'addOnly' => true
+                ],
+                [
+                    'type' => 'radio',
+                    'label' => 'Gender',
+                    'name' => 'gender',
+                    'valueKey' => 'gender',
+                    'options' => [
+                        ['value' => 'male', 'text' => 'Male'],
+                        ['value' => 'female', 'text' => 'Female'],
+                    ],
+                    'addOnly' => true
+                ],
+                [
+                    'type' => 'date',
+                    'label' => 'Birth Date',
+                    'name' => 'birth_date',
+                    'valueKey' => 'birth_date',
+                    'addOnly' => true
+                ],
+                [
+                    'type' => 'file',
+                    'label' => 'Avatar Image',
+                    'name' => 'avatar',
+                    'valueKey' => 'avatar',
+                    'addOnly' => true
+                ],
+            ]
+        ];
     }
 
     /**
@@ -123,5 +222,4 @@ class GymManagerController extends Controller
             'userMessage' => "<b>$GymManagerName</b> Deleted Successfuly"
         ];
     }
-
 }
