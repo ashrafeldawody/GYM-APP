@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use App\Models\Gym;
-use App\Models\GymManager;
+use App\Models\GymsManagers;
 use App\Models\TrainingPackage;
 use App\Models\Manager;
 use Illuminate\Database\Seeder;

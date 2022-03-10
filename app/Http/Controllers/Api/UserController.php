@@ -60,13 +60,14 @@ class UserController extends Controller
         ]);
     }
 
+
+
     public function attend(Request $request)
     {
 
         $selectedSession = TrainingSession::find(request()->id);
 
-        $userSessions =  $request->user()->attendances->pluck('training_sessio
-n_id')->toArray();
+        $userSessions =  $request->user()->attendances->pluck('training_session_id')->toArray();
 
         if(UserController::getRemainingSessions($request) <= 0){
             return response()->json(['message'=> "You must buy a package first!"]);

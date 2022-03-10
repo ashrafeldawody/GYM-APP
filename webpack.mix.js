@@ -10,9 +10,7 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-mix.autoload({
-    jquery: ['$', 'window.jQuery'],
-});
+
 mix.js('resources/js/main.js', 'public/js')
     .sass('resources/sass/main.scss', 'public/css')
     .copy('node_modules/admin-lte/dist/img', 'public/dist/img')
