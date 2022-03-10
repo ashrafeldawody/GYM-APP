@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\DataTables\PackagesDataTable;
 use App\Http\Resources\CityResource;
 use App\Http\Resources\PackageResource;
+use App\Http\Resources\SessionResource;
 use App\Models\City;
 use App\Models\TrainingPackage;
 use App\Http\Requests\StoreTrainingPackageRequest;
 use App\Http\Requests\UpdateTrainingPackageRequest;
 use App\Models\TrainingSession;
 use App\Models\User;
+use Facade\Ignition\Support\Packagist\Package;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -57,13 +59,13 @@ class PackagesController extends Controller
                     'valueKey' => 'name'
                 ],
                 [
-                    'type' => 'text',
+                    'type' => 'number',
                     'label' => 'Price',
                     'name' => 'price',
                     'valueKey' => 'price'
                 ],
                 [
-                    'type' => 'text',
+                    'type' => 'number',
                     'label' => 'Sessions Number',
                     'name' => 'sessions_number',
                     'valueKey' => 'sessions_number'
@@ -76,33 +78,22 @@ class PackagesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreTrainingPackageRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function store(StoreTrainingPackageRequest $request)
+    public function store(StoreTrainingPackageRequest $request): array
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\TrainingPackage  $trainingPackage
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TrainingPackage $trainingPackage)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\TrainingPackage  $trainingPackage
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(TrainingPackage $trainingPackage)
-    {
-        //
+        $package = TrainingPackage::create([
+           'name' =>  $request->validated()['name'],
+            'price' => $request->validated()['price'] * 100,
+            'sessions_number' => $request->validated()['sessions_number'],
+            'admin_id' => Auth::user()->id,
+        ]);
+        $newPackageData = Datatables::of(PackageResource::collection([$package]))->make(true);
+        return [
+            'result' => true,
+            'userMessage' => "<b>$package->name</b> has been successfully Created",
+            'newRowData' => $newPackageData
+        ];
     }
 
     /**
@@ -110,11 +101,21 @@ class PackagesController extends Controller
      *
      * @param  \App\Http\Requests\UpdateTrainingPackageRequest  $request
      * @param  \App\Models\TrainingPackage  $trainingPackage
-     * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTrainingPackageRequest $request, TrainingPackage $trainingPackage)
+    public function update(UpdateTrainingPackageRequest $request,$id): array
     {
-        //
+        $trainingPackage = TrainingPackage::find($id);
+        $trainingPackage->update([
+            'name' =>  $request->validated()['name'],
+            'price' => $request->validated()['price'] * 100,
+            'sessions_number' => $request->validated()['sessions_number'],
+        ]);
+        $newPackageData = Datatables::of(PackageResource::collection([$trainingPackage]))->make(true);
+        return [
+            'result' => true,
+            'userMessage' => "<b>$trainingPackage->name</b> has been successfully updated",
+            'updatedData' => $newPackageData
+        ];
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UpdateTrainingPackageRequest extends FormRequest
 {
@@ -24,8 +25,19 @@ class UpdateTrainingPackageRequest extends FormRequest
      */
     public function rules()
     {
+        $packageId = $this->route('package');
         return [
-            //
+            'name' => [
+                'required',
+                Rule::unique('training_packages')->ignore($packageId),
+            ],
+            'price' => 'required',
+            'sessions_number' => 'required',
         ];
     }
+
+
+
+
+
 }

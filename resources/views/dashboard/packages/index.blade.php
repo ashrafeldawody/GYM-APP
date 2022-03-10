@@ -17,7 +17,7 @@
 @endsection
 
 @section('add_endpoint')
-    "{{ route('dashboard.packages.create') }}"
+    "{{ route('dashboard.packages.store') }}"
 @endsection
 
 @section('update_endpoint')

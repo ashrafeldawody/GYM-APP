@@ -27,6 +27,7 @@ class UpdateTrainingSessionRequest extends FormRequest
     public function rules()
     {
         $sessionID = $this->route('session');
+
         return [
             'name' => [
                 'required',

@@ -54,13 +54,13 @@
 
 - ✔ Users
 
-- 📌 Training Sessions
+- ✔ Training Sessions
 
   - ✔ Add new Training Session (name, day, start time, finish time, coaches(multi select))
 
     - Check for the overlap
 
-  - 📌 Edit Training Session
+  - ✔ Edit Training Session
 
     - no restriction on editing name
 
@@ -86,7 +86,7 @@
 
     - Check if you edit a certain package price or sessions number it won't affect on the already bought packages.
 
-- 📌 issues
+- ✔ issues
 
   - fixing cities modal issue on create
 
