@@ -3,16 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\GymsDataTable;
-use App\Http\Resources\CoachResource;
-use App\Http\Resources\GeneralManagerResource;
-use App\Http\Resources\GymCoachesResource;
 use App\Http\Resources\GymResource;
 use App\Models\City;
-use App\Models\Coach;
 use App\Models\Gym;
 use App\Http\Requests\StoreGymRequest;
 use App\Http\Requests\UpdateGymRequest;
-use App\Models\Manager;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -26,7 +21,7 @@ class GymController extends Controller
     public function index(GymsDataTable $dataTable)
     {
         if (request()->ajax()) {
-            $data = GymResource::collection(Gym::with('city','city.manager')->get());
+            $data = GymResource::collection(Gym::with('city', 'city.manager')->get());
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->rawColumns(['action'])
@@ -54,8 +49,6 @@ class GymController extends Controller
      */
     public function create()
     {
-        //
-        $managers = Manager::whereDoesntHave('roles')->get(['id', 'name'])->toArray();
         $formData = [
             'formLable' => 'Gym',
             'fields' => [
@@ -79,6 +72,13 @@ class GymController extends Controller
                 'options' => $cities
             ];
         }
+        $formData['fields'][] = [
+            'type' => 'file',
+            'label' => 'Cover Image',
+            'name' => 'cover_image',
+            'valueKey' => 'cover_image'
+        ];
+
         return $formData;
     }
 
