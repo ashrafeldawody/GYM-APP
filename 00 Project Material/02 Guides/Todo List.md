@@ -14,9 +14,9 @@
 
 - 📌 Gyms
 
-  - 📌 Add new Gym
+  - ⌛ Add new Gym
 
-  - 📌 Edit Gym data (name, cover_image)
+  - ⌛ Edit Gym data (name, cover_image)
 
   - ✔ Delete Gym only if it has 0 training sessions
 
