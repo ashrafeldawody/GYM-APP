@@ -426,17 +426,20 @@
         // ----- * ----- * ----- * -----
 
         function submitEdit() {
+            if (!$("#addEditForm input[name='_method']").length) {
+                formElem.prepend('<input type="hidden" name="_method" value="PATCH">');
+            }
+
             let data = formElem.serialize();
 
             const itemId = datatable.rows('.selected').data()[0].id;
 
             $.ajax({
                 url: updateEndpoint + `/${itemId}`,
-                method: 'PATCH',
-                data: data,
-                // data: new FormData(formElem.get(0)),
-                // processData: false,
-                // contentType: false,
+                method: 'POST',
+                data: new FormData(formElem.get(0)),
+                processData: false,
+                contentType: false,
             })
             .done(function(response) {
                 handleEditSuccess(response);

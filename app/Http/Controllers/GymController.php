@@ -141,12 +141,13 @@ class GymController extends Controller
      * @param  \App\Models\Gym  $gym
      * @return array
      */
-    public function update(UpdateGymRequest $request, $id)
+    public function update(UpdateGymRequest $request, Gym $gym)
     {
-        $gym = Gym::find($id);
+        $coverImage = !$request->has('cover_image') ? ''
+            : $request->file('cover_image')->store('images','public');
         $gymData = [
             'name' => $request->validated()['name'],
-            // 'cover_image' => '',
+            'cover_image' => $coverImage,
         ];
         $gym->update($gymData);
 
