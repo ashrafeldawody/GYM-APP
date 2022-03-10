@@ -13186,6 +13186,25 @@ window.loadRevenueChart = function (selector, route) {
           borderColor: "#3e95cd",
           fill: false
         }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            gridLines: {
+              display: false
+            }
+          }],
+          yAxes: [{
+            gridLines: {
+              display: false
+            }
+          }]
+        }
       }
     });
   }).fail(function () {
@@ -13212,34 +13231,11 @@ function getRandomColorsArray(size) {
 
 /***/ }),
 
-/***/ "./resources/js/main.js":
-/*!******************************!*\
-  !*** ./resources/js/main.js ***!
-  \******************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-try {
-  window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-  window.Popper = __webpack_require__(/*! admin-lte/plugins/popper/popper.min */ "./node_modules/admin-lte/plugins/popper/popper.min.js");
-
-  __webpack_require__(/*! admin-lte/plugins/bootstrap/js/bootstrap.bundle */ "./node_modules/admin-lte/plugins/bootstrap/js/bootstrap.bundle.js");
-
-  __webpack_require__(/*! admin-lte/plugins/datatables/jquery.dataTables.min */ "./node_modules/admin-lte/plugins/datatables/jquery.dataTables.min.js");
-
-  __webpack_require__(/*! admin-lte/plugins/datatables-select/js/select.bootstrap4.min */ "./node_modules/admin-lte/plugins/datatables-select/js/select.bootstrap4.min.js");
-
-  __webpack_require__(/*! admin-lte/plugins/datatables-buttons/js/dataTables.buttons */ "./node_modules/admin-lte/plugins/datatables-buttons/js/dataTables.buttons.js");
-
-  __webpack_require__(/*! admin-lte/plugins/select2/js/select2.full.min */ "./node_modules/admin-lte/plugins/select2/js/select2.full.min.js");
-
-  __webpack_require__(/*! admin-lte/plugins/bs-custom-file-input/bs-custom-file-input.min.js */ "./node_modules/admin-lte/plugins/bs-custom-file-input/bs-custom-file-input.min.js");
-
-  __webpack_require__(/*! admin-lte/plugins/chart.js/Chart.bundle.min */ "./node_modules/admin-lte/plugins/chart.js/Chart.bundle.min.js");
-
-  __webpack_require__(/*! ./charts */ "./resources/js/charts.js");
-
-  __webpack_require__(/*! admin-lte/build/js/AdminLTE */ "./node_modules/admin-lte/build/js/AdminLTE.js");
-} catch (e) {}
+/***/ "./resources/js/darkMode.js":
+/*!**********************************!*\
+  !*** ./resources/js/darkMode.js ***!
+  \**********************************/
+/***/ (() => {
 
 window.addEventListener('DOMContentLoaded', function (event) {
   var toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
@@ -13289,6 +13285,39 @@ window.addEventListener('DOMContentLoaded', function (event) {
 
   toggleSwitch.addEventListener('change', switchTheme, false);
 });
+
+/***/ }),
+
+/***/ "./resources/js/main.js":
+/*!******************************!*\
+  !*** ./resources/js/main.js ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+try {
+  window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+  window.Popper = __webpack_require__(/*! admin-lte/plugins/popper/popper.min */ "./node_modules/admin-lte/plugins/popper/popper.min.js");
+
+  __webpack_require__(/*! admin-lte/plugins/bootstrap/js/bootstrap.bundle */ "./node_modules/admin-lte/plugins/bootstrap/js/bootstrap.bundle.js");
+
+  __webpack_require__(/*! admin-lte/plugins/datatables/jquery.dataTables.min */ "./node_modules/admin-lte/plugins/datatables/jquery.dataTables.min.js");
+
+  __webpack_require__(/*! admin-lte/plugins/datatables-select/js/select.bootstrap4.min */ "./node_modules/admin-lte/plugins/datatables-select/js/select.bootstrap4.min.js");
+
+  __webpack_require__(/*! admin-lte/plugins/datatables-buttons/js/dataTables.buttons */ "./node_modules/admin-lte/plugins/datatables-buttons/js/dataTables.buttons.js");
+
+  __webpack_require__(/*! admin-lte/plugins/select2/js/select2.full.min */ "./node_modules/admin-lte/plugins/select2/js/select2.full.min.js");
+
+  __webpack_require__(/*! admin-lte/plugins/bs-custom-file-input/bs-custom-file-input.min.js */ "./node_modules/admin-lte/plugins/bs-custom-file-input/bs-custom-file-input.min.js");
+
+  __webpack_require__(/*! admin-lte/plugins/chart.js/Chart.bundle.min */ "./node_modules/admin-lte/plugins/chart.js/Chart.bundle.min.js");
+
+  __webpack_require__(/*! ./charts */ "./resources/js/charts.js");
+
+  __webpack_require__(/*! ./darkMode */ "./resources/js/darkMode.js");
+
+  __webpack_require__(/*! admin-lte/build/js/AdminLTE */ "./node_modules/admin-lte/build/js/AdminLTE.js");
+} catch (e) {}
 
 /***/ }),
 

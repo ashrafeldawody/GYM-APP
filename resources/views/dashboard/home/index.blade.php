@@ -46,11 +46,8 @@
                             <span class="info-box-text">Users</span>
                             <span class="info-box-number">{{$usersCount}}</span>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
             @endrole
             <div class="row">

@@ -16,6 +16,7 @@ window.loadPieChart =  function(selector,route){
                     }],
                     labels: data.labels,
                 },
+
             });
         })
         .fail(function() {
@@ -41,7 +42,26 @@ window.loadRevenueChart =  function(selector,route){
                         fill: false
                     }
                     ]
-                }
+                },
+                options: {
+                    maintainAspectRatio : false,
+                    responsive : true,
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        xAxes: [{
+                            gridLines : {
+                                display : false,
+                            }
+                        }],
+                        yAxes: [{
+                            gridLines : {
+                                display : false,
+                            }
+                        }]
+                    }
+                },
             });
         })
         .fail(function() {
