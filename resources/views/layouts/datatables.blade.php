@@ -274,13 +274,16 @@
                     let dateValue = selectedRow ? selectedRow[field.valueKey] : '';
                     if (dateValue) dateValue = new Date(dateValue).toISOString().split("T")[0];
                     formFields += createDateTimeField(field, selectedRow, dateValue);
+                } else if (field.type === 'file') {
+                    formFields += createFileField(field);
                 }
             });
 
             // set formFields html in the form
             formElem.html(formFields);
 
-            $('.select2').select2()
+            $('.select2').select2();
+            $('.custom-file-input').init();
         }
 
         function createTextField(field, selectedRow = null) {
@@ -387,6 +390,16 @@
                 </div>`;
         }
 
+        function createFileField(field) {
+            return `<div class="form-group">
+                    <label class="col-form-label">${field.label}</label>
+                    <div class="custom-file">
+                        <input type="file" name="${field.name}" class="custom-file-input" id="${field.name}_input">
+                        <label class="custom-file-label" for="${field.name}_input">Choose file</label>
+                    </div>
+                </div>`;
+        }
+
         // ----- * ----- * ----- * -----
 
         function submitEdit() {
@@ -420,15 +433,9 @@
         }
 
         function handleEditFail(response) {
-            let message = response.responseJSON.message;
-            let errors = response.responseJSON.errors;
-            let errorsAlerts = '<div class="alert alert-danger" role="alert">'
-                + `<p><strong>${message}</strong></p>`;
-            for (const error in errors) {
-                errorsAlerts += `<div>${errors[error]}</div>`;
+            if (response && response.responseJSON) {
+                showErrorsList(response.responseJSON);
             }
-            errorsAlerts += '</div>';
-            alertsDiv.html(errorsAlerts);
         }
 
         // ----- * ----- * ----- * -----
@@ -450,23 +457,23 @@
         }
 
         function handleAddSuccess(response) {
-            console.log(response.newRowData);
-            datatable.row.add(response.newRowData).draw(false);
-            datatable.page('last').draw('page');
-            $('#formModal .close').click();
-            showSuccessToast('Add success', response.userMessage);
+            console.log('response', response);
+            if (response.newRowData) {
+                datatable.row.add(response.newRowData).draw(false);
+                datatable.page('last').draw('page');
+                $('#formModal .close').click();
+                showSuccessToast('Add success', response.userMessage);
+            } else {
+                $('#formModal .close').click();
+                showSuccessToast('Add success',
+                    "Add success but somthing wrong happened! please refresh the page");
+            }
         }
 
         function handleAddFail(response) {
-            let message = response.responseJSON.message;
-            let errors = response.responseJSON.errors;
-            let errorsAlerts = '<div class="alert alert-danger" role="alert">';
-                errorsAlerts += `<p><strong>${message}</strong></p>`;
-            for (const error in errors) {
-                errorsAlerts += `<div>${errors[error]}</div>`;
+            if (response && response.responseJSON) {
+                showErrorsList(response.responseJSON);
             }
-            errorsAlerts += '</div>';
-            alertsDiv.html(errorsAlerts);
         }
 
         // ----- * ----- * ----- * ----- * ----- * ----- * -----
@@ -541,6 +548,22 @@
 
         function hideControlPanle() {
             controlsPanel.hide();
+        }
+
+        // ----- * ----- * ----- * -----
+
+        function showErrorsList(responseJSON) {
+            if (responseJSON) {
+                let message = responseJSON.message;
+                let errors = responseJSON.errors;
+                let errorsAlerts = '<div class="alert alert-danger" role="alert">';
+                    errorsAlerts += `<p><strong>${message}</strong></p>`;
+                for (const error in errors) {
+                    errorsAlerts += `<div>${errors[error]}</div>`;
+                }
+                errorsAlerts += '</div>';
+                alertsDiv.html(errorsAlerts);
+            }
         }
 
         // ----- * ----- * ----- * -----
