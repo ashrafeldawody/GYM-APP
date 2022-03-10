@@ -24,8 +24,9 @@ class UpdateGymRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        $validationRules = [
+            'name' => 'required',
         ];
+        return $validationRules;
     }
 }

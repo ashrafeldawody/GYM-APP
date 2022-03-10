@@ -90,7 +90,8 @@ class GymController extends Controller
      */
     public function store(StoreGymRequest $request)
     {
-        $coverImage = $request->file('cover_image') ?? '';
+        $coverImage = !$request->has('cover_image') ? ''
+            : $request->file('cover_image')->store('images','public');
         $gymData = [
             'name' => $request->validated()['name'],
             'cover_image' => $coverImage,
@@ -145,7 +146,7 @@ class GymController extends Controller
         $gym = Gym::find($id);
         $gymData = [
             'name' => $request->validated()['name'],
-            'cover_image' => '',
+            // 'cover_image' => '',
         ];
         $gym->update($gymData);
 
