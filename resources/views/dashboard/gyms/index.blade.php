@@ -29,7 +29,7 @@
     {data: 'created_at', name: 'created_at'},
     {data: 'cover_image', name: 'cover_image',
     render: function( data, type, full, meta ) {
-    return "<img src=\"/images/" + data + "\" height=\"100rem\" alt='No Image'/>";
+    return "<img src=\"/" + data + "\" height=\"100rem\" alt='No Image'/>";
     }
     },
     @can('show_city_data')
