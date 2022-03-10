@@ -3,7 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Gym;
-use App\Models\GymsManagers;
+use App\Models\GymManager;
+use App\Models\GymsManager;
 use App\Models\Manager;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +20,6 @@ class GymManagerSeeder extends Seeder
     {
         for ($i = 1; $i <= 12; $i++) {
             for ($j = 1; $j <= 4; $j++) {
-
                 // 1- General
                 $gymManager = Manager::factory()->create([
                     'name' => "Gym Manager $i $j",
@@ -28,7 +28,7 @@ class GymManagerSeeder extends Seeder
                 ]);
                 // 2- to assign role to gym manager we have to create GymManage Object
                 $gymManager->assignRole('gym_manager');
-                GymsManagers::create([
+                GymManager::create([
                     'manager_id' => $gymManager->id,
                     'gym_id' => $i,
                 ]);

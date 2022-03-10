@@ -30,9 +30,9 @@
 
   - ✔ City Manager
 
-  - 📌 Gym Manager
+  - ✔ Gym Manager
 
-    - 📌 Add new Gym Manager
+    - ✔ Add new Gym Manager
 
     - ⌛ ban and unban gymManager
 
@@ -92,3 +92,13 @@
 
   - fixing cities modal issue on create
 
+
+- 📌 uploading managers image
+
+- 📌 Edit Gym Manager Data it's completed but we just need another form for edit
+
+- 📌 Gyms
+
+  - ⌛ Add new Gym // completed just need the cover_image
+
+  - ⌛ Edit Gym data (name, cover_image) // completed just need the cover_image
