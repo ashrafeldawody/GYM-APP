@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Attendance;
 use App\Models\User;
 use App\Models\Coach;
-use App\Models\GymsManager;
 use App\Models\Manager;
 use App\Models\TrainingSession;
 use App\Models\TrainingSessionCoach;

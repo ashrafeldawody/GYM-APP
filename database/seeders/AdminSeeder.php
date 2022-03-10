@@ -2,14 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin;
-use App\Models\Gym;
-use App\Models\GymsManager;
 use App\Models\TrainingPackage;
 use App\Models\Manager;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
 
 class AdminSeeder extends Seeder
 {

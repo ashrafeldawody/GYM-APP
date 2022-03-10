@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Gym;
 use App\Models\GymManager;
-use App\Models\GymsManager;
 use App\Models\Manager;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
