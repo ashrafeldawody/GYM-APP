@@ -38,9 +38,11 @@
 
     - ✔ delete gymManager (soft delete) This action won't delete him it will just demote him to general
 
-  - ⌛ General Managers
+  - ✔ General Managers
 
-    - ⌛ Add new General Manager
+    - ✔ Add new General Manager
+
+    - 📌 uploading managers image
 
   - ✔ Coaches
 

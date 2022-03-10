@@ -27,11 +27,11 @@ class StoreGeneralManagerRequest extends FormRequest
         return [
             'name' => 'required|min:3|unique:managers|string',
             'email' => 'required|email|unique:managers',
-            'gender' => 'required,in:male,female',
+            'gender' => 'required|in:male,female',
             'birth_date' => 'required|date|before:-20 years',
             'password' => 'min:8',
             'password_confirmation'=> 'required_with:password|same:password|min:8',
-            'avatar' => 'required|image',
+            'avatar' => 'image',
             'national_id' => 'digits:14',
 
         ];
