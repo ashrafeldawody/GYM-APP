@@ -251,6 +251,9 @@
             let loadNestedSelect = null;
 
             formData.fields.forEach(field => {
+                if (field.editOnly === true && !isToEdit) return;
+                if (field.addOnly === true && isToEdit) return;
+
                 if (field.type === 'text' || field.type === 'email' || field.type === 'number') {
                     formFields += createTextField(field, selectedRow);
                 } else if (!isToEdit && field.type === 'password') {
@@ -284,6 +287,9 @@
 
             $('.select2').select2();
             $('.custom-file-input').init();
+            $('.custom-file input').change(function (e) {
+                e.target.files.length && $(this).next('.custom-file-label').html(e.target.files[0].name);
+            });
         }
 
         function createTextField(field, selectedRow = null) {
@@ -442,6 +448,8 @@
 
         function submitAdd() {
             let data = formElem.serialize();
+
+            ////////// TODO Add file to request
 
             $.ajax({
                 url: addEndpoint,
