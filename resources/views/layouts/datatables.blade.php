@@ -13,6 +13,8 @@
                         <div class="h5 align-self-center my-2">@yield('table_header')</div>
                         <div class="d-flex">
                             <div id="controlsPanel" style="display: none;">
+                                <button id="toggleBanButton" class="btn btn-info mr-2"><i
+                                    class="fa fa-trash mr-2"></i>Ban</button>
                                 <button id="editButton" class="btn btn-primary mr-2"><i
                                         class="fa fa-pen mr-2"></i>Edit</button>
                                 <button id="deleteButton" class="btn btn-danger mr-2"><i
@@ -100,6 +102,8 @@
     const destroyEndpoint = @yield('destroy_endpoint', 'null');
 
     const tableColumns = [@yield('table_columns')];
+
+    const csrfToken = "{{ csrf_token() }}";
 </script>
 
 <script type="text/javascript">
@@ -132,6 +136,7 @@
         const addEndpoint = @yield('add_endpoint', 'null');
         const updateEndpoint = @yield('update_endpoint', 'null');
         const destroyEndpoint = @yield('destroy_endpoint', 'null');
+        const toggleBanEndpoint = @yield('toggle_ban_endpoint', 'null');
 
         if (!ajaxUrl) return;
 
@@ -141,12 +146,20 @@
         const addButton = $('#addButton');
         const editButton = $('#editButton');
         const deleteButton = $('#deleteButton');
+        const toggleBanButton = $('#toggleBanButton');
         const formElem = $('#addEditForm');
         const formLable = $('#formModalLabel');
         const formConfirmBtn = $('#formConfirmBtn');
         const alertsDiv = $('#alertsDiv');
         const confirmModal = $('#confirmModal');
         const confirmMessage = $('#confirmMessage');
+
+        // ----- * ----- * ----- * -----
+
+        formElem.on("submit", function (e) {
+            e.preventDefault();
+            formConfirmBtn.click();
+        });
 
         if (!addEndpoint) addButton.hide();
 
@@ -194,7 +207,8 @@
 
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                'X-CSRF-TOKEN': csrfToken,
+                "Access-Control-Allow-Origin":"*"
             }
         });
 
@@ -214,6 +228,8 @@
 
         deleteButton.click(showDeleteConfirm);
 
+        toggleBanButton.click(toggleBanManager);
+
         $('#confirmDeleteBtn').click(confirmDelete);
 
         // ----- * ----- * ----- * ----- * ----- * ----- * -----
@@ -223,7 +239,8 @@
         function showFormModal(isToEdit) {
             $.ajax({
                 url: formDataEndpoint,
-                method: 'GET'
+                method: 'GET',
+                crossDomain: true,
             })
             .done(function(formData) {
                 // get data of selected row if isToEdit
@@ -466,7 +483,6 @@
         }
 
         function handleAddSuccess(response) {
-            console.log('response', response);
             if (response.newRowData) {
                 datatable.row.add(response.newRowData).draw(false);
                 $('#formModal .close').click();
@@ -541,6 +557,42 @@
         }
 
         // ----- * ----- * ----- * ----- * ----- * ----- * -----
+        // ----- * ----- *      Toggle Ban       * ----- * -----
+        // ----- * ----- * ----- * ----- * ----- * ----- * -----
+
+        function toggleBanManager() {
+            const itemId = datatable.rows('.selected').data()[0].id;
+
+            $.ajax({
+                url: updateEndpoint + `/${itemId}`,
+                method: 'PATCH'
+            })
+            .done(function(response) {
+                handleToggleBanSuccess(response);
+            })
+            .fail(function(response) {
+                handleToggleBanFail(response);
+            });
+        }
+
+        function handleToggleBanSuccess(response) {
+            if (response.result === true) {
+                let selectedData = datatable.rows('.selected').data()[0];
+                selectedData['is_banned'] = response.isBanned;
+                datatable.row('.selected').remove().draw(true);
+                showSuccessToast('Toggle ban success', response.userMessage);
+            } else {
+                datatable.rows('.selected').deselect();
+                showErrorToast('Toggle ban failed', response.userMessage);
+            }
+        }
+
+        function handleToggleBanFail() {
+            datatable.rows('.selected').deselect();
+            showErrorToast('Toggle ban failed', "Something wrong happened, Unknown error");
+        }
+
+        // ----- * ----- * ----- * ----- * ----- * ----- * -----
         // ----- * ----- *       Controls        * ----- * -----
         // ----- * ----- * ----- * ----- * ----- * ----- * -----
 
@@ -552,6 +604,16 @@
             controlsPanel.show();
             updateEndpoint ? editButton.show() : editButton.hide();
             destroyEndpoint ? deleteButton.show() : deleteButton.hide();
+            if (toggleBanEndpoint) {
+                toggleBanButton.show()
+                let selectedData = datatable.rows('.selected').data()[0];
+                if (selectedData) {
+                    selectedData['is_banned'] === true
+                        ? toggleBanButton.html('Unban') : toggleBanButton.html('ban');
+                }
+            } else {
+                toggleBanButton.hide();
+            }
         }
 
         function hideControlPanle() {
