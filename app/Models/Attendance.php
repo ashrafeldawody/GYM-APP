@@ -24,8 +24,20 @@ class Attendance extends Model
 
     public static function countByGender($gender)
     {
-        return Attendance::whereHas('user', function ($query) use ($gender) {
-            return $query->where('gender',$gender);
+        if (auth()->user()->hasRole('admin')) {
+            return Attendance::whereHas('user', function ($query) use ($gender) {
+                return $query->where('gender', $gender);
+            })->count();
+        }
+
+        if (auth()->user()->hasRole('gym_manager')) {
+            $mySessionIDs = auth()->user()->gym->attendances->pluck('training_session_id')->toArray();
+        } else {
+            $mySessionIDs = auth()->user()->city->attendances->pluck('training_session_id')->toArray();;
+        }
+
+        return Attendance::whereIn('training_session_id',$mySessionIDs)->whereHas('user', function ($query) use ($gender) {
+            return $query->where('gender', $gender);
         })->count();
     }
 }
