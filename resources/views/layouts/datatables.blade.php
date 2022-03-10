@@ -60,7 +60,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="addEditForm"></form>
+                <form id="addEditForm" enctype="multipart/form-data"></form>
                 <div id="alertsDiv"></div>
             </div>
             <div class="modal-footer">
@@ -400,7 +400,7 @@
             return `<div class="form-group">
                     <label class="col-form-label">${field.label}</label>
                     <div class="custom-file">
-                        <input type="file" name="${field.name}" class="custom-file-input" id="${field.name}_input">
+                        <input type="file" accept="image/*" name="${field.name}" class="custom-file-input" id="${field.name}_input">
                         <label class="custom-file-label" for="${field.name}_input">Choose file</label>
                     </div>
                 </div>`;
@@ -416,7 +416,10 @@
             $.ajax({
                 url: updateEndpoint + `/${itemId}`,
                 method: 'PATCH',
-                data: data
+                data: data,
+                // data: new FormData(formElem.get(0)),
+                // processData: false,
+                // contentType: false,
             })
             .done(function(response) {
                 handleEditSuccess(response);
@@ -447,14 +450,12 @@
         // ----- * ----- * ----- * -----
 
         function submitAdd() {
-            let data = formElem.serialize();
-
-            ////////// TODO Add file to request
-
             $.ajax({
                 url: addEndpoint,
                 method: 'POST',
-                data: data
+                data: new FormData(formElem.get(0)),
+                processData: false,
+                contentType: false,
             })
             .done(function(response) {
                 handleAddSuccess(response);
@@ -468,7 +469,6 @@
             console.log('response', response);
             if (response.newRowData) {
                 datatable.row.add(response.newRowData).draw(false);
-                datatable.page('last').draw('page');
                 $('#formModal .close').click();
                 showSuccessToast('Add success', response.userMessage);
             } else {
