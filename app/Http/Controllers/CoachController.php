@@ -114,7 +114,7 @@ class CoachController extends Controller
                     'userMessage' => "Can't Change <b>$coachName</b> Gym Becase he is assigned to $trainingSessionsCount training Sessions"
                 ];
             } else {
-                $coach->upadate($request->validated());
+                $coach->update($request->validated());
             }
         }
         $newCoachData = Datatables::of(CoachResource::collection([$coach]))->make(true);

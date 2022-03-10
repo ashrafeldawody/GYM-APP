@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\DataTables\GymsDataTable;
 use App\Http\Resources\CoachResource;
+use App\Http\Resources\GymCoachesResource;
 use App\Http\Resources\GymResource;
+use App\Models\City;
 use App\Models\Coach;
 use App\Models\Gym;
 use App\Http\Requests\StoreGymRequest;
 use App\Http\Requests\UpdateGymRequest;
 use App\Models\Manager;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class GymController extends Controller
@@ -31,6 +34,18 @@ class GymController extends Controller
         return $dataTable->render('dashboard.gyms.index');
     }
 
+
+    /*
+     *         return [
+            'name' => $this->faker->unique()->streetName(),
+            'cover_image' => $this->faker->image('public/images',400,300,null, false),
+            'city_id' => City::all()->random()->id,
+            'creator_id' => Manager::role(['admin', 'city_manager'])->get()->random()->id,
+        ];
+
+     *
+     *
+     * */
     /**
      * Show the form for creating a new resource.
      *
@@ -40,26 +55,30 @@ class GymController extends Controller
     {
         //
         $managers = Manager::whereDoesntHave('roles')->get(['id', 'name'])->toArray();
-        return [
-            'formLable' => 'City',
+        $formData = [
+            'formLable' => 'Gym',
             'fields' => [
                 [
-                    'label' => 'City Name',
+                    'label' => 'Gym Name',
                     'name' => 'name',
                     'type' => 'text',
                     'valueKey' => 'name'
                 ],
-                [
-                    'label' => 'Manager',
-                    'name' => 'manager_id',
-                    'type' => 'select',
-                    'valueKey' => 'id',
-                    'text' => 'name',
-                    'compare' => 'manager_name',
-                    'options' => $managers
-                ]
             ]
         ];
+        if (Auth::user()->hasRole('admin')) {
+            $cities  = City::all();
+            $formData['fields'][] = [
+                'type' => 'select',
+                'label' => 'City',
+                'text' => 'name',
+                'name' => 'city_id',
+                'valueKey' => 'id',
+                'compare' => 'city_name',
+                'options' => $cities
+            ];
+        }
+        return $formData;
     }
 
     /**
@@ -70,7 +89,7 @@ class GymController extends Controller
      */
     public function store(StoreGymRequest $request)
     {
-        //
+        dd($request);
     }
 
     /**

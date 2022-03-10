@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\GymManager;
+use App\Models\GymsManagers;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
@@ -28,10 +28,10 @@ class GymManagersDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\GymManager $model
+     * @param \App\Models\GymsManagers $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(GymManager $model)
+    public function query(GymsManagers $model)
     {
         return $model->newQuery();
     }

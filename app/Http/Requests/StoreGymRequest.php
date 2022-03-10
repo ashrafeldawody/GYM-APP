@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\City;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,8 +25,12 @@ class StoreGymRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        $validationRules = [
+            'name' => 'required',
         ];
+        if (Auth::user()->hasRole('admin')) {
+            $validationRules['city_id'] = 'required';
+        }
+        return $validationRules;
     }
 }
