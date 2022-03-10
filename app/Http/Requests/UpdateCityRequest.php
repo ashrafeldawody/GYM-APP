@@ -29,6 +29,7 @@ class UpdateCityRequest extends FormRequest
         return [
             'name' => [
                 'required',
+                'min:3',
                 Rule::unique('cities')->ignore($city),
             ],
             'manager_id' => 'required|exists:managers,id'
