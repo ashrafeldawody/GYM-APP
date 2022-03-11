@@ -1,5 +1,5 @@
 $(function () {
-    if (!useAppDatatablesScript || !ajaxUrl) return;
+    if (!window.useAppDatatablesScript || !ajaxUrl) return;
 
     window.nestedSelectOptions = {};
     window.updateNestedSelect = function(event, index, label, text, valueKey) {

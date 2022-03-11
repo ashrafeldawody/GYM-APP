@@ -106,6 +106,6 @@
 
     const csrfToken = "{{ csrf_token() }}";
 
-    const useAppDatatablesScript = true;
+    window.useAppDatatablesScript = true;
 </script>
 @endsection

@@ -13162,7 +13162,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 $(function () {
-  if (!useAppDatatablesScript || !ajaxUrl) return;
+  if (!window.useAppDatatablesScript || !ajaxUrl) return;
   window.nestedSelectOptions = {};
 
   window.updateNestedSelect = function (event, index, label, text, valueKey) {
