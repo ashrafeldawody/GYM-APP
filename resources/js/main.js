@@ -16,5 +16,7 @@ try {
     require('./darkMode');
 
     require("admin-lte/build/js/AdminLTE")
+
+    require("./app.datatables.js")
 } catch (e) {}
 
