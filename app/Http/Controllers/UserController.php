@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
-
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 use App\DataTables\UsersDataTable;
+use App\Http\Requests\UpdateUserInfoRequest;
 use App\Models\Manager;
 
 class UserController extends Controller
@@ -133,9 +133,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserInfoRequest $request, User $user)
     {
-        //
+        $avatar = !$request->has('avatar') ? ''
+            : $request->file('avatar')->store('images', 'public');
+        $user->update([
+            'name' => $request->validated()['name'],
+            'email' => $request->validated()['email'],
+            'gender' => $request->validated()['gender'],
+            'birth_date' => $request->validated()['birth_date'],
+            'avatar' => $avatar
+        ]);
+        $newUserData = Datatables::of(UserResource::collection([$user]))->make(true);
+        return [
+            'result' => true,
+            'userMessage' => "<b>$user->name</b> Data Updated successfully",
+            'updatedData' => $newUserData
+        ];
     }
 
     /**
