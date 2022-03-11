@@ -11,8 +11,9 @@ class Gym extends Model
     protected $guarded = [];
 
     public function managers(){
-        return $this->hasMany(Manager::class);
+        return $this->belongsToMany(Manager::class, GymManager::class);
     }
+
     public function city(){
         return $this->belongsTo(City::class);
     }

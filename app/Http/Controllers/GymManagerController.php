@@ -12,6 +12,7 @@ use App\Models\GymManager;
 use App\Models\Manager;
 use App\Http\Requests\StoreManagerRequest;
 use App\Http\Requests\UpdateManagerRequest;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class GymManagerController extends Controller
@@ -24,8 +25,7 @@ class GymManagerController extends Controller
     public function index(GymManagersDataTable $dataTable)
     {
         if (request()->ajax()) {
-            $data = GymManagersResource::collection(Manager::role('gym_manager')->get());
-            return DataTables::of($data)
+            return DataTables::of(GymManagerController::getData())
                 ->addIndexColumn()
                 ->rawColumns(['action'])
                 ->make(true);
@@ -161,6 +161,13 @@ class GymManagerController extends Controller
         ];
     }
 
+    public function getData() {
+        if (Auth::user()->hasRole('admin')) {
+            return GymManagersResource::collection(Manager::role('gym_manager')->get());
+        } else {
+            return GymManagersResource::collection(Auth::user()->city->gyms()->with('managers')->get()->pluck('managers')->flatten());
+        }
+    }
 
     public function ban($id): array
     {
