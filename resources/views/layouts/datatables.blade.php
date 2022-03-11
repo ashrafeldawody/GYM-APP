@@ -7,8 +7,8 @@
     <div class="row justify-content-center">
         <div class="col-md-12 mb-5">
             <div class="card">
-                <div class="card-header bg-light"
-                    style="position: -webkit-sticky; position: sticky; top: 0; z-index: 1020;">
+                <div class="card-header"
+                    style="position: -webkit-sticky; position: sticky; top: 0; z-index: 1020; backdrop-filter: blur(10px);">
                     <div class="d-flex justify-content-between">
                         <div class="h5 align-self-center my-2">@yield('table_header')</div>
                         <div class="d-flex">
