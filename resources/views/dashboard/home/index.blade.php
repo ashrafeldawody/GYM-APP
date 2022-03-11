@@ -75,7 +75,7 @@
                     <div class="card">
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between">
-                                <h3 class="card-title">Revenue Of {{ now()->year }}</h3>
+                                <h3 class="card-title">Yearly Revenue</h3>
                                 <div class="form-group">
                                     <select class="form-control" id="yearSelect">
                                         @foreach($years as $year)

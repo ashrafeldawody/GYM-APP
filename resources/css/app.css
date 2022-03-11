@@ -4,4 +4,6 @@
 .nav-treeview{
     padding-left: 1rem  !important;
 }
-
+.widget-user-username{
+    font-size: 1.1rem !important;
+}

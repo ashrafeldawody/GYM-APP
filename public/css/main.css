@@ -341,7 +341,9 @@ table.dataTable tbody>tr.selected,table.dataTable tbody>tr>.selected{background-
 .nav-treeview{
     padding-left: 1rem  !important;
 }
-
+.widget-user-username{
+    font-size: 1.1rem !important;
+}
 
 .custom-control-input:checked ~ .custom-control-label::before {
   background-color: green;
