@@ -174,9 +174,23 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        return [
-            'result' => false,
-            'userMessage' => "Can't delete users"
-        ];
+        $userName = $user->name;
+        if ($user->purchases()->count()) {
+            return [
+                'result' => false,
+                'userMessage' => "Can't delete <b>$userName</b>, the user has purchases"
+            ];
+        } else if ($user->attendances()->count()) {
+            return [
+                'result' => false,
+                'userMessage' => "Can't delete <b>$userName</b>, the user has attendances"
+            ];
+        } else {
+            $user->delete();
+            return [
+                'result' => true,
+                'userMessage' => "<b>$userName</b> successfully deleted"
+            ];
+        }
     }
 }
