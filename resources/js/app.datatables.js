@@ -503,7 +503,7 @@ $(function () {
     // ----- * ----- * ----- * -----
 
     function updateToggleBanText(isBanned) {
-        isBanned === true ? toggleBanButton.html('Unban') : toggleBanButton.html('ban');
+        isBanned === true ? toggleBanButton.html('<i class="fas fa-user-check mr-2"></i>Unban') : toggleBanButton.html('<i class="fas fa-ban mr-2"></i>Ban');
     }
 
     // ----- * ----- * ----- * -----
