@@ -100,6 +100,7 @@
     const addEndpoint = @yield('add_endpoint', 'null');
     const updateEndpoint = @yield('update_endpoint', 'null');
     const destroyEndpoint = @yield('destroy_endpoint', 'null');
+    const toggleBanEndpoint = @yield('toggle_ban_endpoint', 'null');
 
     const tableColumns = [@yield('table_columns')];
 

@@ -13545,7 +13545,7 @@ $(function () {
   function toggleBanManager() {
     var itemId = datatable.rows('.selected').data()[0].id;
     $.ajax({
-      url: updateEndpoint + "/".concat(itemId),
+      url: toggleBanEndpoint + "/".concat(itemId),
       method: 'PATCH'
     }).done(function (response) {
       handleToggleBanSuccess(response);
@@ -13620,17 +13620,18 @@ $(function () {
 
 
   function showSuccessToast(title, message) {
-    $('.toast #toastTitle').html(title);
-    $('.toast #toastMessage').attr('class', 'text-success');
-    $('.toast #toastMessage').html(message);
-    $('.toast').toast('show');
+    showToastMessage(title, message, 'text-success');
   }
 
   function showErrorToast(title, message) {
+    showToastMessage(title, message, 'text-danger');
+  }
+
+  function showToastMessage(title, message, cssClass) {
+    $('.toast #toastTitle').attr('class', cssClass);
     $('.toast #toastTitle').html(title);
-    $('.toast #toastTitle').attr('class', 'text-danger');
+    $('.toast #toastMessage').attr('class', cssClass);
     $('.toast #toastMessage').html(message);
-    $('.toast #toastMessage').attr('class', 'text-danger');
     $('.toast').toast('show');
   }
 });
