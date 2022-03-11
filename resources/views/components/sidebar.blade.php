@@ -29,7 +29,7 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{route('dashboard.home.index')}}" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.home.index') ? 'active':''}}">
+                    <a href="{{route('dashboard.home.index')}}" class="nav-link {{ Route::is('dashboard.home.index') ? 'active':''}}">
                         <i class="nav-icon fas fa-globe-americas"></i>
                         <p>
                             Dashboard
@@ -39,7 +39,7 @@
 
                 @can('show_city_data')
                     <li class="nav-item">
-                        <a href="{{route('dashboard.cities.index')}}" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.cities.index') ? 'active':''}}">
+                        <a href="{{route('dashboard.cities.index')}}" class="nav-link {{ Route::is('dashboard.cities.index') ? 'active':''}}">
                             <i class="nav-icon fas fa-globe-americas"></i>
                             <p>
                                 Cities
@@ -58,8 +58,8 @@
                     </li>
                 @endcan
                 @role('admin')
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item {{ (Route::is('dashboard.city_managers.index') ||Route::is('dashboard.gym_managers.index') || Route::is('dashboard.general_managers.index') || Route::is('dashboard.coaches.index'))? 'menu-open':''}}">
+                        <a href="#" class="nav-link {{ (Route::is('dashboard.city_managers.index') ||Route::is('dashboard.gym_managers.index') || Route::is('dashboard.general_managers.index') || Route::is('dashboard.coaches.index'))? 'active':''}}">
                             <i class="nav-icon fas fa-cubes"></i>
                             <p>
                                 Employees
@@ -68,32 +68,31 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{route('dashboard.city_managers.index')}}" class="nav-link">
+                                <a href="{{route('dashboard.city_managers.index')}}" class="nav-link {{ Route::is('dashboard.city_managers.index') ? 'active':''}}">
                                     <i class="nav-icon fas fa-globe-americas"></i>
                                     <p>City Managers</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('dashboard.gym_managers.index')}}" class="nav-link">
+                                <a href="{{route('dashboard.gym_managers.index')}}" class="nav-link {{ Route::is('dashboard.gym_managers.index') ? 'active':''}}">
                                     <i class="nav-icon fas fa-dumbbell"></i>
                                     <p>Gym Managers</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('dashboard.general_managers.index')}}" class="nav-link">
+                                <a href="{{route('dashboard.general_managers.index')}}" class="nav-link {{ Route::is('dashboard.general_managers.index') ? 'active':''}}">
                                     <i class="nav-icon fas fa-dumbbell"></i>
                                     <p>General Managers</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('dashboard.coaches.index')}}" class="nav-link">
+                                <a href="{{route('dashboard.coaches.index')}}" class="nav-link {{ Route::is('dashboard.coaches.index') ? 'active':''}}">
                                     <i class="nav-icon fas fa-users"></i>
                                     <p>Couches</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                @else
                 @can('gym_managers')
                     <li class="nav-item">
                         <a href="{{route('dashboard.gym_managers.index')}}" class="nav-link">
@@ -110,26 +109,26 @@
                     </li>
                 @endrole
                     <li class="nav-item">
-                        <a href="{{route('dashboard.users.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.users.index') ? 'active':''}}">
+                        <a href="{{route('dashboard.users.index')}}" class="nav-link  {{ Route::is('dashboard.users.index') ? 'active':''}}">
                             <i class="nav-icon fas fa-users"></i>
                             <p>Users</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('dashboard.sessions.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.sessions.index') ? 'active':''}}">
+                        <a href="{{route('dashboard.sessions.index')}}" class="nav-link  {{ Route::is('dashboard.sessions.index') ? 'active':''}}">
                             <i class="nav-icon fas fa-calendar-check"></i>
                             <p>Training Sessions</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('dashboard.attendance.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.attendance.index') ? 'active':''}}">
+                        <a href="{{route('dashboard.attendance.index')}}" class="nav-link  {{ Route::is('dashboard.attendance.index') ? 'active':''}}">
                             <i class="nav-icon fas fa-user-clock"></i>
                             <p>Attendance</p>
                         </a>
                     </li>
                 @role('admin')
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item {{ (Route::is('dashboard.packages.index') ||Route::is('dashboard.purchases.create'))? 'menu-open':''}}">
+                        <a href="#" class="nav-link {{ (Route::is('dashboard.packages.index') ||Route::is('dashboard.purchases.create'))? 'active':''}}">
                             <i class="nav-icon fas fa-cubes"></i>
                             <p>
                                 Training Packages
@@ -138,13 +137,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{route('dashboard.packages.index')}}" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.packages.index') ? 'active':''}}">
+                                <a href="{{route('dashboard.packages.index')}}" class="nav-link {{ Route::is('dashboard.packages.index') ? 'active':''}}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Packages</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('dashboard.purchases.create')}}" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.purchases.create') ? 'active':''}}">
+                                <a href="{{route('dashboard.purchases.create')}}" class="nav-link {{ Route::is('dashboard.purchases.create') ? 'active':''}}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Buy Package For user</p>
                                 </a>
@@ -153,20 +152,20 @@
                     </li>
                 @else
                     <li class="nav-item">
-                        <a href="{{route('dashboard.purchases.create')}}" class="nav-link {{ \Illuminate\Support\Facades\Route::is('dashboard.packages.index') ? 'active':''}}">
+                        <a href="{{route('dashboard.purchases.create')}}" class="nav-link {{ Route::is('dashboard.packages.index') ? 'active':''}}">
                             <i class="nav-icon fas fa-cubes"></i>
                             <p>Buy Package For user</p>
                         </a>
                     </li>
                 @endrole
                     <li class="nav-item">
-                        <a href="{{route('dashboard.purchases.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.purchases.index') || \Illuminate\Support\Facades\Route::is('dashboard.') ? 'active':''}}">
+                        <a href="{{route('dashboard.purchases.index')}}" class="nav-link  {{ Route::is('dashboard.purchases.index') || Route::is('dashboard.') ? 'active':''}}">
                             <i class="nav-icon fas fa-money-bill-wave"></i>
                             <p>Purchase History</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('dashboard.account.index')}}" class="nav-link  {{ \Illuminate\Support\Facades\Route::is('dashboard.account.index') ? 'active':''}}">
+                        <a href="{{route('dashboard.account.index')}}" class="nav-link  {{ Route::is('dashboard.account.index') ? 'active':''}}">
                             <i class="nav-icon fas fa-user"></i>
                             <p>Account Settings</p>
                         </a>
