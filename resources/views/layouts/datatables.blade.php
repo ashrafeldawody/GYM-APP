@@ -12,13 +12,15 @@
                     <div class="d-flex justify-content-between">
                         <div class="h5 align-self-center my-2">@yield('table_header')</div>
                         <div class="d-flex">
-                            <div id="controlsPanel" class="d-flex" style="display: none;">
-                                <button id="toggleBanButton" class="btn btn-info mr-2"><i
-                                        class="fa fa-trash pr-md-2 m-auto"></i>Ban</button>
-                                <button id="editButton" class="btn btn-primary mr-2"><i
-                                        class="fa fa-pen pr-md-2 m-auto"></i>Edit</button>
-                                <button id="deleteButton" class="btn btn-danger mr-2"><i
-                                        class="fa fa-trash pr-md-2 m-auto"></i>Delete</button>
+                            <div id="controlsPanel" style="display: none;">
+                                <div class="d-flex">
+                                    <button id="toggleBanButton" class="btn btn-info mr-2"><i
+                                            class="fa fa-trash pr-md-2 m-auto"></i>Ban</button>
+                                    <button id="editButton" class="btn btn-primary mr-2"><i
+                                            class="fa fa-pen pr-md-2 m-auto"></i>Edit</button>
+                                    <button id="deleteButton" class="btn btn-danger mr-2"><i
+                                            class="fa fa-trash pr-md-2 m-auto"></i>Delete</button>
+                                </div>
                             </div>
                             <button id="addButton" class="btn btn-success"><i class="fa fa-plus pr-md-2 m-auto"></i>Add</button>
                         </div>
