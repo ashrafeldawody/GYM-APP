@@ -3887,7 +3887,7 @@ $(function () {
     var selectedCount = datatable.rows('.selected').data().length;
     toggleControlPanel(selectedCount > 0);
   });
-  table.on('responsive-resize', function (e, datatable, columns) {
+  datatable.on('responsive-resize', function (e, datatable, columns) {
     var count = columns.reduce(function (a, b) {
       return b === false ? a + 1 : a;
     }, 0);

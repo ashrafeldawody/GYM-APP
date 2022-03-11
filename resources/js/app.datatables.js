@@ -86,7 +86,7 @@ $(function () {
         const selectedCount = datatable.rows('.selected').data().length;
         toggleControlPanel(selectedCount > 0);
     });
-    table.on( 'responsive-resize', function ( e, datatable, columns ) {
+    datatable.on( 'responsive-resize', function ( e, datatable, columns ) {
         let count = columns.reduce( function (a,b) {
             return b === false ? a+1 : a;
         }, 0 );
