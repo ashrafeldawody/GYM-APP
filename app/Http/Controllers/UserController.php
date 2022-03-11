@@ -41,11 +41,11 @@ class UserController extends Controller
     public function create()
     {
         return [
-            'formLable' => 'City Manager',
+            'formLable' => 'User',
             'fields' => [
                 [
                     'type' => 'text',
-                    'label' => 'Manager Name',
+                    'label' => 'User Name',
                     'name' => 'name',
                     'valueKey' => 'name'
                 ],
@@ -58,18 +58,14 @@ class UserController extends Controller
                 [
                     'type' => 'password',
                     'label' => 'Password',
-                    'name' => 'password'
+                    'name' => 'password',
+                    'addOnly' => true
                 ],
                 [
                     'type' => 'password',
                     'label' => 'Confirm Password',
-                    'name' => 'password_confirmation'
-                ],
-                [
-                    'type' => 'text',
-                    'label' => 'National Id',
-                    'name' => 'national_id',
-                    'valueKey' => 'national_id'
+                    'name' => 'password_confirmation',
+                    'addOnly' => true
                 ],
                 [
                     'type' => 'radio',
@@ -86,6 +82,12 @@ class UserController extends Controller
                     'label' => 'Birth Date',
                     'name' => 'birth_date',
                     'valueKey' => 'birth_date'
+                ],
+                [
+                    'type' => 'file',
+                    'label' => 'Avatar Image',
+                    'name' => 'avatar',
+                    'valueKey' => 'avatar'
                 ],
             ]
         ];
