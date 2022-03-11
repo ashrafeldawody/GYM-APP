@@ -221,7 +221,7 @@
                 <!-- lotus-arrow-divider -->
                 <tr  >
                     <td align="center"  bgcolor="#FFFFFF">
-                        <img style="width:50px;border:0px;display: inline!important;" src="{{ asset('assets/img/emails/Arrow.png') }}" width="50" border="0"       alt="arrow">
+                        <img style="width:50px;border:0px;display: inline!important;" src="https://i.postimg.cc/HLKgtBQd/Arrow.png" width="50" border="0"       alt="arrow">
                     </td>
                 </tr>
             </table>

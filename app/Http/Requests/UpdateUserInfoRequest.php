@@ -29,10 +29,7 @@ class UpdateUserInfoRequest extends FormRequest
         $userId = $this->route('user');
         return [
             'name' => ['min:3'],
-             'email' => [
-                 'required',
-                 Rule::unique('users')->ignore($userId)
-             ],
+             'email' => [Rule::unique('users')->ignore(request()->user()->id)],
             'gender' =>['in:male,female'],
             'birth_date' =>['date_format:Y-m-d','before:today','after:1920-01-01'],
             'avatar' =>['nullable','image'],
