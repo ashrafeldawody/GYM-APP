@@ -29,12 +29,6 @@ class UserController extends Controller
     public function update(Request $request, UpdateUserInfoRequest $validate)
     {
 
-        // Validator::make(request()->all(), [
-        // 'title' =>['required',Rule::unique('posts')->ignore($update)], //ignore unique title on this id on update
-        // 'description'=>['required','min:10'],
-        // 'user_id'=>['required'],
-        // ])->validate();
-
         unset($request['_method']);
         unset($request['password_confirmation']);
 

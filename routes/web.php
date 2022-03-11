@@ -37,38 +37,6 @@ Route::get('/', function () {
     return redirect()->route('dashboard.home.index');
 });
 
-//=======for testing only====
-Route::get('welcome-member', function () {
-
-    $member = User::where('id',15)->first();
-    return new WelcomeMember($member);
-});
-
-Route::get('verify-email', function () {
-
-    $member = User::where('id',15)->first();
-    $options = array(
-        'verify_url' => 'http://gotohere.com',
-    );
-    return new VerifyEmail($member, $options);
-});
-
-Route::get('forgot-password', function () {
-
-    $member = User::where('id',15)->first();
-    $options = array(
-        'reset_link' => 'http://gotohere.com',
-    );
-    return new ForgotPassword($member, $options);
-});
-
-// Route::get('we-miss-you', function () {
-
-//     $member = User::where('id',15)->first();
-//     return new WeMissYou($member);
-// });
-//=======
-
 Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(function () {
 
     Route::get('/', [HomeController::class, 'index'])->middleware('permission:purchases')->name('home.index');;
