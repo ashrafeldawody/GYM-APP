@@ -26,7 +26,7 @@ class StoreGymRequest extends FormRequest
     public function rules()
     {
         $validationRules = [
-            'name' => 'required',
+            'name' => 'required|unique:gyms',
         ];
         if (Auth::user()->hasRole('admin')) {
             $validationRules['city_id'] = 'required';

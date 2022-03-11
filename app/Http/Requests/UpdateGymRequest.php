@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UpdateGymRequest extends FormRequest
 {
@@ -24,9 +25,12 @@ class UpdateGymRequest extends FormRequest
      */
     public function rules()
     {
-        $validationRules = [
-            'name' => 'required',
+        $gymID = $this->route('gym');
+        return [
+            'name' => [
+                'required',
+                Rule::unique('gyms')->ignore($gymID),
+            ],
         ];
-        return $validationRules;
     }
 }
