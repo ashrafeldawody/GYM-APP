@@ -32,6 +32,5 @@ class UpdateGymRequest extends FormRequest
                 Rule::unique('gyms')->ignore($gymId),
             ],
         ];
-        return $validationRules;
     }
 }

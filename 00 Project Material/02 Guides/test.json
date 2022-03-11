@@ -1,62 +1,308 @@
 {
-    "name": "City 1",
-    "gyms": []
+    "id": 125,
+    "name": "Gym Manager 11 1",
+    "national_id": "48619012586952",
+    "email": "manager11@gym1.com",
+    "gender": "male",
+    "birth_date": "1988-03-27",
+    "avatar": "images\/44cec7851bf96ca8534053edbad9fa76.png",
+    "is_banned": false,
+    "gym": "Alf Corner"
 },
 {
-    "name": "City 2",
-    "gyms": [
-        {
-            "id": 7,
-            "name": "Carlie Prairie"
-        },
-        {
-            "id": 11,
-            "name": "Gerhold Via"
-        },
-        {
-            "id": 5,
-            "name": "Kub Mission"
-        },
-        {
-            "id": 8,
-            "name": "Mayer Prairie"
-        },
-        {
-            "id": 4,
-            "name": "Monahan Lock"
-        },
-        {
-            "id": 12,
-            "name": "Ortiz Villages"
-        },
-        {
-            "id": 6,
-            "name": "Robel Stravenue"
-        },
-        {
-            "id": 1,
-            "name": "Schiller Overpass"
-        },
-        {
-            "id": 9,
-            "name": "Schuppe Knoll"
-        }
-    ]
+    "id": 126,
+    "name": "Gym Manager 11 2",
+    "national_id": "43188944901991",
+    "email": "manager11@gym2.com",
+    "gender": "female",
+    "birth_date": "1977-01-13",
+    "avatar": "images\/415b7745b9578e2877b6468a30c08d3f.png",
+    "is_banned": false,
+    "gym": "Alf Corner"
 },
 {
-    "name": "City 3",
-    "gyms": [
-        {
-            "id": 2,
-            "name": "Ariane Run"
-        },
-        {
-            "id": 3,
-            "name": "Franecki Street"
-        },
-        {
-            "id": 10,
-            "name": "Raynor Ports"
-        }
-    ]
+    "id": 127,
+    "name": "Gym Manager 11 3",
+    "national_id": "26346494411049",
+    "email": "manager11@gym3.com",
+    "gender": "male",
+    "birth_date": "2000-09-22",
+    "avatar": "images\/3474c21ab3c529cf93e690d19e9d2a23.png",
+    "is_banned": false,
+    "gym": "Alf Corner"
+},
+{
+    "id": 128,
+    "name": "Gym Manager 11 4",
+    "national_id": "74193410347869",
+    "email": "manager11@gym4.com",
+    "gender": "female",
+    "birth_date": "1998-06-21",
+    "avatar": "images\/585998d0baf0a3dcb0bcb3799616b9c4.png",
+    "is_banned": false,
+    "gym": "Alf Corner"
+},
+{
+    "id": 97,
+    "name": "Gym Manager 4 1",
+    "national_id": "96895744055627",
+    "email": "manager4@gym1.com",
+    "gender": "male",
+    "birth_date": "1995-07-04",
+    "avatar": "images\/581f20b2fcc1e6f621aeb9ae962639f9.png",
+    "is_banned": false,
+    "gym": "Belle Run"
+},
+{
+    "id": 98,
+    "name": "Gym Manager 4 2",
+    "national_id": "49729612326312",
+    "email": "manager4@gym2.com",
+    "gender": "male",
+    "birth_date": "1991-01-12",
+    "avatar": "images\/49a5fd3f6d219d718156c89daa145d74.png",
+    "is_banned": false,
+    "gym": "Belle Run"
+},
+{
+    "id": 99,
+    "name": "Gym Manager 4 3",
+    "national_id": "90703631102471",
+    "email": "manager4@gym3.com",
+    "gender": "male",
+    "birth_date": "2015-04-05",
+    "avatar": "images\/731aa73a50a6eff71030d3b90eb13ac5.png",
+    "is_banned": false,
+    "gym": "Belle Run"
+},
+{
+    "id": 100,
+    "name": "Gym Manager 4 4",
+    "national_id": "09529807207931",
+    "email": "manager4@gym4.com",
+    "gender": "male",
+    "birth_date": "1983-10-24",
+    "avatar": "images\/73f7d8c3c0a53095c7a5031d4a321066.png",
+    "is_banned": false,
+    "gym": "Belle Run"
+},
+{
+    "id": 129,
+    "name": "Gym Manager 12 1",
+    "national_id": "48914074717977",
+    "email": "manager12@gym1.com",
+    "gender": "female",
+    "birth_date": "2010-06-27",
+    "avatar": "images\/c29564efa5bd2609b6025867a2d490c4.png",
+    "is_banned": false,
+    "gym": "Bernier Rue"
+},
+{
+    "id": 130,
+    "name": "Gym Manager 12 2",
+    "national_id": "87345364311173",
+    "email": "manager12@gym2.com",
+    "gender": "female",
+    "birth_date": "1970-11-11",
+    "avatar": "images\/433409c07405a97c5921a598c16568a6.png",
+    "is_banned": false,
+    "gym": "Bernier Rue"
+},
+{
+    "id": 131,
+    "name": "Gym Manager 12 3",
+    "national_id": "89050917964979",
+    "email": "manager12@gym3.com",
+    "gender": "female",
+    "birth_date": "1981-07-15",
+    "avatar": "images\/3f91f3b1629092a1eb0837e015ef7808.png",
+    "is_banned": false,
+    "gym": "Bernier Rue"
+},
+{
+    "id": 132,
+    "name": "Gym Manager 12 4",
+    "national_id": "81771474756547",
+    "email": "manager12@gym4.com",
+    "gender": "female",
+    "birth_date": "1989-05-03",
+    "avatar": "images\/caff2d96c46da54e118ce6a105100eea.png",
+    "is_banned": false,
+    "gym": "Bernier Rue"
+},
+{
+    "id": 109,
+    "name": "Gym Manager 7 1",
+    "national_id": "95846946362435",
+    "email": "manager7@gym1.com",
+    "gender": "male",
+    "birth_date": "1989-12-05",
+    "avatar": "images\/703bbef68c8fdf05a57e194cab731217.png",
+    "is_banned": false,
+    "gym": "Brody Plain"
+},
+{
+    "id": 110,
+    "name": "Gym Manager 7 2",
+    "national_id": "90694430596495",
+    "email": "manager7@gym2.com",
+    "gender": "male",
+    "birth_date": "1978-03-15",
+    "avatar": "images\/509cc0e74c868e14025c8b51197ce7ad.png",
+    "is_banned": false,
+    "gym": "Brody Plain"
+},
+{
+    "id": 111,
+    "name": "Gym Manager 7 3",
+    "national_id": "83472606414747",
+    "email": "manager7@gym3.com",
+    "gender": "male",
+    "birth_date": "1989-04-18",
+    "avatar": "images\/7961b62accb87eafc6ee4875ae9fb963.png",
+    "is_banned": false,
+    "gym": "Brody Plain"
+},
+{
+    "id": 112,
+    "name": "Gym Manager 7 4",
+    "national_id": "62820906429531",
+    "email": "manager7@gym4.com",
+    "gender": "female",
+    "birth_date": "1971-03-31",
+    "avatar": "images\/dce5e2c3e8058e22f825689aa521e0b7.png",
+    "is_banned": false,
+    "gym": "Brody Plain"
+},
+{
+    "id": 113,
+    "name": "Gym Manager 8 1",
+    "national_id": "51911982329102",
+    "email": "manager8@gym1.com",
+    "gender": "male",
+    "birth_date": "2012-12-14",
+    "avatar": "images\/e0baf11b740ce6199117e7aecdf3ed05.png",
+    "is_banned": false,
+    "gym": "Buster Tunnel"
+},
+{
+    "id": 114,
+    "name": "Gym Manager 8 2",
+    "national_id": "74743902869338",
+    "email": "manager8@gym2.com",
+    "gender": "female",
+    "birth_date": "1974-09-26",
+    "avatar": "images\/4ad4e1ba17a8a51fd6c141c0bae95dc3.png",
+    "is_banned": false,
+    "gym": "Buster Tunnel"
+},
+{
+    "id": 115,
+    "name": "Gym Manager 8 3",
+    "national_id": "42977917874756",
+    "email": "manager8@gym3.com",
+    "gender": "female",
+    "birth_date": "1977-03-03",
+    "avatar": "images\/8e71d9db241dab3a4d3fe2bde70fa349.png",
+    "is_banned": false,
+    "gym": "Buster Tunnel"
+},
+{
+    "id": 116,
+    "name": "Gym Manager 8 4",
+    "national_id": "76515434385667",
+    "email": "manager8@gym4.com",
+    "gender": "male",
+    "birth_date": "2004-09-26",
+    "avatar": "images\/77a18f4c82a4a1a0a7028710016b116d.png",
+    "is_banned": false,
+    "gym": "Buster Tunnel"
+},
+{
+    "id": 93,
+    "name": "Gym Manager 3 1",
+    "national_id": "43992313311939",
+    "email": "manager3@gym1.com",
+    "gender": "female",
+    "birth_date": "2010-01-21",
+    "avatar": "images\/58dd3df6d7a387b9a89f6691e18055e5.png",
+    "is_banned": false,
+    "gym": "Hill Pass"
+},
+{
+    "id": 94,
+    "name": "Gym Manager 3 2",
+    "national_id": "86073284143352",
+    "email": "manager3@gym2.com",
+    "gender": "female",
+    "birth_date": "2021-11-04",
+    "avatar": "images\/f2d817c47f082a99af0842d960a3f86a.png",
+    "is_banned": false,
+    "gym": "Hill Pass"
+},
+{
+    "id": 95,
+    "name": "Gym Manager 3 3",
+    "national_id": "70142207324263",
+    "email": "manager3@gym3.com",
+    "gender": "male",
+    "birth_date": "2016-08-11",
+    "avatar": "images\/ce26f946a9b381076b6e9c9ed0848457.png",
+    "is_banned": false,
+    "gym": "Hill Pass"
+},
+{
+    "id": 96,
+    "name": "Gym Manager 3 4",
+    "national_id": "96204278167876",
+    "email": "manager3@gym4.com",
+    "gender": "male",
+    "birth_date": "1977-04-18",
+    "avatar": "images\/1e66d828e2fd9f33414945fac85bfcb4.png",
+    "is_banned": false,
+    "gym": "Hill Pass"
+},
+{
+    "id": 121,
+    "name": "Gym Manager 10 1",
+    "national_id": "38624965280796",
+    "email": "manager10@gym1.com",
+    "gender": "male",
+    "birth_date": "1994-05-05",
+    "avatar": "images\/3add7f23567175052dda11082caad7c2.png",
+    "is_banned": false,
+    "gym": "Myrtis Pike"
+},
+{
+    "id": 122,
+    "name": "Gym Manager 10 2",
+    "national_id": "55267442021563",
+    "email": "manager10@gym2.com",
+    "gender": "female",
+    "birth_date": "2017-05-07",
+    "avatar": "images\/fb89c8bd8ca38aeed2f8c0a292f9a86a.png",
+    "is_banned": false,
+    "gym": "Myrtis Pike"
+},
+{
+    "id": 123,
+    "name": "Gym Manager 10 3",
+    "national_id": "46775732119888",
+    "email": "manager10@gym3.com",
+    "gender": "female",
+    "birth_date": "1978-04-21",
+    "avatar": "images\/4784b0483bf1d67048d67ac849e4621b.png",
+    "is_banned": false,
+    "gym": "Myrtis Pike"
+},
+{
+    "id": 124,
+    "name": "Gym Manager 10 4",
+    "national_id": "47373969053199",
+    "email": "manager10@gym4.com",
+    "gender": "female",
+    "birth_date": "2003-05-10",
+    "avatar": "images\/8aca9dd311b6f98fdbe69f70d9bae191.png",
+    "is_banned": false,
+    "gym": "Myrtis Pike"
 }

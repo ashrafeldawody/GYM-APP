@@ -30,18 +30,6 @@ class GymController extends Controller
         return $dataTable->render('dashboard.gyms.index');
     }
 
-
-    /*
-     *         return [
-            'name' => $this->faker->unique()->streetName(),
-            'cover_image' => $this->faker->image('public/images',400,300,null, false),
-            'city_id' => City::all()->random()->id,
-            'creator_id' => Manager::role(['admin', 'city_manager'])->get()->random()->id,
-        ];
-
-     *
-     *
-     * */
     /**
      * Show the form for creating a new resource.
      *
@@ -112,27 +100,6 @@ class GymController extends Controller
         ];
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Gym  $gym
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Gym $gym)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Gym  $gym
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Gym $gym)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
