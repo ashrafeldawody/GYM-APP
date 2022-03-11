@@ -19,9 +19,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Fullscreen": () => (/* reexport safe */ _Fullscreen__WEBPACK_IMPORTED_MODULE_6__["default"]),
 /* harmony export */   "IFrame": () => (/* reexport safe */ _IFrame__WEBPACK_IMPORTED_MODULE_7__["default"]),
 /* harmony export */   "Layout": () => (/* reexport safe */ _Layout__WEBPACK_IMPORTED_MODULE_8__["default"]),
-/* harmony export */   "NavbarSearch": () => (/* reexport safe */ _NavbarSearch__WEBPACK_IMPORTED_MODULE_11__["default"]),
 /* harmony export */   "PushMenu": () => (/* reexport safe */ _PushMenu__WEBPACK_IMPORTED_MODULE_9__["default"]),
 /* harmony export */   "SidebarSearch": () => (/* reexport safe */ _SidebarSearch__WEBPACK_IMPORTED_MODULE_10__["default"]),
+/* harmony export */   "NavbarSearch": () => (/* reexport safe */ _NavbarSearch__WEBPACK_IMPORTED_MODULE_11__["default"]),
 /* harmony export */   "Toasts": () => (/* reexport safe */ _Toasts__WEBPACK_IMPORTED_MODULE_12__["default"]),
 /* harmony export */   "TodoList": () => (/* reexport safe */ _TodoList__WEBPACK_IMPORTED_MODULE_13__["default"]),
 /* harmony export */   "Treeview": () => (/* reexport safe */ _Treeview__WEBPACK_IMPORTED_MODULE_14__["default"])
@@ -13141,6 +13141,502 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
+/***/ "./resources/js/app.datatables.js":
+/*!****************************************!*\
+  !*** ./resources/js/app.datatables.js ***!
+  \****************************************/
+/***/ (() => {
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+$(function () {
+  if (!useAppDatatablesScript || !ajaxUrl) return;
+  window.nestedSelectOptions = {};
+
+  window.updateNestedSelect = function (event, index, label, text, valueKey) {
+    index = +index;
+    var nextIndex = index + 1;
+    var targerSelect = document.getElementById("level_".concat(nextIndex, "_select"));
+    if (!targerSelect || !text) return;
+    var targetSelect = event.target;
+    var data = nestedSelectOptions[index + "." + targetSelect.value];
+    targerSelect.innerHTML = "<option>Select ".concat(label, "</option>");
+    targerSelect.innerHTML += data.map(function (option) {
+      return "<option value=\"".concat(option[valueKey] || option[text], "\">").concat(option[text], "</option>");
+    }).join("");
+
+    while (document.getElementById("level_".concat(++nextIndex, "_select"))) {
+      var nextLevelSelect = document.getElementById("level_".concat(nextIndex, "_select"));
+      nextLevelSelect.innerHTML = "<option>Select from above first</option>";
+    }
+  };
+
+  var isSelectable = addEndpoint != null || updateEndpoint != null || destroyEndpoint != null;
+  var controlsPanel = $('#controlsPanel');
+  var addButton = $('#addButton');
+  var editButton = $('#editButton');
+  var deleteButton = $('#deleteButton');
+  var toggleBanButton = $('#toggleBanButton');
+  var formElem = $('#addEditForm');
+  var formLable = $('#formModalLabel');
+  var formConfirmBtn = $('#formConfirmBtn');
+  var alertsDiv = $('#alertsDiv');
+  var confirmModal = $('#confirmModal');
+  var confirmMessage = $('#confirmMessage'); // ----- * ----- * ----- * -----
+
+  formElem.on("submit", function (e) {
+    e.preventDefault();
+    formConfirmBtn.click();
+  });
+  if (!addEndpoint) addButton.hide();
+  var datatable = $('#datatable').DataTable({
+    scrollX: true,
+    sScrollXInner: "100%",
+    processing: true,
+    serverSide: true,
+    pageLength: 10,
+    ajax: ajaxUrl,
+    columns: [{
+      "data": null,
+      "defaultContent": ""
+    }].concat(_toConsumableArray(tableColumns)),
+    columnDefs: [{
+      orderable: false,
+      className: 'select-checkbox',
+      targets: 0
+    }, {
+      orderable: false,
+      targets: 1
+    }],
+    select: isSelectable && {
+      style: 'os',
+      selector: 'td'
+    },
+    createdRow: function createdRow(row, data, index) {
+      $(row).css('cursor', 'pointer');
+    },
+    order: [[2, 'asc']]
+  }); // Prevent error alerts
+
+  $.fn.dataTable.ext.errMode = 'none';
+  datatable.on('select deselect draw.dt', function (e, dt, type, indexes) {
+    var selectedCount = datatable.rows('.selected').data().length;
+    toggleControlPanel(selectedCount > 0);
+  }); // ----- * ----- * ----- * -----
+
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': csrfToken,
+      "Access-Control-Allow-Origin": "*"
+    }
+  });
+  addButton.click(function () {
+    formConfirmBtn.off().click(submitAdd);
+    formConfirmBtn.attr('class', 'btn btn-success');
+    formConfirmBtn.html('Add');
+    showFormModal(false);
+  });
+  editButton.click(function () {
+    formConfirmBtn.off().click(submitEdit);
+    formConfirmBtn.attr('class', 'btn btn-primary');
+    formConfirmBtn.html('Update');
+    showFormModal(true);
+  });
+  deleteButton.click(showDeleteConfirm);
+  toggleBanButton.click(toggleBanManager);
+  $('#confirmDeleteBtn').click(confirmDelete); // ----- * ----- * ----- * ----- * ----- * ----- * -----
+  // ----- * ----- *      Add / Edit       * ----- * -----
+  // ----- * ----- * ----- * ----- * ----- * ----- * -----
+
+  function showFormModal(isToEdit) {
+    $.ajax({
+      url: formDataEndpoint,
+      method: 'GET',
+      crossDomain: true
+    }).done(function (formData) {
+      // get data of selected row if isToEdit
+      var selectedRow = null;
+
+      if (isToEdit) {
+        var selectedRows = datatable.rows('.selected').data();
+        selectedRow = selectedRows.length > 0 ? selectedRows[0] : null;
+      } // Generate form fields
+
+
+      createForm(formData, selectedRow, isToEdit); // Show the modal
+
+      alertsDiv.html('');
+      $('#formModal').modal().show();
+    });
+  }
+
+  function createForm(formData) {
+    var selectedRow = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var isToEdit = arguments.length > 2 ? arguments[2] : undefined;
+    // Set the form label
+    formLable.html((isToEdit ? 'Edit ' : 'Add ') + formData.formLable); // Create the html form fields
+
+    var formFields = '';
+    var loadNestedSelect = null;
+    formData.fields.forEach(function (field) {
+      if (field.editOnly === true && !isToEdit) return;
+      if (field.addOnly === true && isToEdit) return;
+
+      if (field.type === 'text' || field.type === 'email' || field.type === 'number') {
+        formFields += createTextField(field, selectedRow);
+      } else if (!isToEdit && field.type === 'password') {
+        formFields += createTextField(field);
+      } else if (field.type === 'select') {
+        formFields += createSelectField(field, selectedRow);
+      } else if (field.type === 'nestedSelect') {
+        separateSelectLevel(field);
+        formFields += createNestedSelect(field);
+        loadNestedSelect = field;
+      } else if (field.type === 'radio') {
+        formFields += createRadioField(field, selectedRow);
+      } else if (field.type === 'time') {
+        var timeValue = selectedRow ? selectedRow[field.valueKey] : '';
+
+        if (timeValue) {
+          var found = timeValue.match(/\d\d:\d\d:\d\d/g);
+          if (found && found.length > 0) timeValue = found[0];
+        }
+
+        formFields += createDateTimeField(field, selectedRow, timeValue);
+      } else if (field.type === 'date') {
+        var dateValue = selectedRow ? selectedRow[field.valueKey] : '';
+        if (dateValue) dateValue = new Date(dateValue).toISOString().split("T")[0];
+        formFields += createDateTimeField(field, selectedRow, dateValue);
+      } else if (field.type === 'file') {
+        formFields += createFileField(field);
+      }
+    }); // set formFields html in the form
+
+    formElem.html(formFields);
+    $('.select2').select2();
+    $('.custom-file-input').init();
+    $('.custom-file input').change(function (e) {
+      e.target.files.length && $(this).next('.custom-file-label').html(e.target.files[0].name);
+    });
+  }
+
+  function createTextField(field) {
+    var selectedRow = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var textValue = selectedRow ? selectedRow[field.valueKey] : '';
+    return "<div class=\"form-group\">\n                    <label for=\"".concat(field.name, "_input\" class=\"col-form-label\">").concat(field.label, "</label>\n                    <input type=\"").concat(field.type, "\" name=\"").concat(field.name, "\" value=\"").concat(textValue, "\" class=\"form-control\" id=\"").concat(field.name, "_input\">\n                </div>");
+  } // needs:
+  // field {label, name, text, valueKey, selectedText, selectedValue, multiSelect}
+
+
+  function createSelectField(field, selectedRow) {
+    var currentSelected = '';
+
+    if (selectedRow) {
+      var selectedText = selectedRow[field.selectedText];
+      var selectedId = selectedRow[field.selectedValue];
+
+      if (selectedText && selectedId) {
+        currentSelected = "<option value=\"".concat(selectedId, "\" 'selected'>").concat(selectedText, "</option>");
+      }
+    }
+
+    return "<div class=\"form-group\">\n                    <label class=\"col-form-label\">".concat(field.label, "</label>\n                    <select name=\"").concat(field.name).concat(field.multiSelect ? '[]' : '', "\" class=\"").concat(field.multiSelect ? 'select2' : 'form-control', "\"\n                            ").concat(field.multiSelect ? 'multiple="multiple" data-placeholder="Select a ' + field.label + '" style="width: 100%;"' : '', ">\n                        <option disabled>Select ").concat(field.label, "</option>\n                        ").concat(currentSelected, "\n                        ").concat(field.options.map(function (option) {
+      return "<option value=\"".concat(option[field.valueKey], "\">").concat(option[field.text], "</option>");
+    }).join(""), "\n                    </select>\n                </div>");
+  }
+
+  function createNestedSelect(field) {
+    var selects = field.levels.map(function (level, index) {
+      var nextLevelLabel = index < field.levels.length - 1 ? field.levels[index + 1].label : '';
+      var nextLevelText = index < field.levels.length - 1 ? field.levels[index + 1].text : '';
+      var nextLevelValueKey = index < field.levels.length - 1 ? field.levels[index + 1].valueKey : '';
+      return "<div class=\"form-group\">\n                    <label class=\"col-form-label\">".concat(level.label, "</label>\n                    <select onchange=\"updateNestedSelect(event, '").concat(index, "', '").concat(nextLevelLabel, "', '").concat(nextLevelText, "', '").concat(nextLevelValueKey, "')\"\n                        id=\"level_").concat(index, "_select\" name=\"").concat(level.inputName || '').concat(level.multiSelect ? '[]' : '', "\"\n                        class=\"").concat(level.multiSelect ? 'select2' : 'form-control', "\"\n                        ").concat(level.multiSelect ? 'multiple="multiple" data-placeholder="Select a ' + level.label + '" style="width: 100%;"' : '', ">\n                        <option>Select ").concat(level.label, "</option>\n                        ").concat(index == 0 && field[level.key].map(function (option) {
+        return "<option>".concat(option[level.text], "</option>");
+      }).join(''), "\n                    </select>\n                </div>");
+    }).join('');
+    return selects;
+  }
+
+  function separateSelectLevel(field) {
+    var levelIndex = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+    if (field.levels) {
+      var level = field.levels[0];
+      var levelOptions = field[level.key];
+      levelOptions.forEach(function (option, index) {
+        var dataKey = null;
+
+        if (field.levels.length > 1) {
+          // Not the last level
+          dataKey = option[level.text];
+          var nextLevelKey = field.levels[1]['key'];
+          var nestedOptions = option[nextLevelKey];
+          nestedSelectOptions[levelIndex + "." + dataKey] = nestedOptions;
+          var nextLevels = field.levels.filter(function (_, index) {
+            return index > 0;
+          });
+
+          if (nextLevels.length) {
+            var _separateSelectLevel;
+
+            separateSelectLevel((_separateSelectLevel = {}, _defineProperty(_separateSelectLevel, nextLevels[0].key, nestedOptions), _defineProperty(_separateSelectLevel, "levels", nextLevels), _separateSelectLevel), levelIndex + 1);
+          }
+        }
+      });
+    }
+  }
+
+  function createRadioField(field, selectedRow) {
+    var radioValue = selectedRow ? selectedRow[field.valueKey] : '';
+    return "<div class=\"form-group\">\n                    <label class=\"col-form-label\">".concat(field.label, "</label>\n                    ").concat(field.options.map(function (option) {
+      return "<div class=\"form-check\">\n                                <input class=\"form-check-input\" type=\"radio\" ".concat(option.value == radioValue ? 'checked' : '', "\n                                    name=\"").concat(field.name, "\" id=\"").concat(option.value, "_input\" value=\"").concat(option.value, "\">\n                                <label class=\"form-check-label\" for=\"").concat(option.value, "_input\">").concat(option.text, "</label>\n                            </div>");
+    }).join(""), "\n                </div>");
+  }
+
+  function createDateTimeField(field, selectedRow, value) {
+    return "<div class=\"form-group\">\n                    <label for=\"".concat(field.name, "_input\" class=\"col-form-label\">").concat(field.label, "</label>\n                    <input type=\"").concat(field.type, "\" name=\"").concat(field.name, "\" value=\"").concat(value, "\" class=\"form-control\" id=\"").concat(field.name, "_input\">\n                </div>");
+  }
+
+  function createFileField(field) {
+    return "<div class=\"form-group\">\n                    <label class=\"col-form-label\">".concat(field.label, "</label>\n                    <div class=\"custom-file\">\n                        <input type=\"file\" accept=\"image/*\" name=\"").concat(field.name, "\" class=\"custom-file-input\" id=\"").concat(field.name, "_input\">\n                        <label class=\"custom-file-label\" for=\"").concat(field.name, "_input\">Choose file</label>\n                    </div>\n                </div>");
+  } // ----- * ----- * ----- * -----
+
+
+  function submitEdit() {
+    if (!$("#addEditForm input[name='_method']").length) {
+      formElem.prepend('<input type="hidden" name="_method" value="PATCH">');
+    }
+
+    var data = formElem.serialize();
+    var itemId = datatable.rows('.selected').data()[0].id;
+    $.ajax({
+      url: updateEndpoint + "/".concat(itemId),
+      method: 'POST',
+      data: new FormData(formElem.get(0)),
+      processData: false,
+      contentType: false
+    }).done(function (response) {
+      handleEditSuccess(response);
+    }).fail(function (response) {
+      handleEditFail(response);
+    });
+  }
+
+  function handleEditSuccess(response) {
+    if (response.result === true) {
+      datatable.rows('.selected').data(response.updatedData).draw(false);
+      datatable.rows('.selected').deselect();
+      $('#formModal .close').click();
+      showSuccessToast('Edit success', response.userMessage);
+    } else {
+      $('#confirmModal .close').click();
+      showErrorToast('Delete failed', response.userMessage);
+    }
+  }
+
+  function handleEditFail(response) {
+    if (response && response.responseJSON) {
+      showErrorsList(response.responseJSON);
+    }
+  } // ----- * ----- * ----- * -----
+
+
+  function submitAdd() {
+    $.ajax({
+      url: addEndpoint,
+      method: 'POST',
+      data: new FormData(formElem.get(0)),
+      processData: false,
+      contentType: false
+    }).done(function (response) {
+      handleAddSuccess(response);
+    }).fail(function (response) {
+      handleAddFail(response);
+    });
+  }
+
+  function handleAddSuccess(response) {
+    if (response.newRowData) {
+      datatable.row.add(response.newRowData).draw(false);
+      $('#formModal .close').click();
+      showSuccessToast('Add success', response.userMessage);
+    } else {
+      $('#formModal .close').click();
+      showSuccessToast('Add success', "Add success but somthing wrong happened! please refresh the page");
+    }
+  }
+
+  function handleAddFail(response) {
+    if (response && response.responseJSON) {
+      showErrorsList(response.responseJSON);
+    }
+  } // ----- * ----- * ----- * ----- * ----- * ----- * -----
+  // ----- * ----- *        Delete         * ----- * -----
+  // ----- * ----- * ----- * ----- * ----- * ----- * -----
+
+
+  function showDeleteConfirm() {
+    var selectedData = datatable.rows('.selected').data();
+    if (!selectedData.length) return;
+    var rowData = '<p class="text-danger">Are you sure, data will be deleted</p>';
+    var columns = datatable.settings().init().columns;
+    datatable.columns().every(function (index) {
+      var columnName = columns[index].name;
+
+      if (columnName && columnName != 'DT_RowIndex') {
+        var headerText = datatable.column(index).header().textContent;
+        var data = selectedData[0][columnName];
+        rowData += "<div><b>".concat(headerText, ":</b> ").concat(data, "</div>");
+      }
+    });
+    confirmMessage.html(rowData);
+    confirmModal.modal().show();
+  }
+
+  function confirmDelete() {
+    itemId = datatable.rows('.selected').data()[0].id;
+
+    if (itemId) {
+      toggleControlPanel(false);
+      $.ajax({
+        url: destroyEndpoint + "/".concat(itemId),
+        method: 'DELETE'
+      }).done(function (response) {
+        handleDeleteSuccess(response);
+      }).fail(function (response) {
+        handleDeleteFail(response);
+      });
+    }
+  }
+
+  function handleDeleteSuccess(response) {
+    if (response.result === true) {
+      datatable.row('.selected').remove().draw(true);
+      $('#confirmModal .close').click();
+      showSuccessToast('Delete success', response.userMessage);
+    } else {
+      datatable.rows('.selected').deselect();
+      $('#confirmModal .close').click();
+      showErrorToast('Delete failed', response.userMessage);
+    }
+  }
+
+  function handleDeleteFail() {
+    datatable.rows('.selected').deselect();
+    $('#confirmModal .close').click();
+    showErrorToast('Delete failed', "Something wrong happened, Unknown error");
+  } // ----- * ----- * ----- * ----- * ----- * ----- * -----
+  // ----- * ----- *      Toggle Ban       * ----- * -----
+  // ----- * ----- * ----- * ----- * ----- * ----- * -----
+
+
+  function toggleBanManager() {
+    var itemId = datatable.rows('.selected').data()[0].id;
+    $.ajax({
+      url: updateEndpoint + "/".concat(itemId),
+      method: 'PATCH'
+    }).done(function (response) {
+      handleToggleBanSuccess(response);
+    }).fail(function (response) {
+      handleToggleBanFail(response);
+    });
+  }
+
+  function handleToggleBanSuccess(response) {
+    if (response.result === true) {
+      var selectedData = datatable.rows('.selected').data()[0];
+      selectedData['is_banned'] = response.isBanned;
+      updateToggleBanText(response.isBanned);
+      showSuccessToast('Toggle ban success', response.userMessage);
+    } else {
+      datatable.rows('.selected').deselect();
+      showErrorToast('Toggle ban failed', response.userMessage);
+    }
+  }
+
+  function handleToggleBanFail() {
+    datatable.rows('.selected').deselect();
+    showErrorToast('Toggle ban failed', "Something wrong happened, Unknown error");
+  } // ----- * ----- * ----- * ----- * ----- * ----- * -----
+  // ----- * ----- *       Controls        * ----- * -----
+  // ----- * ----- * ----- * ----- * ----- * ----- * -----
+
+
+  function toggleControlPanel(show) {
+    show ? showControlPanel() : hideControlPanle();
+  }
+
+  function showControlPanel() {
+    controlsPanel.show();
+    updateEndpoint ? editButton.show() : editButton.hide();
+    destroyEndpoint ? deleteButton.show() : deleteButton.hide();
+
+    if (toggleBanEndpoint) {
+      toggleBanButton.show();
+      var selectedData = datatable.rows('.selected').data()[0];
+      if (selectedData) updateToggleBanText(selectedData['is_banned']);
+    } else {
+      toggleBanButton.hide();
+    }
+  }
+
+  function hideControlPanle() {
+    controlsPanel.hide();
+  } // ----- * ----- * ----- * -----
+
+
+  function updateToggleBanText(isBanned) {
+    isBanned === true ? toggleBanButton.html('Unban') : toggleBanButton.html('ban');
+  } // ----- * ----- * ----- * -----
+
+
+  function showErrorsList(responseJSON) {
+    if (responseJSON) {
+      var message = responseJSON.message;
+      var errors = responseJSON.errors;
+      var errorsAlerts = '<div class="alert alert-danger" role="alert">';
+      errorsAlerts += "<p><strong>".concat(message, "</strong></p>");
+
+      for (var error in errors) {
+        errorsAlerts += "<div>".concat(errors[error], "</div>");
+      }
+
+      errorsAlerts += '</div>';
+      alertsDiv.html(errorsAlerts);
+    }
+  } // ----- * ----- * ----- * -----
+
+
+  function showSuccessToast(title, message) {
+    $('.toast #toastTitle').html(title);
+    $('.toast #toastMessage').attr('class', 'text-success');
+    $('.toast #toastMessage').html(message);
+    $('.toast').toast('show');
+  }
+
+  function showErrorToast(title, message) {
+    $('.toast #toastTitle').html(title);
+    $('.toast #toastTitle').attr('class', 'text-danger');
+    $('.toast #toastMessage').html(message);
+    $('.toast #toastMessage').attr('class', 'text-danger');
+    $('.toast').toast('show');
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/charts.js":
 /*!********************************!*\
   !*** ./resources/js/charts.js ***!
@@ -13304,6 +13800,8 @@ try {
   __webpack_require__(/*! ./darkMode */ "./resources/js/darkMode.js");
 
   __webpack_require__(/*! admin-lte/build/js/AdminLTE */ "./node_modules/admin-lte/build/js/AdminLTE.js");
+
+  __webpack_require__(/*! ./app.datatables.js */ "./resources/js/app.datatables.js");
 } catch (e) {}
 
 /***/ }),
