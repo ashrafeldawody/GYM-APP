@@ -1,17 +1,19 @@
+let colors = ["#f085ba","#2bc789","#7400e0","#5e8a00","#0081fb","#008641","#ffa8e6","#62914a","#560042","#0097a8","#ed8164","#00558f"];
+
 window.loadPieChart =  function(selector,route){
-        let randomColors = getRandomColorsArray(12);
         $.ajax( {
             type:'GET',
             url:route,
         })
         .done(function(data) {
+            if (data.values.length === 0) console.log('empty');;
             const ctx = $(selector);
             new Chart(ctx, {
                 type: 'pie',
                 data: {
                     datasets: [{
-                        backgroundColor: randomColors,
-                        hoverBackgroundColor: randomColors,
+                        backgroundColor: colors,
+                        hoverBackgroundColor: colors,
                         data: data.values,
                     }],
                     labels: data.labels,
@@ -30,6 +32,7 @@ window.loadRevenueChart =  function(selector,route){
         url:route,
     })
         .done(function(data) {
+            if (data.values.length === 0) console.log('empty');
             const ctx = $(selector);
             new Chart(ctx, {
                 type: 'line',
@@ -67,16 +70,4 @@ window.loadRevenueChart =  function(selector,route){
         .fail(function() {
             console.log("Error retrieving chart data");
         });
-}
-function getRandomColorsArray(size) {
-    let letters = '6789ABCDE'.split('');
-    let colors = [];
-    for (let i = 0; i < size; i++ ) {
-        let color = '#';
-        for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 8)];
-        }
-        colors.push(color);
-    }
-    return colors;
 }

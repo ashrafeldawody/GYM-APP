@@ -105,11 +105,15 @@
             </div>
         </div>
     </div>
+    @hasrole('admin')
+    <script>
+        loadPieChart('#top-cities','{{route('dashboard.charts.top-cities')}}');
+    </script>
+    @endhasrole
     <script>
         $(function(){
             loadPieChart('#maleFemaleChart','{{route('dashboard.charts.male-female-attendance')}}');
             loadRevenueChart('#revenuePerMonth','{{route('dashboard.charts.revenue',2022)}}');
-            loadPieChart('#top-cities','{{route('dashboard.charts.top-cities')}}');
             loadPieChart('#top-users','{{route('dashboard.charts.top-users')}}');
             $('#yearSelect').on('change', function (e) {
                 let selectedYear = this.value;

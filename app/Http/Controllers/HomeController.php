@@ -31,12 +31,21 @@ class HomeController extends Controller
 
     public function maleFemaleAttendanceData()
     {
+        $labels = ['Male','Female'];
         $males = Attendance::countByGender('male');
         $females = Attendance::countByGender('female');
-        return [
-            'labels' => ['Male','Female'],
-            'values' => [$males,$females],
-        ];
+        if($males == 0 && $females == 0){
+            return [
+                'labels' => $labels,
+                'values' => [],
+            ];
+        }else{
+            return [
+                'labels' => $labels,
+                'values' => [$males,$females],
+            ];
+        }
+
     }
 
     public function revenuePerMonth($year)
