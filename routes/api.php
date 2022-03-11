@@ -53,6 +53,7 @@ Route::post('/email/verification-notification', [VerificationController::class, 
 //==============Token Generator (Sanctum)======================
 
 Route::post('/token', function (Request $request) { //sanctum token generator
+    
     $request->validate([
         'email' => 'required|email',
         'password' => 'required',
