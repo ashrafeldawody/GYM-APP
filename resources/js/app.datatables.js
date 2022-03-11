@@ -50,6 +50,7 @@ $(function () {
         scrollX: true,
         sScrollXInner: "100%",
         processing: true,
+        responsive: true,
         serverSide: true,
         pageLength: 10,
         ajax: ajaxUrl,
@@ -85,7 +86,13 @@ $(function () {
         const selectedCount = datatable.rows('.selected').data().length;
         toggleControlPanel(selectedCount > 0);
     });
+    datatable.on( 'responsive-resize', function ( e, datatable, columns ) {
+        let count = columns.reduce( function (a,b) {
+            return b === false ? a+1 : a;
+        }, 0 );
 
+        console.log( count +' column(s) are hidden' );
+    } );
     // ----- * ----- * ----- * -----
 
     $.ajaxSetup({
