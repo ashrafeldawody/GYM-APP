@@ -34,7 +34,7 @@ class UpdateUserInfoRequest extends FormRequest
                  Rule::unique('users')->ignore($userId)
              ],
             'gender' =>['in:male,female'],
-            'birth_date' =>['nullable','date_format:Y-m-d','before:today','after:1920-01-01'],
+            'birth_date' =>['date_format:Y-m-d','before:today','after:1920-01-01'],
             'avatar' =>['nullable','image'],
             'password' => ['confirmed',Password::min(8)
                             ->letters()         // Require at least one letter...
