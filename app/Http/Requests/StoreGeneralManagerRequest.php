@@ -32,8 +32,7 @@ class StoreGeneralManagerRequest extends FormRequest
             'password' => 'min:8',
             'password_confirmation'=> 'required_with:password|same:password|min:8',
             'avatar' => 'image',
-            'national_id' => 'digits:14',
-
+            'national_id' => 'digits:14|unique:managers',
         ];
     }
 

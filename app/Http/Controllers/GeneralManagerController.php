@@ -108,7 +108,8 @@ class GeneralManagerController extends Controller
      */
     public function store(StoreGeneralManagerRequest $request)
     {
-        $avatar = $request->validated()['avatar'] ??  '';
+        $avatar = !$request->has('avatar') ? ''
+            : $request->file('avatar')->store('images','public');
         $manager = Manager::create([
             'name' => $request->validated()['name'],
             'national_id' => $request->validated()['national_id'],
@@ -135,11 +136,11 @@ class GeneralManagerController extends Controller
      *
      * @return array
      */
-    public function update(UpdateGeneralManagerRequest $request,$id)
+    public function update(UpdateGeneralManagerRequest $request, Manager $generalManager)
     {
-        $manager = Manager::find($id);
-        $avatar = $request->validated()['avatar'] ??  '';
-        $manager->update([
+        $avatar = !$request->has('avatar') ? ''
+            : $request->file('avatar')->store('images','public');
+        $generalManager->update([
             'name' => $request->validated()['name'],
             'national_id' => $request->validated()['national_id'],
             'email' => $request->validated()['email'],
@@ -149,10 +150,10 @@ class GeneralManagerController extends Controller
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
         ]);
-        $newManagerData = Datatables::of(GeneralManagerResource::collection([$manager]))->make(true);
+        $newManagerData = Datatables::of(GeneralManagerResource::collection([$generalManager]))->make(true);
         return [
             'result' => true,
-            'userMessage' => "<b>$manager->name</b> Data Updated successfully",
+            'userMessage' => "<b>$generalManager->name</b> Data Updated successfully",
             'updatedData' => $newManagerData
         ];
     }
