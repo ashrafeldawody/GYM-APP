@@ -25,13 +25,8 @@ class StoreCityRequest extends FormRequest
      */
     public function rules()
     {
-        $city = $this->route('city');
         return [
-            'name' => [
-                'required',
-                'min:3',
-                Rule::unique('cities')->ignore($city),
-            ],
+            'name' => 'required|min:3|unique:cities',
             'manager_id' => 'required|exists:managers,id'
         ];
     }
