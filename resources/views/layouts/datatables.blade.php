@@ -14,13 +14,13 @@
                         <div class="d-flex">
                             <div id="controlsPanel" class="d-flex" style="display: none;">
                                 <button id="toggleBanButton" class="btn btn-info mr-2"><i
-                                        class="fa fa-trash pr-2 m-auto"></i>Ban</button>
+                                        class="fa fa-trash pr-md-2 m-auto"></i>Ban</button>
                                 <button id="editButton" class="btn btn-primary mr-2"><i
-                                        class="fa fa-pen pr-2 m-auto"></i>Edit</button>
+                                        class="fa fa-pen pr-md-2 m-auto"></i>Edit</button>
                                 <button id="deleteButton" class="btn btn-danger mr-2"><i
-                                        class="fa fa-trash pr-2 m-auto"></i>Delete</button>
+                                        class="fa fa-trash pr-md-2 m-auto"></i>Delete</button>
                             </div>
-                            <button id="addButton" class="btn btn-success"><i class="fa fa-plus pr-2 m-auto"></i>Add</button>
+                            <button id="addButton" class="btn btn-success"><i class="fa fa-plus pr-md-2 m-auto"></i>Add</button>
                         </div>
                     </div>
                 </div>
