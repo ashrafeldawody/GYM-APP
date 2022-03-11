@@ -25,11 +25,11 @@ class UpdateGymRequest extends FormRequest
      */
     public function rules()
     {
-        $gymId = $this->route('gym');
-        $validationRules = [
+        $gymID = $this->route('gym');
+        return [
             'name' => [
                 'required',
-                Rule::unique('gyms')->ignore($gymId),
+                Rule::unique('gyms')->ignore($gymID),
             ],
         ];
     }
