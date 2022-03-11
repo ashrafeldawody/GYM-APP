@@ -22,7 +22,7 @@ class Manager extends Authenticatable implements BannableContract
 
     public function getAvatarAttribute($avatar)
     {
-        return URL::to('/images') . '/' . $avatar ?: 'avatar.png';
+        return URL::to('/') . '/' . $avatar ?: 'avatar.png';
     }
 
     public function coaches() {
