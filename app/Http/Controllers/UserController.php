@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
-use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 use App\DataTables\UsersDataTable;
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserInfoRequest;
-use App\Models\Manager;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -99,9 +98,24 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        $avatar = !$request->has('avatar') ? ''
+            : $request->file('avatar')->store('images', 'public');
+        $user = User::create([
+            'name' => $request->validated()['name'],
+            'email' => $request->validated()['email'],
+            'gender' => $request->validated()['gender'],
+            'birth_date' => $request->validated()['birth_date'],
+            'password' => Hash::make($request->validated()['password']),
+            'avatar' => $avatar,
+        ]);
+        $newuserData = Datatables::of(UserResource::collection([$user]))->make(true);
+        return [
+            'result' => true,
+            'userMessage' => "<b>$user->name</b> has been successfully created ",
+            'newRowData' => $newuserData
+        ];
     }
 
     /**
@@ -155,11 +169,14 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  User  $user)
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        return [
+            'result' => false,
+            'userMessage' => "Can't delete users"
+        ];
     }
 }
