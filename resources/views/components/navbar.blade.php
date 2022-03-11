@@ -16,7 +16,7 @@
 
                         <div class="widget-user-header">
                             <div class="widget-user-image">
-                                <img class="img-circle elevation-2" src="{{asset(Auth::user()->avatar ? url(URL::to('/images') . '/'. Auth::user()->avatar) : '/dist/img/avatar.png')}}" alt="User Avatar">
+                                <img class="img-circle elevation-2" src="{{asset(Auth::user()->avatar ? url(URL::to('/') . '/'. Auth::user()->avatar) : '/dist/img/avatar.png')}}" alt="User Avatar">
                             </div>
 
                             <h3 class="widget-user-username h5">{{ auth()->user()->name }}</h3>
