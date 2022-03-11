@@ -3,15 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\GymManagersDataTable;
-use App\Http\Resources\CityGymCoachesResource;
 use App\Http\Resources\CityGymResource;
 use App\Http\Resources\GymManagersResource;
-use App\Http\Resources\GymResource;
 use App\Models\City;
 use App\Models\GymManager;
 use App\Models\Manager;
 use App\Http\Requests\StoreManagerRequest;
-use App\Http\Requests\UpdateManagerRequest;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -161,7 +158,8 @@ class GymManagerController extends Controller
         ];
     }
 
-    public function getData() {
+    public function getData()
+    {
         if (Auth::user()->hasRole('admin')) {
             return GymManagersResource::collection(Manager::role('gym_manager')->get());
         } else {

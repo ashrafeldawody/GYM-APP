@@ -31,12 +31,14 @@ class PurchaseController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        return $dataTable->render('dashboard.purchases.index',
+        return $dataTable->render(
+            'dashboard.purchases.index',
             [
                 'weekly_revenue' => Auth::user()->revenue(7),
                 'monthly_revenue' => Auth::user()->revenue(30),
                 'yearly_revenue' => Auth::user()->revenue(365),
-            ]);
+            ]
+        );
     }
 
     /**
@@ -69,7 +71,7 @@ class PurchaseController extends Controller
                 Session::flash('message', 'Payment Finished Successfully');
                 Session::flash('alert-class', 'alert-success');
                 return redirect()->route('dashboard.purchases.create');
-            }else{
+            } else {
                 $purchase->delete();
             }
         }
@@ -77,7 +79,6 @@ class PurchaseController extends Controller
         Session::flash('message', 'Payment Canceled!');
         Session::flash('alert-class', 'alert-danger');
         return redirect()->route('dashboard.purchases.create');
-
     }
 
     /**

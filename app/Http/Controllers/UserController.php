@@ -19,9 +19,6 @@ class UserController extends Controller
      */
     public function index(UsersDataTable $dataTable)
     {
-        // dd(UserResource::collection(User::with('gym')->get()));
-        // dd(UserResource::collection(User::with('gym')->get()));
-
         if (request()->ajax()) {
             $data = UserResource::collection(User::all());
             return Datatables::of($data)
