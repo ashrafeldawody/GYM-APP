@@ -4,7 +4,6 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
-use Yajra\DataTables\Html\Column;
 
 class GymManagersResource extends JsonResource
 {
