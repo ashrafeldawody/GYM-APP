@@ -81,4 +81,4 @@ Route::prefix('dashboard')->middleware('auth')->name('dashboard.')->group(functi
 
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
