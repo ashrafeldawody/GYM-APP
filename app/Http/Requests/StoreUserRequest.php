@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\Rule;
 
 class StoreUserRequest extends FormRequest
 {
@@ -27,9 +28,9 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => ['required','min:3'],
-            'email' => ['required','email'],
+            'email' => ['required','email',Rule::unique('users')],
             'gender' =>['required','in:male,female'],
-            'birth_date' =>['nullable','date_format:Y-m-d','before:today','after:1920-01-01'],
+            'birth_date' =>['date_format:Y-m-d','before:today','after:1920-01-01'],
             'avatar' =>['nullable','image'],
             'password' => ['required', 'confirmed',Password::min(8)
                             ->letters()         // Require at least one letter...

@@ -7,21 +7,19 @@
         </ul>
 
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="far fa-user"></i>
+            <li class="nav-item dropdown user-menu">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                    <img src="{{ Auth::user()->avatar }}" class="user-image img-circle elevation-2" alt="User Image">
+                    <span class="d-none d-md-inline">{{ auth()->user()->name }}</span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <div class="card card-widget widget-user-2 shadow-sm">
+                <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <!-- User image -->
+                    <li class="user-header bg-primary">
+                        <img src="{{ Auth::user()->avatar }}" class="img-circle elevation-2" alt="User Image">
 
-                        <div class="widget-user-header">
-                            <div class="widget-user-image">
-                                <img class="img-circle elevation-2" src="{{asset(Auth::user()->avatar ? url(URL::to('/') . '/'. Auth::user()->avatar) : '/dist/img/avatar.png')}}" alt="User Avatar">
-                            </div>
-
-                            <h3 class="widget-user-username h5">{{ auth()->user()->name }}</h3>
-
-                            <h5 class="widget-user-desc">
+                        <p>
+                            {{ auth()->user()->name }}
+                            <small>
                                 @hasrole('gym_manager')
                                 Gym Manager
                                 @endrole
@@ -31,33 +29,19 @@
                                 @hasrole('admin')
                                 Administrator
                                 @endrole
-                            </h5>
-                        </div>
-                        <div class="card-footer p-0">
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a href="{{route('dashboard.account.index')}}" class="nav-link">
-                                        <i class="nav-icon fas fa-cog"></i>
-                                        Account Settings
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                    <a href="#" onclick="$('#logout-form').submit();"  class="nav-link">
-                                        <i class="nav-icon fas fa-sign-out-alt"></i>
-                                        Logout
-                                    </a>
-
-
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                            </small>
+                        </p>
+                    </li>
+                    <li class="user-footer">
+                        <a href="{{route('dashboard.account.index')}}" class="btn btn-default btn-flat">Settings</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <a href="#" onclick="$('#logout-form').submit();" class="btn btn-default btn-flat float-right">Sign out</a>
+                    </li>
+                </ul>
             </li>
+
 
             <li class="nav-item">
                 <div class="custom-control custom-switch custom-switch-xl">

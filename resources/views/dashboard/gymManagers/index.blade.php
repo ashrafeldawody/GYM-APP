@@ -36,5 +36,7 @@
     {data: 'gender', name: 'gender'},
     {data: 'birth_date', name: 'birth_date'},
     {data: 'gym', name: 'gym'},
-    {data: 'city', name: 'city'},
+    @can('show_city_data')
+        {data: 'city', name: 'city'},
+    @endcan
 @endsection

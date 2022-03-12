@@ -3,16 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\PackagesDataTable;
-use App\Http\Resources\CityResource;
 use App\Http\Resources\PackageResource;
-use App\Http\Resources\SessionResource;
-use App\Models\City;
 use App\Models\TrainingPackage;
 use App\Http\Requests\StoreTrainingPackageRequest;
 use App\Http\Requests\UpdateTrainingPackageRequest;
 use App\Models\TrainingSession;
 use App\Models\User;
-use Facade\Ignition\Support\Packagist\Package;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -37,7 +33,6 @@ class PackagesController extends Controller
         }
 
         return $dataTable->render('dashboard.packages.index');
-
     }
 
     /**
@@ -83,7 +78,7 @@ class PackagesController extends Controller
     public function store(StoreTrainingPackageRequest $request): array
     {
         $package = TrainingPackage::create([
-           'name' =>  $request->validated()['name'],
+            'name' =>  $request->validated()['name'],
             'price' => $request->validated()['price'] * 100,
             'sessions_number' => $request->validated()['sessions_number'],
             'admin_id' => Auth::user()->id,
@@ -102,7 +97,7 @@ class PackagesController extends Controller
      * @param  \App\Http\Requests\UpdateTrainingPackageRequest  $request
      * @param  \App\Models\TrainingPackage  $trainingPackage
      */
-    public function update(UpdateTrainingPackageRequest $request,$id): array
+    public function update(UpdateTrainingPackageRequest $request, $id): array
     {
         $trainingPackage = TrainingPackage::find($id);
         $trainingPackage->update([

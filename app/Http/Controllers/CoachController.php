@@ -4,15 +4,11 @@ namespace App\Http\Controllers;
 
 use App\DataTables\CoachesDataTable;
 use App\Http\Resources\CityGymResource;
-use App\Http\Resources\CityManagersResource;
 use App\Http\Resources\CoachResource;
-use App\Http\Resources\SessionResource;
 use App\Models\City;
 use App\Models\Coach;
 use App\Http\Requests\StoreCoachRequest;
 use App\Http\Requests\UpdateCoachRequest;
-use App\Models\Manager;
-use App\Models\TrainingSession;
 use Yajra\DataTables\Facades\DataTables;
 
 class CoachController extends Controller
@@ -25,7 +21,7 @@ class CoachController extends Controller
     public function index(CoachesDataTable $dataTable)
     {
         if (request()->ajax()) {
-            $data = CoachResource::collection(Coach::with('gym','gym.city')->get());
+            $data = CoachResource::collection(Coach::with('gym', 'gym.city')->get());
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->rawColumns(['action'])
@@ -97,7 +93,7 @@ class CoachController extends Controller
      * @param  \App\Models\Coach  $coach
      * @return array
      */
-    public function update(UpdateCoachRequest $request,$id)
+    public function update(UpdateCoachRequest $request, $id)
     {
         $coach = Coach::find($id);
         $coachName = $coach->name;
@@ -105,7 +101,7 @@ class CoachController extends Controller
 
         if ($request->validated()['gym_id'] == 'Select Gym') {
             $coach->update([
-               'name' =>  $request->validated()['name'],
+                'name' =>  $request->validated()['name'],
             ]);
         } else {
             if ($trainingSessionsCount) {
@@ -123,7 +119,6 @@ class CoachController extends Controller
             'userMessage' => "<b>$coachName</b> Data Updated successfully",
             'updatedData' => $newCoachData
         ];
-
     }
 
     /**
@@ -149,9 +144,5 @@ class CoachController extends Controller
                 'userMessage' => "<b>$coachName</b> has been successfully deleted"
             ];
         }
-
-
-
     }
-
 }

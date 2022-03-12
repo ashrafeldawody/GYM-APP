@@ -30,31 +30,6 @@ class CityController extends Controller
         return $dataTable->render('dashboard.cities.index');
     }
 
-    public function getFormData()
-    {
-        $managers = Manager::whereDoesntHave('roles')->get(['id', 'name'])->toArray();
-        return [
-            'formLable' => 'City',
-            'fields' => [
-                [
-                    'label' => 'City Name',
-                    'name' => 'name',
-                    'type' => 'text',
-                    'valueKey' => 'name'
-                ],
-                [
-                    'label' => 'Manager',
-                    'name' => 'manager_id',
-                    'type' => 'select',
-                    'valueKey' => 'id',
-                    'text' => 'name',
-                    'compare' => 'manager_name',
-                    'options' => $managers
-                ]
-            ]
-        ];
-    }
-
     /**
      * Show the form for creating a new resource.
      *

@@ -9,6 +9,7 @@ use Cog\Contracts\Ban\Bannable as BannableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\URL;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -17,6 +18,12 @@ class Manager extends Authenticatable implements BannableContract
     use HasApiTokens, HasFactory, Notifiable , HasRoles, Bannable;
     protected $hidden = ['password','email_verified_at','banned_at','remember_token','created_at','updated_at'];
     protected $guarded = [];
+    protected $appends = ['avatar'];
+
+    public function getAvatarAttribute($avatar)
+    {
+        return URL::to('/') . '/' . $avatar ?: 'avatar.png';
+    }
 
     public function coaches() {
         return $this->hasManyThrough(Coach::class, TrainingSessionCoach::class);

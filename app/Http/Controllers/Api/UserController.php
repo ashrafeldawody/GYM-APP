@@ -8,10 +8,10 @@ use App\Http\Resources\AttendanceApiResource;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use App\Models\TrainingSession;
-use App\Models\User;
 use App\Models\Attendance;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+
 class UserController extends Controller
 {
 
@@ -29,12 +29,6 @@ class UserController extends Controller
     public function update(Request $request, UpdateUserInfoRequest $validate)
     {
 
-        // Validator::make(request()->all(), [
-        // 'title' =>['required',Rule::unique('posts')->ignore($update)], //ignore unique title on this id on update
-        // 'description'=>['required','min:10'],
-        // 'user_id'=>['required'],
-        // ])->validate();
-
         unset($request['_method']);
         unset($request['password_confirmation']);
 
@@ -50,7 +44,7 @@ class UserController extends Controller
             ->json(['message' => 'Information updated successfully!']);
     }
 
-    public function getSessionsInfo(Request $request,$sessionId)
+    public function getSessionsInfo(Request $request, $sessionId)
     {
         $totalTrainingSessions = $request->user()->purchases->pluck('sessions_number')->sum();
 
@@ -60,17 +54,13 @@ class UserController extends Controller
         ]);
     }
 
-
-
     public function attend(Request $request)
     {
-
         $selectedSession = TrainingSession::find(request()->id);
+        $userSessions = $request->user()->attendances->pluck('training_session_id')->toArray();
 
-        $userSessions =  $request->user()->attendances->pluck('training_session_id')->toArray();
-
-        if(UserController::getRemainingSessions($request) <= 0){
-            return response()->json(['message'=> "You must buy a package first!"]);
+        if (UserController::getRemainingSessions($request) <= 0) {
+            return response()->json(['message' => "You must buy a package first!"]);
         }
 
         if (Carbon::parse($selectedSession['finishes_at']) < Carbon::now()) {
@@ -79,14 +69,14 @@ class UserController extends Controller
             ]);
         }
 
-        if(!Carbon::parse($selectedSession['starts_at'])->isToday()){
+        if (!Carbon::parse($selectedSession['starts_at'])->isToday()) {
             return response()->json([
                 'Message' => "The session is not available!",
             ]);
         }
 
-        if(in_array(request()->id, $userSessions)){
-            return response()->json(['message'=> "You already attended this session"]);
+        if (in_array(request()->id, $userSessions)) {
+            return response()->json(['message' => "You already attended this session"]);
         }
 
         Attendance::create([
@@ -99,7 +89,9 @@ class UserController extends Controller
             'Message' => "Session Attended successfully!",
         ]);
     }
-    public function getRemainingSessions(Request $request){
+
+    public function getRemainingSessions(Request $request)
+    {
         $attendedSessions = $request->user()->attendances->count();
         $totalTrainingSessions = $request->user()->purchases->pluck('sessions_number')->sum();
         return $totalTrainingSessions - $attendedSessions;

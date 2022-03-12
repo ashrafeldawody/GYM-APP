@@ -50,7 +50,7 @@
                             </select>
                         </div>
                         <div class="form-group text-center">
-                            <img id="imgPreview" class="img-fluid" style="max-height: 15rem" src="{{ url(URL::to('/') . '/'. Auth::user()->avatar) }}" alt="">
+                            <img id="imgPreview" class="img-fluid" style="max-height: 15rem" src="{{ Auth::user()->avatar }}" alt="">
                         </div>
                         <div class="form-group">
                             <label for="avatar">File input</label>

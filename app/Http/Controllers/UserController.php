@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
-
 use Yajra\DataTables\Facades\DataTables;
 use App\DataTables\UsersDataTable;
-use App\Models\Manager;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserInfoRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -20,9 +19,6 @@ class UserController extends Controller
      */
     public function index(UsersDataTable $dataTable)
     {
-        // dd(UserResource::collection(User::with('gym')->get()));
-        // dd(UserResource::collection(User::with('gym')->get()));
-
         if (request()->ajax()) {
             $data = UserResource::collection(User::all());
             return Datatables::of($data)
@@ -41,11 +37,11 @@ class UserController extends Controller
     public function create()
     {
         return [
-            'formLable' => 'City Manager',
+            'formLable' => 'User',
             'fields' => [
                 [
                     'type' => 'text',
-                    'label' => 'Manager Name',
+                    'label' => 'User Name',
                     'name' => 'name',
                     'valueKey' => 'name'
                 ],
@@ -58,18 +54,14 @@ class UserController extends Controller
                 [
                     'type' => 'password',
                     'label' => 'Password',
-                    'name' => 'password'
+                    'name' => 'password',
+                    'addOnly' => true
                 ],
                 [
                     'type' => 'password',
                     'label' => 'Confirm Password',
-                    'name' => 'password_confirmation'
-                ],
-                [
-                    'type' => 'text',
-                    'label' => 'National Id',
-                    'name' => 'national_id',
-                    'valueKey' => 'national_id'
+                    'name' => 'password_confirmation',
+                    'addOnly' => true
                 ],
                 [
                     'type' => 'radio',
@@ -87,6 +79,12 @@ class UserController extends Controller
                     'name' => 'birth_date',
                     'valueKey' => 'birth_date'
                 ],
+                [
+                    'type' => 'file',
+                    'label' => 'Avatar Image',
+                    'name' => 'avatar',
+                    'valueKey' => 'avatar'
+                ],
             ]
         ];
     }
@@ -97,9 +95,24 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        $avatar = !$request->has('avatar') ? ''
+            : $request->file('avatar')->store('images', 'public');
+        $user = User::create([
+            'name' => $request->validated()['name'],
+            'email' => $request->validated()['email'],
+            'gender' => $request->validated()['gender'],
+            'birth_date' => $request->validated()['birth_date'],
+            'password' => Hash::make($request->validated()['password']),
+            'avatar' => $avatar,
+        ]);
+        $newuserData = Datatables::of(UserResource::collection([$user]))->make(true);
+        return [
+            'result' => true,
+            'userMessage' => "<b>$user->name</b> has been successfully created ",
+            'newRowData' => $newuserData
+        ];
     }
 
     /**
@@ -131,19 +144,50 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserInfoRequest $request, User $user)
     {
-        //
+        $avatar = !$request->has('avatar') ? ''
+            : $request->file('avatar')->store('images', 'public');
+        $user->update([
+            'name' => $request->validated()['name'],
+            'email' => $request->validated()['email'],
+            'gender' => $request->validated()['gender'],
+            'birth_date' => $request->validated()['birth_date'],
+            'avatar' => $avatar
+        ]);
+        $newUserData = Datatables::of(UserResource::collection([$user]))->make(true);
+        return [
+            'result' => true,
+            'userMessage' => "<b>$user->name</b> Data Updated successfully",
+            'updatedData' => $newUserData
+        ];
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  User  $user)
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $userName = $user->name;
+        if ($user->purchases()->count()) {
+            return [
+                'result' => false,
+                'userMessage' => "Can't delete <b>$userName</b>, the user has purchases"
+            ];
+        } else if ($user->attendances()->count()) {
+            return [
+                'result' => false,
+                'userMessage' => "Can't delete <b>$userName</b>, the user has attendances"
+            ];
+        } else {
+            $user->delete();
+            return [
+                'result' => true,
+                'userMessage' => "<b>$userName</b> successfully deleted"
+            ];
+        }
     }
 }
