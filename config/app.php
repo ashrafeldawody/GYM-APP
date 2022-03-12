@@ -163,7 +163,6 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Cog\Laravel\Ban\Providers\BanServiceProvider::class,
-        Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class,
 
         /*
          * Package Service Providers...
