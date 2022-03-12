@@ -30,17 +30,15 @@ class AttendanceController extends Controller
         }
         return $dataTable->render('dashboard.attendance.index');
     }
+
     /**
-     * Remove the specified resource from storage.
      * a method that return the data object according to the logged-in user
      */
     private static function getData(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         if (Auth::user()->hasRole('gym_manager')) {
             return AttendanceResource::collection(Auth::user()->gym->attendances);
-//            return AttendanceApiResource::collection($user->gym->attendances);
-            //
-        } else if (Auth::user()->hasRole('city_manager')) {
+س        } else if (Auth::user()->hasRole('city_manager')) {
             return AttendanceResource::collection(Auth::user()->city->attendances);
         } else {
             return AttendanceResource::collection(Attendance::with('user','trainingSession','trainingSession.gym','trainingSession.gym.city')->get());
