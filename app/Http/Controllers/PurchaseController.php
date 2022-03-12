@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Yajra\DataTables\Facades\DataTables;
@@ -63,9 +64,9 @@ class PurchaseController extends Controller
 
     public function pay($status)
     {
-        $purchase_id = Purchase::where('is_paid', 0)->where('manager_id', Auth::user()->id)->max('id');
+        $purchase_id = DB::table("purchases")->where('is_paid', 0)->where('manager_id', Auth::user()->id)->max('id');
         if ($purchase_id) {
-            $purchase = Purchase::find($purchase_id);
+            $purchase = DB::table("purchases")->where('id',$purchase_id);
             if ($status == 'success') {
                 $purchase->update(['is_paid' => true]);
                 Session::flash('message', 'Payment Finished Successfully');
