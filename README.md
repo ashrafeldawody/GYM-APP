@@ -2,7 +2,7 @@
 
 ## Description
 
-A php laravel web application that uses most  of laravel technologies to build that gym system. The System built based on rules and an api for users.
+A PHP Laravel web application that uses most of Laravel technologies to build that gym system.The System is based on rules. Admin, City Manager, Gym Manager. All Crud operations running using data tables.
 
 ## Content
 
@@ -161,6 +161,13 @@ composer install
 
 ```bash
 cp .env.example .env
+```
+
+4. install node pacakges
+
+```bash
+npm install
+npm run dev
 ```
 
 4. install mysql server
