@@ -4,6 +4,24 @@
 
 A php laravel web application that uses most  of laravel technologies to build that gym system. The System built based on rules and an api for users.
 
+## Content
+
+[System Rules](#system-rules)
+
+[System Features](#system-features)
+
+[User API endpoints](#user-api-endpoints)
+
+[Designs](#designs)
+
+[Web Screenshots](#web)
+
+[API  Screenshots](#api)
+
+[Installation](#installation)
+
+[Contributors](#contributors)
+
 ## System Rules
 
 - Admin: admin have access to everything in the system.
@@ -103,13 +121,13 @@ profile_image) all of these fields are required.
 
 ### API
 
-#### Register 
+#### Register
 
 ![api_register](https://user-images.githubusercontent.com/72627215/158062592-cc06bad8-58bc-4e36-9112-b6a4e3ae9353.jpg)
 
 > After Registeritaion Success Mail Verification send to the user
 
-#### Mail Verifaction 
+#### Mail Verifaction
 
 ![mail_ver_1](https://user-images.githubusercontent.com/72627215/158062637-9512beea-cba2-431e-988f-990135e6ed8f.jpg)
 
@@ -117,13 +135,58 @@ profile_image) all of these fields are required.
 
 ![token](https://user-images.githubusercontent.com/72627215/158062649-ef6ee4da-cfa3-4673-aaa9-ff601ad28c08.jpg)
 
-#### Verify Mail 
+#### Verify Mail
 
 ![mail_ver_2](https://user-images.githubusercontent.com/72627215/158062687-fc97e864-0ef6-4cd2-9ab0-e244866da6c3.jpg)
 
 #### Welcome Mail After Verification
 
 ![mail_welcome](https://user-images.githubusercontent.com/72627215/158062729-745df1b2-448f-465e-b15d-e0ddff1c8975.jpg)
+
+## Installation
+
+1.clone the project
+
+```git
+git clone https://github.com/ashrafeldawody/GYM-APP.git
+```
+
+2. Run Composer install in the project folder
+
+```bash
+composer install
+```
+
+3. Copy .env.example file in the project folder
+
+```bash
+cp .env.example .env
+```
+
+4. install mysql server
+
+> create database with any name then edit the following in your .env file
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=database_name
+DB_USERNAME=user_name
+DB_PASSWORD=password
+```
+
+5. Run the following command
+
+```bash
+php artisan key:generate; php artisan migrate --seed; php artisan serve;
+```
+
+6. open your browser and open the following link
+
+<http://localhost:8000/>
+
+> if you face any problem don't hasitate to contact us.
 
 ## Contributors
 
