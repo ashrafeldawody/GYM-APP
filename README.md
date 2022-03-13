@@ -61,9 +61,69 @@ profile_image) all of these fields are required.
 
 ### Database ERD
 
-<p align="center">
-       <img src="https://github.com/ashrafeldawody/GYM-APP/blob/main/00%20Project%20Material/01%20Database/00%20ERD/ERD-Final%20EED.drawio.svg" alt="Build Status">
-</p>
+![ERD-Final EED drawio](https://user-images.githubusercontent.com/72627215/158062309-5ea348aa-5a15-4cc8-966b-7cd62e535c4e.svg)
+
+## Screen Shots
+
+### Web
+
+#### Admin Dashboard
+
+![admin 01](https://user-images.githubusercontent.com/72627215/158062403-e6d07d35-0296-4578-ad6a-4ec920da7fd8.jpg)
+
+#### Gyms Datatable
+
+![admin 02](https://user-images.githubusercontent.com/72627215/158062424-993b95db-e370-4637-b472-47d10b0b0b0d.jpg)
+
+#### Training Sessions Datatable
+
+![admin 03](https://user-images.githubusercontent.com/72627215/158062445-62234159-76a1-4e25-a71e-d5e71e47f4c8.jpg)
+
+##### Add Training Session
+
+![Session add](https://user-images.githubusercontent.com/72627215/158062468-2ed3ef20-1121-4eab-9123-bad280c95ef1.jpg)
+
+![Session add with validation](https://user-images.githubusercontent.com/72627215/158062457-b9ef6f7e-1b84-470d-b2b0-443e247ac3d5.jpg)
+
+#### Delete
+
+##### Confirmation
+
+![delete](https://user-images.githubusercontent.com/72627215/158062480-7416a7ca-fcec-42ac-a98c-b1e85d26a31d.jpg)
+
+![delete failed](https://user-images.githubusercontent.com/72627215/158062494-7c39ae2a-22f8-4703-bec2-65efdf9680f5.jpg)
+
+#### Success Message
+
+![edit success](https://user-images.githubusercontent.com/72627215/158062514-9ae1124b-c9bc-45cf-bf7f-9844a469ba76.jpg)
+
+#### Purchase History
+
+![purchase history](https://user-images.githubusercontent.com/72627215/158062528-87058e44-1318-4e01-98cc-4caad1ea9ad9.jpg)
+
+### API
+
+#### Register 
+
+![api_register](https://user-images.githubusercontent.com/72627215/158062592-cc06bad8-58bc-4e36-9112-b6a4e3ae9353.jpg)
+
+> After Registeritaion Success Mail Verification send to the user
+
+#### Mail Verifaction 
+
+![mail_ver_1](https://user-images.githubusercontent.com/72627215/158062637-9512beea-cba2-431e-988f-990135e6ed8f.jpg)
+
+#### Token Using Sanctum
+
+![token](https://user-images.githubusercontent.com/72627215/158062649-ef6ee4da-cfa3-4673-aaa9-ff601ad28c08.jpg)
+
+#### Verify Mail 
+
+![mail_ver_2](https://user-images.githubusercontent.com/72627215/158062687-fc97e864-0ef6-4cd2-9ab0-e244866da6c3.jpg)
+
+#### Welcome Mail After Verification
+
+![mail_welcome](https://user-images.githubusercontent.com/72627215/158062729-745df1b2-448f-465e-b15d-e0ddff1c8975.jpg)
 
 ## Contributors
 
