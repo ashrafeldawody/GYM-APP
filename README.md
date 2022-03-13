@@ -46,7 +46,7 @@ profile_image) all of these fields are required.
 
 - endpoint to see his remaining training session for example
 
-```json
+```js
     {
         total_training_sessions:1000,
         remaining_training_sessions:300,
@@ -64,6 +64,7 @@ profile_image) all of these fields are required.
 <p align="center">
        <img src="https://github.com/ashrafeldawody/GYM-APP/blob/main/00%20Project%20Material/01%20Database/00%20ERD/ERD-Final%20EED.drawio.svg" alt="Build Status">
 </p>
+
 ## Contributors
 
 <table>
